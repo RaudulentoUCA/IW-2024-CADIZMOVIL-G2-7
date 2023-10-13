@@ -1,2 +1,9 @@
 # INE-2024-CADIZMOVIL-G2-7
 Aplicación para IW en la UCA
+
+Participantes:
+DAVID JESÚS CERDEIRO GALLARDO
+OSTAP KILBASOVYCH
+RAÚL ARIZA LÓPEZ
+
+Rúbrica:
