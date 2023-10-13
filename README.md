@@ -7,3 +7,4 @@ OSTAP KILBASOVYCH
 RAÚL ARIZA LÓPEZ
 
 Rúbrica:
+https://docs.google.com/spreadsheets/d/15gCun4lw3gAzvcggZI8XsA-SSn0KEfv57N-ovPHqCZQ/edit#gid=865666691
