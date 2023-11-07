@@ -3,10 +3,13 @@ package es.uca.iw;
 import jakarta.persistence.*;
 
 @Entity
-public class Cliente {
+public class Trabajador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToOne
+    @JoinColumn(name = "puesto_id")
+    private PuestoTrabajador puesto;
     @Column(name = "nombre", nullable = false, length = 64)
     private String nombre;
     @Column(name = "apellidos", nullable = false, length = 128)
@@ -18,43 +21,51 @@ public class Cliente {
     @Column(name = "password", nullable = false, length = 64)
     private String password;
 
+    public PuestoTrabajador getPuesto() {
+        return puesto;
+    }
+
+    public void setPuesto(PuestoTrabajador pt) {
+        puesto = pt;
+    }
+
     public String getNombre() {
         return nombre;
     }
 
-    public String setNombre(String n) {
-        return nombre = n;
+    public void setNombre(String n) {
+        nombre = n;
     }
 
     public String getApellidos() {
         return apellidos;
     }
 
-    public String setApellidos(String a) {
-        return apellidos = a;
+    public void setApellidos(String a) {
+        apellidos = a;
     }
 
     public String getDni() {
         return dni;
     }
 
-    public String setDni(String d) {
-        return dni = d;
+    public void setDni(String d) {
+        dni = d;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public String setEmail(String e) {
-        return email = e;
+    public void setEmail(String e) {
+        email = e;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public String setPassword(String p) {
-        return password = p;
+    public void setPassword(String p) {
+        password = p;
     }
 }
