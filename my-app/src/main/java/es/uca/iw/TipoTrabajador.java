@@ -3,7 +3,7 @@ package es.uca.iw;
 import jakarta.persistence.*;
 
 @Entity
-public class PuestoTrabajador {
+public class TipoTrabajador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
