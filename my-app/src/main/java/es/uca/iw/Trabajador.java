@@ -9,7 +9,7 @@ public class Trabajador {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "puesto_id")
-    private PuestoTrabajador puesto;
+    private TipoTrabajador puesto;
     @Column(name = "nombre", nullable = false, length = 64)
     private String nombre;
     @Column(name = "apellidos", nullable = false, length = 128)
@@ -21,11 +21,11 @@ public class Trabajador {
     @Column(name = "password", nullable = false, length = 64)
     private String password;
 
-    public PuestoTrabajador getPuesto() {
+    public TipoTrabajador getPuesto() {
         return puesto;
     }
 
-    public void setPuesto(PuestoTrabajador pt) {
+    public void setPuesto(TipoTrabajador pt) {
         puesto = pt;
     }
 
