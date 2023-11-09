@@ -22,39 +22,39 @@ public class Cliente {
         return nombre;
     }
 
-    public String setNombre(String n) {
-        return nombre = n;
+    public void setNombre(String n) {
+        nombre = n;
     }
 
     public String getApellidos() {
         return apellidos;
     }
 
-    public String setApellidos(String a) {
-        return apellidos = a;
+    public void setApellidos(String a) {
+        apellidos = a;
     }
 
     public String getDni() {
         return dni;
     }
 
-    public String setDni(String d) {
-        return dni = d;
+    public void setDni(String d) {
+        dni = d;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public String setEmail(String e) {
-        return email = e;
+    public void setEmail(String e) {
+        email = e;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public String setPassword(String p) {
-        return password = p;
+    public void setPassword(String p) {
+        password = p;
     }
 }
