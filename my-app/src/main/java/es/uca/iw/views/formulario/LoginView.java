@@ -38,11 +38,12 @@ public class LoginView extends Composite<VerticalLayout> {
         contra.setRequiredIndicatorVisible(true);
 
         HorizontalLayout layoutRow = new HorizontalLayout();
-        Button buttonPrimary = new Button();
-        Button buttonSecondary = new Button();
+        Button baceptar = new Button();
+        Button bcancelar = new Button();
         HorizontalLayout layoutRow2 = new HorizontalLayout();
         Paragraph textLarge = new Paragraph();
-        Button buttonPrimary2 = new Button();
+
+        Button bregistrar = new Button();
         getContent().setWidth("100%");
         getContent().getStyle().set("flex-grow", "1");
         getContent().setJustifyContentMode(JustifyContentMode.START);
@@ -62,11 +63,11 @@ public class LoginView extends Composite<VerticalLayout> {
         layoutRow.addClassName(Gap.MEDIUM);
         layoutRow.setWidth("100%");
         layoutRow.getStyle().set("flex-grow", "1");
-        buttonPrimary.setText("Save");
-        buttonPrimary.setWidth("min-content");
-        buttonPrimary.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        buttonSecondary.setText("Cancel");
-        buttonSecondary.setWidth("min-content");
+        baceptar.setText("Save");
+        baceptar.setWidth("min-content");
+        baceptar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        bcancelar.setText("Cancel");
+        bcancelar.setWidth("min-content");
         layoutRow2.setWidthFull();
         layoutColumn2.setFlexGrow(1.0, layoutRow2);
         layoutRow2.addClassName(Gap.MEDIUM);
@@ -77,21 +78,23 @@ public class LoginView extends Composite<VerticalLayout> {
         textLarge.setText("¿No tienes una cuenta todavía?");
         textLarge.setWidth("100%");
         textLarge.getStyle().set("font-size", "var(--lumo-font-size-xl)");
-        buttonPrimary2.setText("Registrarse");
-        buttonPrimary2.addClickListener(event -> navigateToLoginView());
-        buttonPrimary2.setWidth("min-content");
-        buttonPrimary2.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        bregistrar.setText("Registrarse");
+        bregistrar.addClickListener(event -> navigateToLoginView());
+        bregistrar.setWidth("min-content");
+        bregistrar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         getContent().add(layoutColumn2);
         layoutColumn2.add(h3);
         layoutColumn2.add(formLayout2Col);
         formLayout2Col.add(emailField);
         formLayout2Col.add(contra);
+        
         layoutColumn2.add(layoutRow);
-        layoutRow.add(buttonPrimary);
-        layoutRow.add(buttonSecondary);
+        layoutRow.add(baceptar);
+        layoutRow.add(bcancelar);
+
         layoutColumn2.add(new VerticalSpacer(), layoutRow2);
         layoutRow2.add(textLarge);
-        layoutRow2.add(buttonPrimary2);
+        layoutRow2.add(bregistrar);
     }
 
     private void navigateToLoginView() {

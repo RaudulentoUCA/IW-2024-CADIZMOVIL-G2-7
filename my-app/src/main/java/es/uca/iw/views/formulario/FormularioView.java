@@ -8,6 +8,7 @@ import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyContentMode;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -25,35 +26,45 @@ import es.uca.iw.views.MainLayout;
 @Uses(Icon.class)
 public class FormularioView extends Composite<VerticalLayout> {
 
+
+    private final TextField nombre;
+    private final TextField apellidos;
+    private final DatePicker fechaNacimiento;
+    private final TextField movil;
+    private final EmailField emailField;
+    private final PasswordField contra;
+    private final PasswordField repcontra;
+
+
     public FormularioView() {
         VerticalLayout layoutColumn2 = new VerticalLayout();
         H3 h3 = new H3();
         FormLayout formLayout2Col = new FormLayout();
-        TextField nombre = new TextField();
+        nombre = new TextField();
         nombre.setRequiredIndicatorVisible(true);
 
-        TextField apellidos = new TextField();
+        apellidos = new TextField();
         apellidos.setRequiredIndicatorVisible(true);
 
-        DatePicker fechaNacimiento = new DatePicker();
+        fechaNacimiento = new DatePicker();
         fechaNacimiento.setRequiredIndicatorVisible(true);
 
-        TextField movil = new TextField();
+        movil = new TextField();
         movil.setRequiredIndicatorVisible(false);
 
-        EmailField emailField = new EmailField();
+        emailField = new EmailField();
         emailField.setRequiredIndicatorVisible(true);
 
         HorizontalLayout layoutRow = new HorizontalLayout();
-        PasswordField contra = new PasswordField();
+        contra = new PasswordField();
         contra.setRequiredIndicatorVisible(true);
-        PasswordField repcontra = new PasswordField();
+        repcontra = new PasswordField();
         repcontra.setRequiredIndicatorVisible(true);
 
         HorizontalLayout layoutRow2 = new HorizontalLayout();
-        Button buttonPrimary = new Button();
-        Button buttonSecondary = new Button();
-        
+        Button baceptar = new Button();
+        Button bcancelar = new Button();
+
         getContent().setWidth("100%");
         getContent().getStyle().set("flex-grow", "1");
         getContent().setJustifyContentMode(JustifyContentMode.START);
@@ -83,11 +94,13 @@ public class FormularioView extends Composite<VerticalLayout> {
         layoutRow2.addClassName(Gap.MEDIUM);
         layoutRow2.setWidth("100%");
         layoutRow2.getStyle().set("flex-grow", "1");
-        buttonPrimary.setText("Save");
-        buttonPrimary.setWidth("min-content");
-        buttonPrimary.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        buttonSecondary.setText("Cancel");
-        buttonSecondary.setWidth("min-content");
+        baceptar.setText("Save");
+        baceptar.setWidth("min-content");
+        baceptar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        baceptar.addClickListener(e -> onRegisterButtonClick());
+
+        bcancelar.setText("Cancel");
+        bcancelar.setWidth("min-content");
         getContent().add(layoutColumn2);
         layoutColumn2.add(h3);
         layoutColumn2.add(formLayout2Col);
@@ -99,8 +112,17 @@ public class FormularioView extends Composite<VerticalLayout> {
         layoutColumn2.add(layoutRow);
         layoutRow.add(contra);
         layoutRow.add(repcontra);
+
         layoutColumn2.add(layoutRow2);
-        layoutRow2.add(buttonPrimary);
-        layoutRow2.add(buttonSecondary);
+        layoutRow2.add(baceptar);
+        layoutRow2.add(bcancelar);
+    }
+
+    private void onRegisterButtonClick() {
+        if (contra.getValue().equals(repcontra.getValue())) {
+            Notification.show("Las contraseñas son iguales");
+        } else {
+            Notification.show("Revisa los datos incluidos");
+        }
     }
 }
