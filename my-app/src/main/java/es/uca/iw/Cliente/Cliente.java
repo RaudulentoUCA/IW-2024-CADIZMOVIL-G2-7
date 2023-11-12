@@ -1,4 +1,4 @@
-package es.uca.iw;
+package es.uca.iw.Cliente;
 
 import jakarta.persistence.*;
 
@@ -17,6 +17,7 @@ public class Cliente {
     private String email;
     @Column(name = "password", nullable = false, length = 64)
     private String password;
+    private boolean active;
 
     public String getNombre() {
         return nombre;
@@ -56,5 +57,13 @@ public class Cliente {
 
     public void setPassword(String p) {
         password = p;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

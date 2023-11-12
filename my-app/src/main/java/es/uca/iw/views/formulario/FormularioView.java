@@ -16,9 +16,12 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
+import es.uca.iw.Cliente.Cliente;
+import es.uca.iw.Cliente.ServiciosCliente;
 import es.uca.iw.views.MainLayout;
 
 @PageTitle("Formulario")
@@ -31,12 +34,16 @@ public class FormularioView extends Composite<VerticalLayout> {
     private final TextField apellidos;
     private final DatePicker fechaNacimiento;
     private final TextField movil;
-    private final EmailField emailField;
+    private final EmailField email;
+    private final TextField dni;
     private final PasswordField contra;
     private final PasswordField repcontra;
+    private final BeanValidationBinder<Cliente> binder;
+    private final ServiciosCliente servicios;
 
 
-    public FormularioView() {
+    public FormularioView(ServiciosCliente servicios) {
+        this.servicios = servicios;
         VerticalLayout layoutColumn2 = new VerticalLayout();
         H3 h3 = new H3();
         FormLayout formLayout2Col = new FormLayout();
@@ -52,8 +59,11 @@ public class FormularioView extends Composite<VerticalLayout> {
         movil = new TextField();
         movil.setRequiredIndicatorVisible(false);
 
-        emailField = new EmailField();
-        emailField.setRequiredIndicatorVisible(true);
+        email = new EmailField();
+        email.setRequiredIndicatorVisible(true);
+
+        dni = new TextField();
+        dni.setRequiredIndicatorVisible(true);
 
         HorizontalLayout layoutRow = new HorizontalLayout();
         contra = new PasswordField();
@@ -79,7 +89,8 @@ public class FormularioView extends Composite<VerticalLayout> {
         apellidos.setLabel("Apellidos");
         fechaNacimiento.setLabel("Nacimiento");
         movil.setLabel("Móvil");
-        emailField.setLabel("Email");
+        email.setLabel("Email");
+        dni.setLabel("DNI");
         layoutRow.setWidthFull();
         layoutColumn2.setFlexGrow(1.0, layoutRow);
         layoutRow.addClassName(Gap.MEDIUM);
@@ -108,7 +119,8 @@ public class FormularioView extends Composite<VerticalLayout> {
         formLayout2Col.add(apellidos);
         formLayout2Col.add(fechaNacimiento);
         formLayout2Col.add(movil);
-        formLayout2Col.add(emailField);
+        formLayout2Col.add(email);
+        formLayout2Col.add(dni);
         layoutColumn2.add(layoutRow);
         layoutRow.add(contra);
         layoutRow.add(repcontra);
@@ -116,11 +128,21 @@ public class FormularioView extends Composite<VerticalLayout> {
         layoutColumn2.add(layoutRow2);
         layoutRow2.add(baceptar);
         layoutRow2.add(bcancelar);
+
+        binder = new BeanValidationBinder<>(Cliente.class);
+        binder.bindInstanceFields(this);
+
+        binder.setBean(new Cliente());
     }
 
     private void onRegisterButtonClick() {
-        if (contra.getValue().equals(repcontra.getValue())) {
-            Notification.show("Las contraseñas son iguales");
+        if (binder.validate().isOk() & contra.getValue().equals(repcontra.getValue())) {
+            if (servicios.registrarCliente(binder.getBean())) {
+                binder.setBean(new Cliente());
+            } else {
+                Notification.show("Ha ocurrido un fallo inesperado");
+
+            }
         } else {
             Notification.show("Revisa los datos incluidos");
         }
