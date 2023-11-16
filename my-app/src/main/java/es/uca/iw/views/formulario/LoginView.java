@@ -21,6 +21,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 import es.uca.iw.views.MainLayout;
+import es.uca.iw.views.helloworld.HelloWorldView;
 
 @PageTitle("Login")
 @Route(value = "login", layout = MainLayout.class)
@@ -68,6 +69,7 @@ public class LoginView extends Composite<VerticalLayout> {
         baceptar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         bcancelar.setText("Cancel");
         bcancelar.setWidth("min-content");
+        bcancelar.addClickListener(event -> navigateToHelloWorldView());
         layoutRow2.setWidthFull();
         layoutColumn2.setFlexGrow(1.0, layoutRow2);
         layoutRow2.addClassName(Gap.MEDIUM);
@@ -87,7 +89,7 @@ public class LoginView extends Composite<VerticalLayout> {
         layoutColumn2.add(formLayout2Col);
         formLayout2Col.add(emailField);
         formLayout2Col.add(contra);
-        
+
         layoutColumn2.add(layoutRow);
         layoutRow.add(baceptar);
         layoutRow.add(bcancelar);
@@ -99,6 +101,10 @@ public class LoginView extends Composite<VerticalLayout> {
 
     private void navigateToLoginView() {
         UI.getCurrent().navigate(FormularioView.class);
+    }
+
+    private void navigateToHelloWorldView() {
+        UI.getCurrent().navigate(HelloWorldView.class);
     }
 
     public static class VerticalSpacer extends Div {
