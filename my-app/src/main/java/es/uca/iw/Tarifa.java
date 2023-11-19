@@ -14,6 +14,10 @@ public class Tarifa {
     @Column(name = "permiteRoaming", nullable = false)
     private boolean permiteRoaming;
 
+    @Column(name = "descripcion", nullable = false, length = 255)
+    private String descripcion;
+
+
     public String getNombre() {
         return nombre;
     }

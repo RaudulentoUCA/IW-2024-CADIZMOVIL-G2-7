@@ -1,6 +1,9 @@
 package es.uca.iw.Cliente;
 
+import es.uca.iw.SimCard.SimCard;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Cliente {
@@ -17,7 +20,19 @@ public class Cliente {
     private String email;
     @Column(name = "password", nullable = false, length = 64)
     private String password;
-    private boolean active;
+
+    private boolean isActive;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<SimCard> simCards;
 
     public String getNombre() {
         return nombre;
@@ -60,10 +75,17 @@ public class Cliente {
     }
 
     public boolean isActive() {
-        return active;
+        return isActive();
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setActive(boolean isActive) {
+        this.isActive = isActive;
+    }
+    public List<SimCard> getSimCards() {
+        return simCards;
+    }
+
+    public void setSimCards(List<SimCard> simCards) {
+        this.simCards = simCards;
     }
 }

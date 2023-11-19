@@ -8,6 +8,7 @@ import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyContentMode;
@@ -45,6 +46,12 @@ public class FormularioView extends Composite<VerticalLayout> {
     public FormularioView(ServiciosCliente servicios) {
         this.servicios = servicios;
         VerticalLayout layoutColumn2 = new VerticalLayout();
+
+        Image logoImage = new Image("icons/logo.png", "logo of the site");
+        logoImage.setWidth("315px");
+
+        layoutColumn2.add(logoImage);
+
         H3 h3 = new H3();
         FormLayout formLayout2Col = new FormLayout();
         nombre = new TextField();

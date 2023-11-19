@@ -8,6 +8,7 @@ import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
@@ -22,6 +23,8 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 import es.uca.iw.views.MainLayout;
 import es.uca.iw.views.helloworld.HelloWorldView;
+
+// ... (existing imports)
 
 @PageTitle("Login")
 @Route(value = "login", layout = MainLayout.class)
@@ -38,29 +41,38 @@ public class LoginView extends Composite<VerticalLayout> {
         PasswordField contra = new PasswordField();
         contra.setRequiredIndicatorVisible(true);
 
+        Image logoImage = new Image("icons/logo.png", "logo of the site");
+        logoImage.setWidth("315px");
+
         HorizontalLayout layoutRow = new HorizontalLayout();
         Button baceptar = new Button();
         Button bcancelar = new Button();
         HorizontalLayout layoutRow2 = new HorizontalLayout();
         Paragraph textLarge = new Paragraph();
-
         Button bregistrar = new Button();
+
         getContent().setWidth("100%");
         getContent().getStyle().set("flex-grow", "1");
         getContent().setJustifyContentMode(JustifyContentMode.START);
         getContent().setAlignItems(Alignment.CENTER);
+
         layoutColumn2.setWidth("100%");
         layoutColumn2.setMaxWidth("800px");
         layoutColumn2.setHeight("min-content");
         layoutColumn2.setJustifyContentMode(JustifyContentMode.START);
-        layoutColumn2.setAlignItems(Alignment.START);
+        layoutColumn2.setAlignItems(Alignment.CENTER);
+
+        logoImage.getStyle().set("margin-bottom", "20px"); // Add margin to the bottom of the logo
+        layoutColumn2.add(logoImage);
+
         h3.setText("Iniciar Sesión");
         h3.setWidth("100%");
-        layoutColumn2.setAlignSelf(FlexComponent.Alignment.START, formLayout2Col);
-        formLayout2Col.setWidth("100%");
-        emailField.setLabel("Email");
-        contra.setLabel("Contraseña");
-        contra.setWidth("min-content");
+
+        layoutColumn2.add(h3);
+        layoutColumn2.add(formLayout2Col);
+        formLayout2Col.add(emailField);
+        formLayout2Col.add(contra);
+
         layoutRow.addClassName(Gap.MEDIUM);
         layoutRow.setWidth("100%");
         layoutRow.getStyle().set("flex-grow", "1");
@@ -70,6 +82,12 @@ public class LoginView extends Composite<VerticalLayout> {
         bcancelar.setText("Cancel");
         bcancelar.setWidth("min-content");
         bcancelar.addClickListener(event -> navigateToHelloWorldView());
+
+        layoutRow.add(baceptar);
+        layoutRow.add(bcancelar);
+
+        layoutColumn2.add(layoutRow);
+
         layoutRow2.setWidthFull();
         layoutColumn2.setFlexGrow(1.0, layoutRow2);
         layoutRow2.addClassName(Gap.MEDIUM);
@@ -77,26 +95,22 @@ public class LoginView extends Composite<VerticalLayout> {
         layoutRow2.getStyle().set("flex-grow", "1");
         layoutRow2.setAlignItems(Alignment.CENTER);
         layoutRow2.setJustifyContentMode(JustifyContentMode.CENTER);
+
         textLarge.setText("¿No tienes una cuenta todavía?");
         textLarge.setWidth("100%");
         textLarge.getStyle().set("font-size", "var(--lumo-font-size-xl)");
+
         bregistrar.setText("Registrarse");
         bregistrar.addClickListener(event -> navigateToLoginView());
         bregistrar.setWidth("min-content");
         bregistrar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        getContent().add(layoutColumn2);
-        layoutColumn2.add(h3);
-        layoutColumn2.add(formLayout2Col);
-        formLayout2Col.add(emailField);
-        formLayout2Col.add(contra);
 
-        layoutColumn2.add(layoutRow);
-        layoutRow.add(baceptar);
-        layoutRow.add(bcancelar);
-
-        layoutColumn2.add(new VerticalSpacer(), layoutRow2);
         layoutRow2.add(textLarge);
         layoutRow2.add(bregistrar);
+
+        layoutColumn2.add(new VerticalSpacer(), layoutRow2);
+
+        getContent().add(layoutColumn2);
     }
 
     private void navigateToLoginView() {
@@ -112,5 +126,4 @@ public class LoginView extends Composite<VerticalLayout> {
             setHeight("1em");
         }
     }
-
 }
