@@ -18,9 +18,10 @@ public class Cliente {
     private String dni;
     @Column(name = "email", nullable = false, length = 64)
     private String email;
+    @Column(name = "numero_contacto", nullable = true)
+    private Integer numertoContacto;
     @Column(name = "password", nullable = false, length = 64)
     private String password;
-
     private boolean isActive;
 
     public Long getId() {
@@ -87,5 +88,13 @@ public class Cliente {
 
     public void setSimCards(List<SimCard> simCards) {
         this.simCards = simCards;
+    }
+
+    public Integer getNumertoContacto() {
+        return numertoContacto;
+    }
+
+    public void setNumertoContacto(Integer numertoContacto) {
+        this.numertoContacto = numertoContacto;
     }
 }

@@ -1,15 +1,18 @@
 package es.uca.iw.views.formulario;
 
 import com.vaadin.flow.component.Composite;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyContentMode;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -46,6 +49,7 @@ public class FormularioView extends Composite<VerticalLayout> {
     public FormularioView(ServiciosCliente servicios) {
         this.servicios = servicios;
         VerticalLayout layoutColumn2 = new VerticalLayout();
+        layoutColumn2.setAlignItems(FlexComponent.Alignment.CENTER);
 
         Image logoImage = new Image("icons/logo.png", "logo of the site");
         logoImage.setWidth("315px");
@@ -80,7 +84,6 @@ public class FormularioView extends Composite<VerticalLayout> {
 
         HorizontalLayout layoutRow2 = new HorizontalLayout();
         Button baceptar = new Button();
-        Button bcancelar = new Button();
 
         getContent().setWidth("100%");
         getContent().getStyle().set("flex-grow", "1");
@@ -90,7 +93,6 @@ public class FormularioView extends Composite<VerticalLayout> {
         layoutColumn2.setMaxWidth("800px");
         layoutColumn2.setHeight("min-content");
         h3.setText("Información Personal");
-        h3.setWidth("100%");
         formLayout2Col.setWidth("100%");
         nombre.setLabel("Nombre");
         apellidos.setLabel("Apellidos");
@@ -112,13 +114,11 @@ public class FormularioView extends Composite<VerticalLayout> {
         layoutRow2.addClassName(Gap.MEDIUM);
         layoutRow2.setWidth("100%");
         layoutRow2.getStyle().set("flex-grow", "1");
-        baceptar.setText("Save");
+        baceptar.setText("Registrarse");
         baceptar.setWidth("min-content");
         baceptar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         baceptar.addClickListener(e -> onRegisterButtonClick());
 
-        bcancelar.setText("Cancel");
-        bcancelar.setWidth("min-content");
         getContent().add(layoutColumn2);
         layoutColumn2.add(h3);
         layoutColumn2.add(formLayout2Col);
@@ -133,13 +133,42 @@ public class FormularioView extends Composite<VerticalLayout> {
         layoutRow.add(repcontra);
 
         layoutColumn2.add(layoutRow2);
+        layoutRow2.setJustifyContentMode(JustifyContentMode.CENTER);
         layoutRow2.add(baceptar);
-        layoutRow2.add(bcancelar);
+
+        HorizontalLayout hasAccountLayout = new HorizontalLayout();
+        hasAccountLayout.setWidthFull();
+        hasAccountLayout.addClassName(Gap.MEDIUM);
+        hasAccountLayout.getStyle().set("flex-grow", "1");
+        hasAccountLayout.setAlignItems(Alignment.CENTER);
+        hasAccountLayout.setJustifyContentMode(JustifyContentMode.CENTER);
+
+        Paragraph hasAccountParagraph = new Paragraph();
+
+        hasAccountParagraph.setText("¿Tienes la cuenta ya?");
+        hasAccountParagraph.setWidth("100%");
+        hasAccountParagraph.getStyle().set("font-size", "var(--lumo-font-size-xl)");
+
+        Button loginButton = new Button();
+
+        loginButton.setText("Iniciar sesion");
+        loginButton.addClickListener(event -> navigateToLoginView());
+        loginButton.setWidth("min-content");
+        loginButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+
+        hasAccountLayout.add(hasAccountParagraph);
+        hasAccountLayout.add(loginButton);
+
+        layoutColumn2.add(hasAccountLayout);
 
         binder = new BeanValidationBinder<>(Cliente.class);
         binder.bindInstanceFields(this);
 
         binder.setBean(new Cliente());
+    }
+
+    private void navigateToLoginView() {
+        UI.getCurrent().navigate(LoginView.class);
     }
 
     private void onRegisterButtonClick() {

@@ -36,15 +36,18 @@ public class LoginView extends Composite<VerticalLayout> {
         H3 h3 = new H3();
         FormLayout formLayout2Col = new FormLayout();
         EmailField emailField = new EmailField();
+        emailField.setLabel("Email");
         emailField.setRequiredIndicatorVisible(true);
 
         PasswordField contra = new PasswordField();
+        contra.setLabel("Contraseña");
         contra.setRequiredIndicatorVisible(true);
 
         Image logoImage = new Image("icons/logo.png", "logo of the site");
         logoImage.setWidth("315px");
 
         HorizontalLayout layoutRow = new HorizontalLayout();
+        layoutRow.setJustifyContentMode(JustifyContentMode.CENTER);
         Button baceptar = new Button();
         Button bcancelar = new Button();
         HorizontalLayout layoutRow2 = new HorizontalLayout();
@@ -66,7 +69,6 @@ public class LoginView extends Composite<VerticalLayout> {
         layoutColumn2.add(logoImage);
 
         h3.setText("Iniciar Sesión");
-        h3.setWidth("100%");
 
         layoutColumn2.add(h3);
         layoutColumn2.add(formLayout2Col);
@@ -76,10 +78,10 @@ public class LoginView extends Composite<VerticalLayout> {
         layoutRow.addClassName(Gap.MEDIUM);
         layoutRow.setWidth("100%");
         layoutRow.getStyle().set("flex-grow", "1");
-        baceptar.setText("Save");
+        baceptar.setText("Iniciar");
         baceptar.setWidth("min-content");
         baceptar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        bcancelar.setText("Cancel");
+        bcancelar.setText("Cancelar");
         bcancelar.setWidth("min-content");
         bcancelar.addClickListener(event -> navigateToHelloWorldView());
 
