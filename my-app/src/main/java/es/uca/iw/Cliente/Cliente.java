@@ -2,14 +2,20 @@ package es.uca.iw.Cliente;
 
 import es.uca.iw.SimCard.SimCard;
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 public class Cliente {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    @JdbcTypeCode(SqlTypes.CHAR)
+    private UUID id;
     @Column(name = "nombre", nullable = false, length = 64)
     private String nombre;
     @Column(name = "apellidos", nullable = false, length = 128)
@@ -19,16 +25,18 @@ public class Cliente {
     @Column(name = "email", nullable = false, length = 64)
     private String email;
     @Column(name = "numero_contacto", nullable = true)
-    private Integer numertoContacto;
+    private String numeroContacto;
+    @Column(name = "fecha_de_nacimiento", nullable = false)
+    private LocalDate fechaDeNacimiento;
     @Column(name = "password", nullable = false, length = 64)
     private String password;
     private boolean isActive;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -90,11 +98,19 @@ public class Cliente {
         this.simCards = simCards;
     }
 
-    public Integer getNumertoContacto() {
-        return numertoContacto;
+    public String getNumeroContacto() {
+        return numeroContacto;
     }
 
-    public void setNumertoContacto(Integer numertoContacto) {
-        this.numertoContacto = numertoContacto;
+    public void setNumeroContacto(String numeroContacto) {
+        this.numeroContacto = numeroContacto;
+    }
+
+    public LocalDate getFechaDeNacimiento() {
+        return fechaDeNacimiento;
+    }
+
+    public void setFechaDeNacimiento(LocalDate fechaDeNacimiento) {
+        this.fechaDeNacimiento = fechaDeNacimiento;
     }
 }

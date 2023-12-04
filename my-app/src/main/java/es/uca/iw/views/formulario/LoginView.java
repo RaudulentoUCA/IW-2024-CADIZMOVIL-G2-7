@@ -11,6 +11,7 @@ import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyContentMode;
@@ -20,15 +21,25 @@ import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 import es.uca.iw.views.MainLayout;
 import es.uca.iw.views.helloworld.HelloWorldView;
+import es.uca.iw.views.profile.ProfileView;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
-// ... (existing imports)
 
 @PageTitle("Login")
 @Route(value = "login", layout = MainLayout.class)
-@Uses(Icon.class)
+@AnonymousAllowed
+
+
 public class LoginView extends Composite<VerticalLayout> {
 
     public LoginView() {
@@ -113,10 +124,15 @@ public class LoginView extends Composite<VerticalLayout> {
         layoutColumn2.add(new VerticalSpacer(), layoutRow2);
 
         getContent().add(layoutColumn2);
+
     }
 
     private void navigateToLoginView() {
         UI.getCurrent().navigate(FormularioView.class);
+    }
+
+    private void navigateToProfileView() {
+        UI.getCurrent().navigate(ProfileView.class);
     }
 
     private void navigateToHelloWorldView() {

@@ -4,6 +4,7 @@ import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.charts.model.Label;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.formlayout.FormLayout;
@@ -21,16 +22,20 @@ import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
+import com.vaadin.flow.data.validator.EmailValidator;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 import es.uca.iw.Cliente.Cliente;
 import es.uca.iw.Cliente.ServiciosCliente;
 import es.uca.iw.views.MainLayout;
 
+
 @PageTitle("Formulario")
 @Route(value = "formulario", layout = MainLayout.class)
 @Uses(Icon.class)
+@AnonymousAllowed
 public class FormularioView extends Composite<VerticalLayout> {
 
 
@@ -164,6 +169,21 @@ public class FormularioView extends Composite<VerticalLayout> {
         binder = new BeanValidationBinder<>(Cliente.class);
         binder.bindInstanceFields(this);
 
+        // TODO Implement validation of all fields according to the requisites
+
+        binder.forField(email)
+                .withValidator(new EmailValidator("Ingrese una dirección de correo electrónico válida"))
+                .bind(Cliente::getEmail, Cliente::setEmail);
+
+        binder.forField(fechaNacimiento)
+                .bind(Cliente::getFechaDeNacimiento, Cliente::setFechaDeNacimiento);
+
+        binder.forField(movil).
+                bind(Cliente::getNumeroContacto, Cliente::setNumeroContacto);
+
+        email.addValueChangeListener(
+                event -> binder.validate());
+
         binder.setBean(new Cliente());
     }
 
@@ -177,7 +197,6 @@ public class FormularioView extends Composite<VerticalLayout> {
                 binder.setBean(new Cliente());
             } else {
                 Notification.show("Ha ocurrido un fallo inesperado");
-
             }
         } else {
             Notification.show("Revisa los datos incluidos");
