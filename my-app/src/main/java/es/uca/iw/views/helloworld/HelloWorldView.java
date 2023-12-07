@@ -9,12 +9,15 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
 import es.uca.iw.views.MainLayout;
 import es.uca.iw.views.formulario.FormularioView;
-import es.uca.iw.views.formulario.LoginView;
+//import es.uca.iw.views.formulario.VaadinLoginComponent;
+import es.uca.iw.views.formulario.VaadinLoginComponent;
 
 @PageTitle("Cádiz Móvil")
 @Route(value = "", layout = MainLayout.class)
+@AnonymousAllowed
 @RouteAlias(value = "inicio", layout = MainLayout.class)
 public class HelloWorldView extends VerticalLayout {
 
@@ -36,7 +39,7 @@ public class HelloWorldView extends VerticalLayout {
     }
 
     private void navigateToLoginView() {
-        UI.getCurrent().navigate(LoginView.class);
+        UI.getCurrent().navigate(VaadinLoginComponent.class);
     }
 
     private void navigateToRegisterView() {

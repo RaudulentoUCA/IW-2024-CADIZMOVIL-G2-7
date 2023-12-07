@@ -4,14 +4,20 @@ import es.uca.iw.SimCard.SimCard;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
-public class Cliente {
+public class Cliente implements UserDetails {
     @Id
     @GeneratedValue
     @JdbcTypeCode(SqlTypes.CHAR)
@@ -32,6 +38,14 @@ public class Cliente {
     private String password;
     private boolean isActive;
 
+    public enum Role {
+        ADMIN, USER
+    }
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private Role role;
+
     public UUID getId() {
         return id;
     }
@@ -39,6 +53,7 @@ public class Cliente {
     public void setId(UUID id) {
         this.id = id;
     }
+
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<SimCard> simCards;
@@ -75,8 +90,38 @@ public class Cliente {
         email = e;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ADMIN"));
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setPassword(String p) {
@@ -85,6 +130,14 @@ public class Cliente {
 
     public boolean isActive() {
         return isActive();
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public void setActive(boolean isActive) {

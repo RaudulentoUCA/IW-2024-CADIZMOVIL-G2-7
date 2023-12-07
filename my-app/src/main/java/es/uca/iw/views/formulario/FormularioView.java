@@ -181,6 +181,9 @@ public class FormularioView extends Composite<VerticalLayout> {
         binder.forField(movil).
                 bind(Cliente::getNumeroContacto, Cliente::setNumeroContacto);
 
+        binder.forField(contra).
+                bind(Cliente::getPassword, Cliente::setPassword);
+
         email.addValueChangeListener(
                 event -> binder.validate());
 
@@ -188,7 +191,7 @@ public class FormularioView extends Composite<VerticalLayout> {
     }
 
     private void navigateToLoginView() {
-        UI.getCurrent().navigate(LoginView.class);
+        UI.getCurrent().navigate(VaadinLoginComponent.class);
     }
 
     private void onRegisterButtonClick() {
