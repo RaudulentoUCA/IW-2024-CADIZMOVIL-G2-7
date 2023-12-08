@@ -30,6 +30,7 @@ import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 import es.uca.iw.Cliente.Cliente;
 import es.uca.iw.Cliente.ServiciosCliente;
 import es.uca.iw.views.MainLayout;
+import es.uca.iw.views.profile.ProfileView;
 
 
 @PageTitle("Formulario")
@@ -191,7 +192,11 @@ public class FormularioView extends Composite<VerticalLayout> {
     }
 
     private void navigateToLoginView() {
-        UI.getCurrent().navigate(VaadinLoginComponent.class);
+        UI.getCurrent().navigate(LoginView.class);
+    }
+
+    private void navigateToProfileView(){
+        UI.getCurrent().navigate(ProfileView.class);
     }
 
     private void onRegisterButtonClick() {

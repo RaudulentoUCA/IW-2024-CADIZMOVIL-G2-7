@@ -2,7 +2,8 @@ package es.uca.iw;
 
 import com.vaadin.flow.spring.security.VaadinWebSecurity;
 //import es.uca.iw.views.formulario.LoginView;
-import es.uca.iw.views.formulario.VaadinLoginComponent;
+import es.uca.iw.views.formulario.LoginView;
+//import es.uca.iw.views.formulario.VaadinLoginComponent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,8 +24,8 @@ public class SecurityConfig extends VaadinWebSecurity {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(auth -> auth.requestMatchers(new AntPathRequestMatcher("/images/*.png"), new AntPathRequestMatcher("/icons/*.png")).permitAll());
+        http.authorizeHttpRequests(auth -> auth.requestMatchers(new AntPathRequestMatcher("/images/**"), new AntPathRequestMatcher("/icons/**")).permitAll());
         super.configure(http);
-        setLoginView(http, VaadinLoginComponent.class, LOGOUT_URL);
+        setLoginView(http, LoginView.class, LOGOUT_URL);
     }
 }

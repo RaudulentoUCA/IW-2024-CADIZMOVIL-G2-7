@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 
-@PageTitle("Profile")
+@PageTitle("Cádiz Móvil")
 @Route(value = "profile", layout = MainLayout.class)
 @PermitAll
 public class ProfileView extends VerticalLayout {
@@ -25,20 +25,18 @@ public class ProfileView extends VerticalLayout {
 
         this.authenticatedUser = authenticatedUser;
 
-        Optional<Cliente> maybeUser = authenticatedUser.get();
+        Optional<Cliente> optionalCliente = authenticatedUser.get();
 
         H1 h1 = new H1();
         setWidth("100%");
         getStyle().set("flex-grow", "1");
 
-        h1.setText("¡Hola!, + {userName}");
+        h1.setText("Profile page");
         h1.setWidth("max-content");
         add(h1);
 
-        maybeUser.ifPresent(user -> {
-            // Customize UI based on user information
-            add(new H1("Welcome, " + user.getUsername()));
-            // Add other components as needed
+        optionalCliente.ifPresent(user -> {
+            add(new H1("Welcome, " + user.getNombre() + " " + user.getApellidos()));
         });
     }
 }

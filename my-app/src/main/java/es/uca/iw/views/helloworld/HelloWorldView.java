@@ -13,7 +13,8 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 import es.uca.iw.views.MainLayout;
 import es.uca.iw.views.formulario.FormularioView;
 //import es.uca.iw.views.formulario.VaadinLoginComponent;
-import es.uca.iw.views.formulario.VaadinLoginComponent;
+import es.uca.iw.views.formulario.LoginView;
+import es.uca.iw.views.profile.ProfileView;
 
 @PageTitle("Cádiz Móvil")
 @Route(value = "", layout = MainLayout.class)
@@ -25,7 +26,7 @@ public class HelloWorldView extends VerticalLayout {
         H1 titulo = new H1("¡Bienvenidos a Cádiz Móvil!");
         Image img = new Image("images/inicio-pagina.jpg", "foto inicial");
         Button inisesion = new Button("Iniciar sesión");
-        inisesion.addClickListener(event -> navigateToLoginView());
+        inisesion.addClickListener(event -> navigateToProfileView());
         Button registro = new Button("Registrarse");
         registro.addClickListener(event -> navigateToRegisterView());
         setAlignItems(Alignment.CENTER);
@@ -39,7 +40,10 @@ public class HelloWorldView extends VerticalLayout {
     }
 
     private void navigateToLoginView() {
-        UI.getCurrent().navigate(VaadinLoginComponent.class);
+        UI.getCurrent().navigate(LoginView.class);
+    }
+    private void navigateToProfileView(){
+        UI.getCurrent().navigate(ProfileView.class);
     }
 
     private void navigateToRegisterView() {
