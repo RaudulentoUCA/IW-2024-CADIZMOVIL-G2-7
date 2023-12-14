@@ -2,6 +2,7 @@ package es.uca.iw.views.helloworld;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -32,8 +33,8 @@ public class HelloWorldView extends VerticalLayout {
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
         img.addClassName("img-inicio");
-        inisesion.addClassName("btn-negro");
-        registro.addClassName("btn-negro");
+        inisesion.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        registro.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         setMargin(true);
 
         add(titulo, img, new HorizontalLayout(inisesion, registro));

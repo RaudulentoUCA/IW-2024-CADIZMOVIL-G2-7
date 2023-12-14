@@ -108,5 +108,13 @@ public class LoginView extends Composite<VerticalLayout> implements BeforeEnterO
         if (authenticatedUser.get().isPresent()) {
             event.forwardTo(ProfileView.class);
         }
+
+        if(event.getLocation()
+                .getQueryParameters()
+                .getParameters()
+                .containsKey("error")) {
+            login.setError(true);
+        }
+
     }
 }
