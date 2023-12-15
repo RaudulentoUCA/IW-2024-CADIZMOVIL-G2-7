@@ -28,10 +28,10 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/my-app/pom.xml') }}
+          key: ${{ runner.os }}-m2-${{ hashFiles('../../my-app/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=RaudulentoUCA_IW-2024-CADIZMOVIL-G2-7
+        run: mvn -f ../../my-app/pom.xml -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=RaudulentoUCA_IW-2024-CADIZMOVIL-G2-7
