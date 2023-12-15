@@ -15,6 +15,11 @@
         <vaadin.version>24.2.0</vaadin.version>
     </properties>
 
+<properties>
+  <sonar.organization>raudulentouca</sonar.organization>
+  <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+</properties>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
