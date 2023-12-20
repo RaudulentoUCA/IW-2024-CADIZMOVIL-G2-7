@@ -1,7 +1,7 @@
 package es.uca.iw.SimCard;
 
 import es.uca.iw.Cliente.Cliente;
-import es.uca.iw.Tarifa;
+import es.uca.iw.Tarifa.Tarifa;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
