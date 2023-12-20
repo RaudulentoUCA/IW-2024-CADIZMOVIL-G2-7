@@ -1,9 +1,7 @@
 package es.uca.iw;
 
 import com.vaadin.flow.spring.security.VaadinWebSecurity;
-//import es.uca.iw.views.formulario.LoginView;
 import es.uca.iw.views.formulario.LoginView;
-//import es.uca.iw.views.formulario.VaadinLoginComponent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

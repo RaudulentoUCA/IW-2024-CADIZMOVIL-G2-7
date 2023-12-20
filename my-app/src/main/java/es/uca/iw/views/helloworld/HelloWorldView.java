@@ -13,7 +13,6 @@ import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import es.uca.iw.views.MainLayout;
 import es.uca.iw.views.formulario.FormularioView;
-//import es.uca.iw.views.formulario.VaadinLoginComponent;
 import es.uca.iw.views.formulario.LoginView;
 import es.uca.iw.views.profile.ProfileView;
 
