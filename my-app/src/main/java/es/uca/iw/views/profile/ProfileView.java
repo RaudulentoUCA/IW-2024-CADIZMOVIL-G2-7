@@ -5,7 +5,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import es.uca.iw.AuthenticatedUser;
-import es.uca.iw.Cliente.Cliente;
+import es.uca.iw.cliente.Cliente;
 import es.uca.iw.views.MainLayout;
 import jakarta.annotation.security.PermitAll;
 
@@ -33,8 +33,7 @@ public class ProfileView extends VerticalLayout {
         h1.setWidth("max-content");
         add(h1);
 
-        optionalCliente.ifPresent(user -> {
-            add(new H1("Welcome, " + user.getNombre() + " " + user.getApellidos()));
-        });
+        optionalCliente.ifPresent(user ->
+            add(new H1("Welcome, " + user.getNombre() + " " + user.getApellidos())));
     }
 }

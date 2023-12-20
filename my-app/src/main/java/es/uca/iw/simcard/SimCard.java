@@ -1,6 +1,6 @@
-package es.uca.iw.SimCard;
+package es.uca.iw.simcard;
 
-import es.uca.iw.Cliente.Cliente;
+import es.uca.iw.cliente.Cliente;
 import es.uca.iw.Tarifa;
 import jakarta.persistence.*;
 

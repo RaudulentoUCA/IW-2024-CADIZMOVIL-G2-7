@@ -1,7 +1,6 @@
-package es.uca.iw.SimCard;
+package es.uca.iw.simcard;
 
-import es.uca.iw.Cliente.Cliente;
-import jakarta.persistence.criteria.CriteriaBuilder;
+import es.uca.iw.cliente.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

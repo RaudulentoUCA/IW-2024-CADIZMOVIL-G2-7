@@ -1,9 +1,10 @@
-package es.uca.iw.Cliente;
+package es.uca.iw.cliente;
 
-import es.uca.iw.SimCard.SimCard;
+import es.uca.iw.simcard.SimCard;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,6 +34,7 @@ public class Cliente implements UserDetails {
     private LocalDate fechaDeNacimiento;
     @Column(name = "password", nullable = false, length = 64)
     private String password;
+    @Column(name = "is_active")
     private boolean isActive;
 
     public enum Role {
@@ -126,7 +128,7 @@ public class Cliente implements UserDetails {
     }
 
     public boolean isActive() {
-        return isActive();
+        return isActive;
     }
 
     public Role getRole() {
@@ -140,6 +142,7 @@ public class Cliente implements UserDetails {
     public void setActive(boolean isActive) {
         this.isActive = isActive;
     }
+
     public List<SimCard> getSimCards() {
         return simCards;
     }

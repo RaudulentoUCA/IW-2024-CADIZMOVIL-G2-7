@@ -1,6 +1,5 @@
 package es.uca.iw.views;
 
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.avatar.Avatar;
@@ -16,11 +15,10 @@ import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import es.uca.iw.AuthenticatedUser;
-import es.uca.iw.Cliente.Cliente;
+import es.uca.iw.cliente.Cliente;
 import es.uca.iw.views.about.AboutView;
 import es.uca.iw.views.helloworld.HelloWorldView;
 import es.uca.iw.views.profile.ProfileView;
-import org.vaadin.lineawesome.LineAwesomeIcon;
 
 import java.util.Optional;
 
@@ -94,9 +92,8 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver {
             div.getElement().getStyle().set("align-items", "center");
             div.getElement().getStyle().set("gap", "var(--lumo-space-s)");
             userName.add(div);
-            userName.getSubMenu().addItem("Sign out", e -> {
-                authenticatedUser.logout();
-            });
+            userName.getSubMenu().addItem("Sign out", e ->
+                authenticatedUser.logout());
 
             layout.add(userMenu);
         } else {

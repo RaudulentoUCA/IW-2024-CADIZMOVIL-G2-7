@@ -39,9 +39,6 @@ public class HelloWorldView extends VerticalLayout {
         add(titulo, img, new HorizontalLayout(inisesion, registro));
     }
 
-    private void navigateToLoginView() {
-        UI.getCurrent().navigate(LoginView.class);
-    }
     private void navigateToProfileView(){
         UI.getCurrent().navigate(ProfileView.class);
     }

@@ -1,8 +1,8 @@
 package es.uca.iw;
 
 import com.vaadin.flow.spring.security.AuthenticationContext;
-import es.uca.iw.Cliente.Cliente;
-import es.uca.iw.Cliente.RepositorioCliente;
+import es.uca.iw.cliente.Cliente;
+import es.uca.iw.cliente.RepositorioCliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
