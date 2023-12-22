@@ -1,6 +1,5 @@
 package es.uca.iw.Cliente;
 
-import es.uca.iw.SimCard.SimCard;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -31,8 +30,8 @@ public class Cliente {
         this.id = id;
     }
 
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    private List<SimCard> simCards;
+    //@OneToOne
+    //private Contrato contrato;
 
     public String getNombre() {
         return nombre;
@@ -81,11 +80,12 @@ public class Cliente {
     public void setActive(boolean isActive) {
         this.isActive = isActive;
     }
-    public List<SimCard> getSimCards() {
-        return simCards;
+    /*public Contrato getContrato() {
+        return contrato;
     }
 
-    public void setSimCards(List<SimCard> simCards) {
-        this.simCards = simCards;
+    public void setContrato(Contrato contrato) {
+        this.contrato = contrato;
     }
+    */
 }

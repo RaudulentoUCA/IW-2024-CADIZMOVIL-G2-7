@@ -23,8 +23,8 @@ public class Tarifa {
     @Column(name = "fibra", nullable = false)
     private boolean fibra;
 
-    @Column(name = "gigasMovil", nullable = false, columnDefinition = "int default 0")
-    private int gigasMovil;
+    @Column(name = "megasMovil", nullable = false, columnDefinition = "int default 0")
+    private int megasMovil;
 
     public String getNombre() {
         return nombre;
@@ -43,14 +43,14 @@ public class Tarifa {
     }
     public String getDescripcion() { return  descripcion; }
 
-    public int getgigasMovil() {
-        return gigasMovil;
+    public int getmegasMovil() {
+        return megasMovil;
     }
 
     public void setNombre(String n) {
         nombre = n;
     }
-    public void setPermiteRoaming(Boolean b) {
+    public void setpermiteRoaming(boolean b) {
         permiteRoaming = b;
     }
 
@@ -71,7 +71,7 @@ public class Tarifa {
         fibra = b;
     }
 
-    public void setgigasMovil(int iNum) {
-        gigasMovil = iNum;
+    public void setmegasMovil(int iNum) {
+        megasMovil = iNum;
     }
 }

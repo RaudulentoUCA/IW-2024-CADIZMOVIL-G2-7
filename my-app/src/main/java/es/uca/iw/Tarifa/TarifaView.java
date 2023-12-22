@@ -48,9 +48,9 @@ public class TarifaView extends VerticalLayout {
                 .withConverter(new StringToFloatConverter("Ingrese un valor válido"))
                 .bind(Tarifa::getPrecio, Tarifa::setPrecio);
 
-        Checkbox roaming = new Checkbox();
-        formLayout.addFormItem(roaming, "Roaming");
-        binder.bind(roaming, "permiteRoaming");
+        Checkbox permiteRoaming = new Checkbox();
+        formLayout.addFormItem(permiteRoaming, "Roaming");
+        binder.bind(permiteRoaming, "permiteRoaming");
 
         TextField descripcion = new TextField();
         formLayout.addFormItem(descripcion, "Descripción");
@@ -64,11 +64,11 @@ public class TarifaView extends VerticalLayout {
         formLayout.addFormItem(fibra, "Fibra");
         binder.bind(fibra, "fibra");
 
-        TextField gigas = new TextField();
-        formLayout.addFormItem(gigas, "Gigas Móvil");
-        binder.forField(gigas)
+        TextField megas = new TextField();
+        formLayout.addFormItem(megas, "Megas Móvil");
+        binder.forField(megas)
                 .withConverter(new StringToIntegerConverter("Ingrese un valor válido"))
-                .bind(Tarifa::getgigasMovil, Tarifa::setgigasMovil);
+                .bind(Tarifa::getmegasMovil, Tarifa::setmegasMovil);
 
         guardarButton.addClickListener(event -> guardarTarifa());
         tarifaComboBox.addValueChangeListener(event -> mostrarDetallesTarifa(event.getValue()));
