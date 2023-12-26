@@ -1,7 +1,6 @@
 package es.uca.iw.simcard;
 
-import es.uca.iw.cliente.Cliente;
-import es.uca.iw.Tarifa;
+import es.uca.iw.tarifa.Tarifa;
 import jakarta.persistence.*;
 
 @Entity
@@ -21,12 +20,11 @@ public class SimCard {
     @Column(name = "usedSms")
     private Integer usedSms;
 
+    @Column(name = "balance")
+    private float balance;
+
     @Column(name = "isActive", nullable = false)
     private boolean isActive;
-
-    @ManyToOne
-    @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
 
     public Integer getNumber() {
         return number;
@@ -76,11 +74,20 @@ public class SimCard {
         isActive = active;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+
+    public float getBalance() {
+        return balance;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setBalance(float balance) {
+        this.balance = balance;
+    }
+
+    public void addMoney(float amount) {
+        if (isActive) {
+            balance += amount;
+        } else {
+            System.out.println("Cannot add money to an inactive SIM card.");
+        }
     }
 }

@@ -26,7 +26,8 @@ public class ServiciosCliente implements UserDetailsService {
 
     public boolean registrarCliente(Cliente cliente) {
         cliente.setPassword(passwordEncoder.encode(cliente.getPassword()));
-        cliente.setRole(Cliente.Role.USER);
+        cliente.setActive(true);
+        cliente.addRole(Role.USER);
         try {
             repositorio.save(cliente);
             return true;

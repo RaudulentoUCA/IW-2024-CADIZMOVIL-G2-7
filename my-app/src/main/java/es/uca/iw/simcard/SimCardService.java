@@ -1,7 +1,6 @@
 package es.uca.iw.simcard;
 
-import es.uca.iw.cliente.Cliente;
-import es.uca.iw.Tarifa;
+import es.uca.iw.tarifa.Tarifa;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,11 +19,10 @@ public class SimCardService {
     }
 
     @Transactional
-    public SimCard createSimCard(Integer number, Tarifa tarifa, Cliente cliente) {
+    public SimCard createSimCard(Integer number, Tarifa tarifa) {
         SimCard simCard = new SimCard();
         simCard.setNumber(number);
         simCard.setTarifa(tarifa);
-        simCard.setCliente(cliente);
         simCard.setActive(true);
         return simCardRepository.save(simCard);
     }
@@ -32,11 +30,6 @@ public class SimCardService {
     @Transactional
     public Optional<SimCard> getSimCardByNumber(Integer number) {
         return simCardRepository.findByNumber(number);
-    }
-
-    @Transactional
-    public Optional<SimCard> getSimCardsByCliente(Cliente cliente) {
-        return simCardRepository.findByCliente(cliente);
     }
 
     @Transactional
@@ -87,6 +80,18 @@ public class SimCardService {
             simCardRepository.save(simCard);
         }
     }
+
+    @Transactional
+    public void addMoney(Integer number, float amountToAdd) {
+        Optional<SimCard> optionalSimCard = simCardRepository.findByNumber(number);
+
+        if (optionalSimCard.isPresent()) {
+            SimCard simCard = optionalSimCard.get();
+            simCard.setBalance(simCard.getBalance() + amountToAdd);
+            simCardRepository.save(simCard);
+        }
+    }
+
 
     @Transactional
     public void resetUsage(Integer number) {
