@@ -1,8 +1,8 @@
 import org.junit.jupiter.api.Test;
 
-public class ClienteTest {
+class ClienteTest {
     @Test
-    public void testAdicion() {
+    void testAdicion() {
 
     }
 }

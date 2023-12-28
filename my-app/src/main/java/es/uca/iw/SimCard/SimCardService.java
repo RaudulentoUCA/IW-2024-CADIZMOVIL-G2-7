@@ -1,4 +1,4 @@
-package es.uca.iw.SimCard;
+package es.uca.iw.simcard;
 
 import es.uca.iw.Contrato.Contrato;
 import es.uca.iw.Tarifa.Tarifa;

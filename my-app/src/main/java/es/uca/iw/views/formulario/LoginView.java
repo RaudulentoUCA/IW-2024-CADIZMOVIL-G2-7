@@ -4,49 +4,55 @@ import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.dependency.Uses;
+import com.vaadin.flow.component.login.LoginForm;
+import com.vaadin.flow.component.login.LoginI18n;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
+
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Paragraph;
-import com.vaadin.flow.component.icon.Icon;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyContentMode;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.EmailField;
-import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
+import es.uca.iw.AuthenticatedUser;
 import es.uca.iw.views.MainLayout;
-import es.uca.iw.views.helloworld.HelloWorldView;
-
-// ... (existing imports)
+import es.uca.iw.views.profile.ProfileView;
 
 @PageTitle("Login")
 @Route(value = "login", layout = MainLayout.class)
-@Uses(Icon.class)
-public class LoginView extends Composite<VerticalLayout> {
+@AnonymousAllowed
 
-    public LoginView() {
+
+public class LoginView extends Composite<VerticalLayout> implements BeforeEnterObserver {
+    private final AuthenticatedUser authenticatedUser;
+    private final LoginForm login = new LoginForm();
+
+    public LoginView(AuthenticatedUser authenticatedUser) {
+
+        this.authenticatedUser = authenticatedUser;
+
+        LoginI18n i18n = LoginI18n.createDefault();
+        LoginI18n.Form i18nForm = i18n.getForm();
+        i18nForm.setTitle("Log In");
+        i18nForm.setUsername("Email");
+        login.setI18n(i18n);
+
         VerticalLayout layoutColumn2 = new VerticalLayout();
         H3 h3 = new H3();
         FormLayout formLayout2Col = new FormLayout();
-        EmailField emailField = new EmailField();
-        emailField.setRequiredIndicatorVisible(true);
-
-        PasswordField contra = new PasswordField();
-        contra.setRequiredIndicatorVisible(true);
 
         Image logoImage = new Image("icons/logo.png", "logo of the site");
         logoImage.setWidth("315px");
+        login.setForgotPasswordButtonVisible(false);
 
-        HorizontalLayout layoutRow = new HorizontalLayout();
-        Button baceptar = new Button();
-        Button bcancelar = new Button();
         HorizontalLayout layoutRow2 = new HorizontalLayout();
         Paragraph textLarge = new Paragraph();
         Button bregistrar = new Button();
@@ -62,31 +68,12 @@ public class LoginView extends Composite<VerticalLayout> {
         layoutColumn2.setJustifyContentMode(JustifyContentMode.START);
         layoutColumn2.setAlignItems(Alignment.CENTER);
 
-        logoImage.getStyle().set("margin-bottom", "20px"); // Add margin to the bottom of the logo
         layoutColumn2.add(logoImage);
-
-        h3.setText("Iniciar Sesión");
-        h3.setWidth("100%");
 
         layoutColumn2.add(h3);
         layoutColumn2.add(formLayout2Col);
-        formLayout2Col.add(emailField);
-        formLayout2Col.add(contra);
 
-        layoutRow.addClassName(Gap.MEDIUM);
-        layoutRow.setWidth("100%");
-        layoutRow.getStyle().set("flex-grow", "1");
-        baceptar.setText("Save");
-        baceptar.setWidth("min-content");
-        baceptar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        bcancelar.setText("Cancel");
-        bcancelar.setWidth("min-content");
-        bcancelar.addClickListener(event -> navigateToHelloWorldView());
-
-        layoutRow.add(baceptar);
-        layoutRow.add(bcancelar);
-
-        layoutColumn2.add(layoutRow);
+        layoutColumn2.add(login);
 
         layoutRow2.setWidthFull();
         layoutColumn2.setFlexGrow(1.0, layoutRow2);
@@ -107,9 +94,7 @@ public class LoginView extends Composite<VerticalLayout> {
 
         layoutRow2.add(textLarge);
         layoutRow2.add(bregistrar);
-
         layoutColumn2.add(new VerticalSpacer(), layoutRow2);
-
         getContent().add(layoutColumn2);
     }
 
@@ -117,13 +102,24 @@ public class LoginView extends Composite<VerticalLayout> {
         UI.getCurrent().navigate(FormularioView.class);
     }
 
-    private void navigateToHelloWorldView() {
-        UI.getCurrent().navigate(HelloWorldView.class);
-    }
-
     public static class VerticalSpacer extends Div {
         public VerticalSpacer() {
             setHeight("1em");
         }
+    }
+
+    @Override
+    public void beforeEnter(BeforeEnterEvent event) {
+        if (authenticatedUser.get().isPresent()) {
+            event.forwardTo(ProfileView.class);
+        }
+
+        if(event.getLocation()
+                .getQueryParameters()
+                .getParameters()
+                .containsKey("error")) {
+            login.setError(true);
+        }
+
     }
 }

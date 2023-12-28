@@ -1,6 +1,6 @@
 package es.uca.iw.Contrato;
 
-import es.uca.iw.Cliente.Cliente;
+import es.uca.iw.cliente.Cliente;
 import jakarta.persistence.*;
 
 import java.util.Date;
