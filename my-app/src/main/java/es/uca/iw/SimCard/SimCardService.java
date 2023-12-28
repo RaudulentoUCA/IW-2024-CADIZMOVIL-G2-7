@@ -39,6 +39,10 @@ public class SimCardService {
         return simCardRepository.findByContrato(contrato);
     }
 
+    public Optional<SimCard> getSimCardsByTarifa(Tarifa tarifa) {
+        return simCardRepository.findByTarifa(tarifa);
+    }
+
     @Transactional
     public List<SimCard> getAllSimCards() {
         return simCardRepository.findAll();
