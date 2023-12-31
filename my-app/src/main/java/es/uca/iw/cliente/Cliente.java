@@ -1,6 +1,8 @@
 package es.uca.iw.cliente;
 
 import es.uca.iw.simcard.SimCard;
+import es.uca.iw.atencion_cliente.Consulta;
+import es.uca.iw.atencion_cliente.Respuesta;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -20,6 +22,10 @@ public class Cliente implements UserDetails {
     @GeneratedValue
     @JdbcTypeCode(SqlTypes.CHAR)
     private UUID id;
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<Consulta> consultas;
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<Respuesta> respuestas;
     @Column(name = "nombre", nullable = false, length = 64)
     private String nombre;
     @Column(name = "apellidos", nullable = false, length = 128)
