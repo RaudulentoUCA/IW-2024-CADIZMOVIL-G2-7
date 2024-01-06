@@ -29,7 +29,6 @@ import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 import es.uca.iw.cliente.Cliente;
 import es.uca.iw.cliente.ServiciosCliente;
 import es.uca.iw.views.MainLayout;
-import es.uca.iw.views.profile.ProfileView;
 
 
 @PageTitle("Formulario")

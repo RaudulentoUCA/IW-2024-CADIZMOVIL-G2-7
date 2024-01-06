@@ -1,6 +1,5 @@
 package es.uca.iw.cliente;
 
-import es.uca.iw.simcard.SimCard;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -51,10 +50,6 @@ public class Cliente implements UserDetails {
     public void setId(UUID id) {
         this.id = id;
     }
-
-
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    private List<SimCard> simCards;
 
     public String getNombre() {
         return nombre;
@@ -140,14 +135,6 @@ public class Cliente implements UserDetails {
 
     public void setActive(boolean isActive) {
         this.isActive = isActive;
-    }
-
-    public List<SimCard> getSimCards() {
-        return simCards;
-    }
-
-    public void setSimCards(List<SimCard> simCards) {
-        this.simCards = simCards;
     }
 
     public String getNumeroContacto() {
