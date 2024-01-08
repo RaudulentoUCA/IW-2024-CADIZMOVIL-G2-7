@@ -23,7 +23,7 @@ public class ServiciosContrato {
     }
 
     @Transactional
-    public Optional<Contrato> getContratosByCliente(Cliente cliente) {
-        return repositorioContrato.findByCliente(cliente);
+    public List<Contrato> getContratosByCliente(Cliente cliente) {
+        return repositorioContrato.findAllByCliente(cliente);
     }
 }

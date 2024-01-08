@@ -3,6 +3,7 @@ package es.uca.iw.contrato;
 import es.uca.iw.cliente.Cliente;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -14,10 +15,10 @@ public class Contrato {
     private Cliente cliente;
 
     @Column(name="fechaInicio", nullable = false)
-    private Date fechaInicio;
+    private LocalDate fechaInicio;
 
     @Column(name = "fechaFin", nullable = false)
-    private Date fechaFin;
+    private LocalDate fechaFin;
 
     @Column(name = "descuento", nullable = false, columnDefinition = "float default 0")
     private float descuento;
@@ -30,19 +31,19 @@ public class Contrato {
         this.cliente = cliente;
     }
 
-    public Date getFechaInicio() {
+    public LocalDate getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public Date getFechaFin() {
+    public LocalDate getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(Date fechaFin) {
+    public void setFechaFin(LocalDate fechaFin) {
         this.fechaFin = fechaFin;
     }
 

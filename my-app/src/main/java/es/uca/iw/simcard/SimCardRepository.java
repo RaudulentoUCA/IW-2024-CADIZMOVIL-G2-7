@@ -13,6 +13,6 @@ public interface SimCardRepository extends JpaRepository<SimCard, Integer> {
 
     List<SimCard> findAll();
 
-    Optional<SimCard> findByContrato(Contrato contrato);
+    List<SimCard> findAllByContrato(Contrato contrato);
     Optional<SimCard> findByTarifa(Tarifa tarifa);
 }
