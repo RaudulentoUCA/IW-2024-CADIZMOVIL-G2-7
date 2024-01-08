@@ -1,7 +1,7 @@
 package es.uca.iw.simcard;
 
-import es.uca.iw.cliente.Cliente;
-import es.uca.iw.Tarifa;
+import es.uca.iw.contrato.Contrato;
+import es.uca.iw.tarifa.Tarifa;
 import jakarta.persistence.*;
 
 @Entity
@@ -9,7 +9,7 @@ public class SimCard {
     @Id
     @Column(name="number", unique = true, nullable = false)
     private Integer number;
-    @OneToOne
+    @ManyToOne
     private Tarifa tarifa;
 
     @Column(name="usedMinutes")
@@ -25,8 +25,7 @@ public class SimCard {
     private boolean isActive;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
+    private Contrato contrato;
 
     public Integer getNumber() {
         return number;
@@ -76,11 +75,11 @@ public class SimCard {
         isActive = active;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Contrato getContrato() {
+        return contrato;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setContrato(Contrato contrato) {
+        this.contrato = contrato;
     }
 }

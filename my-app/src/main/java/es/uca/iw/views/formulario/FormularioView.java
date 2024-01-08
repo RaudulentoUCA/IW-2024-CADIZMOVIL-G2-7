@@ -29,7 +29,6 @@ import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 import es.uca.iw.cliente.Cliente;
 import es.uca.iw.cliente.ServiciosCliente;
 import es.uca.iw.views.MainLayout;
-import es.uca.iw.views.profile.ProfileView;
 
 
 @PageTitle("Formulario")
@@ -198,6 +197,8 @@ public class FormularioView extends Composite<VerticalLayout> {
         if (binder.validate().isOk() & contra.getValue().equals(repcontra.getValue())) {
             if (servicios.registrarCliente(binder.getBean())) {
                 binder.setBean(new Cliente());
+                Notification.show("You were successfully registered. Log in.");
+                navigateToLoginView();
             } else {
                 Notification.show("Ha ocurrido un fallo inesperado");
             }
