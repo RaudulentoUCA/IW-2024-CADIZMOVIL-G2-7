@@ -1,4 +1,4 @@
-package es.uca.iw.Tarifa;
+package es.uca.iw.tarifa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,6 +1,5 @@
-package es.uca.iw.Tarifa;
+package es.uca.iw.tarifa;
 
-import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.combobox.ComboBox;

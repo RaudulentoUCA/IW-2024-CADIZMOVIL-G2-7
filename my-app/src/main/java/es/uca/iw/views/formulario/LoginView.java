@@ -5,7 +5,6 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.login.LoginForm;
-import com.vaadin.flow.component.login.LoginI18n;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 
@@ -39,11 +38,7 @@ public class LoginView extends Composite<VerticalLayout> implements BeforeEnterO
 
         this.authenticatedUser = authenticatedUser;
 
-        LoginI18n i18n = LoginI18n.createDefault();
-        LoginI18n.Form i18nForm = i18n.getForm();
-        i18nForm.setTitle("Log In");
-        i18nForm.setUsername("Email");
-        login.setI18n(i18n);
+        login.setAction("login");
 
         VerticalLayout layoutColumn2 = new VerticalLayout();
         H3 h3 = new H3();
