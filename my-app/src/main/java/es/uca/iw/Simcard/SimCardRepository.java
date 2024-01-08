@@ -1,4 +1,4 @@
-package es.uca.iw.simcard;
+package es.uca.iw.Simcard;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

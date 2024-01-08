@@ -2,6 +2,8 @@ package es.uca.iw.tarifa;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 public class Tarifa {
     @Id
@@ -90,5 +92,17 @@ public class Tarifa {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Tarifa tarifa)) return false;
+        return Float.compare(precio, tarifa.precio) == 0 && permiteRoaming == tarifa.permiteRoaming && Objects.equals(id, tarifa.id) && Objects.equals(nombre, tarifa.nombre) && Objects.equals(availableMB, tarifa.availableMB) && Objects.equals(availableMin, tarifa.availableMin) && Objects.equals(availableSMS, tarifa.availableSMS) && Objects.equals(descripcion, tarifa.descripcion);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nombre, precio, availableMB, availableMin, availableSMS, permiteRoaming, descripcion);
     }
 }

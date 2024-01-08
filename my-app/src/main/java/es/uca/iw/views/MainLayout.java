@@ -14,15 +14,13 @@ import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.theme.lumo.LumoIcon;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import es.uca.iw.AuthenticatedUser;
-import es.uca.iw.cliente.Cliente;
-import es.uca.iw.cliente.Role;
+import es.uca.iw.Cliente.Cliente;
+import es.uca.iw.Cliente.Role;
 import es.uca.iw.views.about.AboutView;
-import es.uca.iw.views.client_views.ClientOverview;
+import es.uca.iw.views.client_views.*;
 import es.uca.iw.views.helloworld.HelloWorldView;
-import es.uca.iw.views.profile.ProfileView;
 
 import java.util.Optional;
 
@@ -72,12 +70,12 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver {
             nav.addItem(new SideNavItem("Sobre Nosotros", AboutView.class));
         } else if (optionalCliente.get().getRoles().stream().anyMatch(role -> role.equals(Role.USER))) {
             nav.addItem(new SideNavItem("General", ClientOverview.class, VaadinIcon.DASHBOARD.create()));
-            nav.addItem(new SideNavItem("Tarifas", AboutView.class, VaadinIcon.ABACUS.create()));
-            nav.addItem(new SideNavItem("Servicios", AboutView.class, VaadinIcon.SLIDERS.create()));
-            nav.addItem(new SideNavItem("Noticias y promociones", AboutView.class, VaadinIcon.NEWSPAPER.create()));
-            nav.addItem(new SideNavItem("Facturas", AboutView.class, VaadinIcon.INVOICE.create()));
-            nav.addItem(new SideNavItem( "Chat", AboutView.class, VaadinIcon.CHAT.create()));
-            nav.addItem(new SideNavItem("Ajustes", AboutView.class, VaadinIcon.TOOLS.create()));
+            nav.addItem(new SideNavItem("Tarifas", TarifasView.class, VaadinIcon.ABACUS.create()));
+            nav.addItem(new SideNavItem("Servicios", ServiciosView.class, VaadinIcon.SLIDERS.create()));
+            nav.addItem(new SideNavItem("Noticias y promociones", NoticiasView.class, VaadinIcon.NEWSPAPER.create()));
+            nav.addItem(new SideNavItem("Facturas", FacturasView.class, VaadinIcon.INVOICE.create()));
+            nav.addItem(new SideNavItem( "Chat", ChatView.class, VaadinIcon.CHAT.create()));
+            nav.addItem(new SideNavItem("Ajustes", AjustesView.class, VaadinIcon.TOOLS.create()));
         } else if (optionalCliente.get().getRoles().stream().anyMatch(role -> role.equals(Role.MARKETING))) {
             nav.addItem(new SideNavItem("Servicios", HelloWorldView.class, VaadinIcon.SLIDERS.create()));
             nav.addItem(new SideNavItem("Tarifas", AboutView.class, VaadinIcon.ABACUS.create()));

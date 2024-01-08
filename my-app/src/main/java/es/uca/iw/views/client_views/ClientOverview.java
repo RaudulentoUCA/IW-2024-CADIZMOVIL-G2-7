@@ -14,9 +14,10 @@ import com.vaadin.flow.component.progressbar.ProgressBar;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import es.uca.iw.AuthenticatedUser;
-import es.uca.iw.cliente.Cliente;
+import es.uca.iw.Cliente.Cliente;
 import es.uca.iw.contract.Contract;
 import es.uca.iw.custom_components.CustomCardElement;
+import es.uca.iw.Simcard.SimCardService;
 import es.uca.iw.views.MainLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import jakarta.annotation.security.RolesAllowed;
@@ -32,9 +33,11 @@ import java.util.Optional;
 @RolesAllowed("USER")
 @PageTitle("General")
 public class ClientOverview extends VerticalLayout {
+    private final SimCardService simCardService;
     private final AuthenticatedUser authenticatedUser;
 
-    public ClientOverview(AuthenticatedUser authenticatedUser) {
+    public ClientOverview(SimCardService simCardService, AuthenticatedUser authenticatedUser) {
+        this.simCardService = simCardService;
         this.authenticatedUser = authenticatedUser;
         Optional<Cliente> optionalCliente = authenticatedUser.get();
         setWidth("100%");
@@ -136,7 +139,7 @@ public class ClientOverview extends VerticalLayout {
                 Dialog recargarDialog = new Dialog();
                 recargarDialog.getElement().setAttribute("aria-label", "Recargar tarjeta SIM");
 
-                VerticalLayout dialogLayout = createDialogLayout(recargarDialog, cliente);
+                VerticalLayout dialogLayout = createDialogLayout(recargarDialog, cliente, simCardService);
                 recargarDialog.add(dialogLayout);
 
                 Button recargarButton = new Button("Recargar", e -> recargarDialog.open());
@@ -156,7 +159,7 @@ public class ClientOverview extends VerticalLayout {
         });
     }
 
-    private static VerticalLayout createDialogLayout(Dialog dialog, Cliente cliente) {
+    private static VerticalLayout createDialogLayout(Dialog dialog, Cliente cliente, SimCardService simCardService) {
         H2 headline = new H2("Recargar tarjeta SIM");
         headline.getStyle().set("margin", "var(--lumo-space-m) 0 0 0")
                 .set("font-size", "1.5em").set("font-weight", "bold");
@@ -170,7 +173,7 @@ public class ClientOverview extends VerticalLayout {
         Button cancelButton = new Button("Cancel", e -> dialog.close());
         Button saveButton = new Button("Pagar", e -> {
             if (!amountOfMoneyField.isEmpty()){
-                //TODO implement  changes in DB
+                simCardService.addMoney(cliente.getContracts().get(0).getSimCard().getNumber(), Float.parseFloat(amountOfMoneyField.getValue()));
             }
             dialog.close();
         });

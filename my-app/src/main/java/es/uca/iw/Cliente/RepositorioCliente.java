@@ -1,4 +1,4 @@
-package es.uca.iw.cliente;
+package es.uca.iw.Cliente;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

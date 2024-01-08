@@ -1,4 +1,4 @@
-package es.uca.iw.cliente;
+package es.uca.iw.Cliente;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;

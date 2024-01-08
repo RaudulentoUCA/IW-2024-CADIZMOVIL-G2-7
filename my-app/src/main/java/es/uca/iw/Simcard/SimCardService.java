@@ -1,4 +1,4 @@
-package es.uca.iw.simcard;
+package es.uca.iw.Simcard;
 
 import es.uca.iw.tarifa.Tarifa;
 import jakarta.transaction.Transactional;

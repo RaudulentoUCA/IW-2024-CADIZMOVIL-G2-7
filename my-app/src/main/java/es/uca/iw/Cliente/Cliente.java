@@ -1,4 +1,4 @@
-package es.uca.iw.cliente;
+package es.uca.iw.Cliente;
 
 import es.uca.iw.contract.Contract;
 import jakarta.persistence.*;
