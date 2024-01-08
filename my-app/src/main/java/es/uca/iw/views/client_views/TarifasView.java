@@ -6,7 +6,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import es.uca.iw.AuthenticatedUser;
-import es.uca.iw.Cliente.Cliente;
+import es.uca.iw.cliente.Cliente;
 import es.uca.iw.contract.Contract;
 import es.uca.iw.custom_components.CustomCardElement;
 import es.uca.iw.tarifa.Tarifa;

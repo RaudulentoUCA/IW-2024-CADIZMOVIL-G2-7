@@ -1,4 +1,4 @@
-package es.uca.iw.Cliente;
+package es.uca.iw.cliente;
 
 public enum Role {
     USER, ATTENTION, FINANCE, MARKETING;

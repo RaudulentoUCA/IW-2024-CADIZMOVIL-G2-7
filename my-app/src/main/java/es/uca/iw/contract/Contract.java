@@ -1,7 +1,7 @@
 package es.uca.iw.contract;
 
-import es.uca.iw.Cliente.Cliente;
-import es.uca.iw.Simcard.SimCard;
+import es.uca.iw.cliente.Cliente;
+import es.uca.iw.simcard.SimCard;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;

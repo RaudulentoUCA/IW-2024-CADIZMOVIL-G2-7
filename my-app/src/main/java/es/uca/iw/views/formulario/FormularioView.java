@@ -26,8 +26,8 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
-import es.uca.iw.Cliente.Cliente;
-import es.uca.iw.Cliente.ServiciosCliente;
+import es.uca.iw.cliente.Cliente;
+import es.uca.iw.cliente.ServiciosCliente;
 import es.uca.iw.views.MainLayout;
 
 
