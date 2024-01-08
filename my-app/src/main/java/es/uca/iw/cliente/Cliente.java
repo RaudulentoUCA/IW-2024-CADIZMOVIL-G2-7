@@ -1,20 +1,18 @@
 package es.uca.iw.cliente;
 
-import es.uca.iw.simcard.SimCard;
-import es.uca.iw.atencion_cliente.Consulta;
-import es.uca.iw.atencion_cliente.Respuesta;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
-import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Entity
 public class Cliente implements UserDetails {
@@ -22,10 +20,6 @@ public class Cliente implements UserDetails {
     @GeneratedValue
     @JdbcTypeCode(SqlTypes.CHAR)
     private UUID id;
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    private List<Consulta> consultas;
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    private List<Respuesta> respuestas;
     @Column(name = "nombre", nullable = false, length = 64)
     private String nombre;
     @Column(name = "apellidos", nullable = false, length = 128)
@@ -42,14 +36,9 @@ public class Cliente implements UserDetails {
     private String password;
     @Column(name = "is_active")
     private boolean isActive;
-
-    public enum Role {
-        ADMIN, USER
-    }
-
     @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false)
-    private Role role;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<Role> roles = new HashSet<>();
 
     public UUID getId() {
         return id;
@@ -58,10 +47,6 @@ public class Cliente implements UserDetails {
     public void setId(UUID id) {
         this.id = id;
     }
-
-
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    private List<SimCard> simCards;
 
     public String getNombre() {
         return nombre;
@@ -95,9 +80,10 @@ public class Cliente implements UserDetails {
         email = e;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ADMIN"));
+    public List<GrantedAuthority> getAuthorities() {
+        return this.getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+                .collect(Collectors.toList());
+
     }
 
     public String getPassword() {
@@ -137,24 +123,16 @@ public class Cliente implements UserDetails {
         return isActive;
     }
 
-    public Role getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return this.roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void addRole(Role role) {
+        this.roles.add(role);
     }
 
     public void setActive(boolean isActive) {
         this.isActive = isActive;
-    }
-
-    public List<SimCard> getSimCards() {
-        return simCards;
-    }
-
-    public void setSimCards(List<SimCard> simCards) {
-        this.simCards = simCards;
     }
 
     public String getNumeroContacto() {
