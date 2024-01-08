@@ -1,6 +1,5 @@
 package es.uca.iw.cliente;
 
-import es.uca.iw.contract.Contract;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -9,7 +8,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Entity
@@ -46,9 +48,6 @@ public class Cliente implements UserDetails {
         this.id = id;
     }
 
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Contract> contracts;
-
     public String getNombre() {
         return nombre;
     }
@@ -79,15 +78,6 @@ public class Cliente implements UserDetails {
 
     public void setEmail(String e) {
         email = e;
-    }
-
-
-    public List<Contract> getContracts() {
-        return contracts;
-    }
-
-    public void setContracts(List<Contract> contracts) {
-        this.contracts = contracts;
     }
 
     public List<GrantedAuthority> getAuthorities() {
@@ -140,7 +130,6 @@ public class Cliente implements UserDetails {
     public void addRole(Role role) {
         this.roles.add(role);
     }
-
 
     public void setActive(boolean isActive) {
         this.isActive = isActive;

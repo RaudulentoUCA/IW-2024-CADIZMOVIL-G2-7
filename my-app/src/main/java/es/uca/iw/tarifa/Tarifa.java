@@ -29,6 +29,8 @@ public class Tarifa {
     @Column(name = "descripcion", nullable = false, length = 255)
     private String descripcion;
 
+    @Column(name = "fijo", nullable = false)
+    private boolean fijo;
 
     public String getNombre() {
         return nombre;
@@ -92,6 +94,14 @@ public class Tarifa {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public boolean isFijo() {
+        return fijo;
+    }
+
+    public void setFijo(boolean fijo) {
+        this.fijo = fijo;
     }
 
     @Override
