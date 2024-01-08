@@ -32,6 +32,9 @@ public class Tarifa {
     @Column(name = "fijo", nullable = false)
     private boolean fijo;
 
+    @Column(name = "fibra", nullable = false)
+    private boolean fibra;
+
     public String getNombre() {
         return nombre;
     }
@@ -114,5 +117,13 @@ public class Tarifa {
     @Override
     public int hashCode() {
         return Objects.hash(id, nombre, precio, availableMB, availableMin, availableSMS, permiteRoaming, descripcion);
+    }
+
+    public boolean isFibra() {
+        return fibra;
+    }
+
+    public void setFibra(boolean fibra) {
+        this.fibra = fibra;
     }
 }

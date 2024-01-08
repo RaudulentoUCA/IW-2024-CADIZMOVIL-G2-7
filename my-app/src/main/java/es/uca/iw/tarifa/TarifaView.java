@@ -11,10 +11,13 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.converter.StringToFloatConverter;
 import com.vaadin.flow.data.converter.StringToIntegerConverter;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
+import jakarta.annotation.security.RolesAllowed;
 
 import java.util.List;
 
 @Route("tarifa-view")
+@RolesAllowed("MARKETING")
 public class TarifaView extends VerticalLayout {
 
     private final ComboBox<Tarifa> tarifaComboBox = new ComboBox<>("Seleccionar Tarifa");
@@ -64,15 +67,26 @@ public class TarifaView extends VerticalLayout {
         binder.bind(fibra, "fibra");
 
         TextField megas = new TextField();
-        formLayout.addFormItem(megas, "Megas Móvil");
+        formLayout.addFormItem(megas, "Megas Disponibles");
         binder.forField(megas)
                 .withConverter(new StringToIntegerConverter("Ingrese un valor válido"))
                 .bind(Tarifa::getAvailableMB, Tarifa::setAvailableMB);
 
+        TextField min = new TextField();
+        formLayout.addFormItem(min, "Minutos Disponibles");
+        binder.forField(min)
+                .withConverter(new StringToIntegerConverter("Ingrese un valor válido"))
+                .bind(Tarifa::getAvailableMin, Tarifa::setAvailableMin);
+
+        TextField sms = new TextField();
+        formLayout.addFormItem(sms, "Mensajes Disponibles");
+        binder.forField(sms)
+                .withConverter(new StringToIntegerConverter("Ingrese un valor válido"))
+                .bind(Tarifa::getAvailableSMS, Tarifa::setAvailableSMS);
+
         guardarButton.addClickListener(event -> guardarTarifa());
         tarifaComboBox.addValueChangeListener(event -> mostrarDetallesTarifa(event.getValue()));
         add(formLayout, guardarButton);
-
     }
 
     private void mostrarDetallesTarifa(Tarifa tarifa) {
