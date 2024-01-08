@@ -24,13 +24,13 @@ public class TarifaView extends VerticalLayout {
     private final Binder<Tarifa> binder = new Binder<>(Tarifa.class);
 
     // Aquí deberías inyectar tu servicio o repositorio de tarifas para obtener la lista de tarifas
-    private final ServiciosTarifa tarifaService;
+    private final TarifaService tarifaService;
 
-    public TarifaView(ServiciosTarifa tarifaService) {
+    public TarifaView(TarifaService tarifaService) {
         this.tarifaService = tarifaService;
 
         // ComboBox
-        List<Tarifa> tarifas = tarifaService.obtenerTodasLasTarifas();
+        List<Tarifa> tarifas = tarifaService.getAllTarifas();
         tarifaComboBox.setItems(tarifas);
         tarifaComboBox.setItemLabelGenerator(Tarifa::getNombre);
 

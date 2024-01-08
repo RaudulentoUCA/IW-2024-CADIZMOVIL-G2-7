@@ -20,4 +20,9 @@ public class TarifaService {
         return tarifaRepository.findAll();
     }
 
+    @Transactional
+    public Tarifa guardarTarifa(Tarifa tarifa) {
+        return tarifaRepository.save(tarifa);
+    }
+
 }
