@@ -44,4 +44,13 @@ public class ServiciosCliente implements UserDetailsService {
             return user.get();
         }
     }
+
+    public Optional<Cliente> cargarUsuarioPorEmail(String email) throws UsernameNotFoundException {
+        Optional<Cliente> user = repositorio.findByEmail(email);
+        return user;
+    }
+
+    public void eliminar(Cliente user) {
+        repositorio.delete(user);
+    }
 }
