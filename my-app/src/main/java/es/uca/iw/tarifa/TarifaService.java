@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TarifaService {
@@ -25,4 +26,8 @@ public class TarifaService {
         return tarifaRepository.save(tarifa);
     }
 
+    public Optional<Tarifa> cargarTarifaPorNombre(String nombre) {
+        Optional<Tarifa> tarifa = tarifaRepository.findByNombre(nombre);
+        return tarifa;
+    }
 }
