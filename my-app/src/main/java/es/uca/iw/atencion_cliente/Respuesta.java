@@ -1,5 +1,6 @@
 package es.uca.iw.atencion_cliente;
 
+import es.uca.iw.Trabajador;
 import es.uca.iw.cliente.Cliente;
 import jakarta.persistence.*;
 
@@ -25,7 +26,21 @@ public class Respuesta {
         return asunto;
     }
 
+    public void setAsunto(String asunto) {
+        this.asunto = asunto;
+    }
+
     public String getCuerpo() {
         return cuerpo;
+    }
+    public void setCuerpo(String cuerpo) {
+        this.cuerpo = cuerpo;
+    }
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
     }
 }

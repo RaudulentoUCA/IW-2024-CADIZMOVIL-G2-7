@@ -3,6 +3,7 @@ package es.uca.iw.views.Trabajador;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
@@ -10,58 +11,77 @@ import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
+import es.uca.iw.atencion_cliente.RepositorioRespuesta;
 import es.uca.iw.atencion_cliente.Respuesta;
+import es.uca.iw.cliente.Cliente;
+import es.uca.iw.cliente.RepositorioCliente;
 import es.uca.iw.views.MainLayout;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @PageTitle("Cádiz Móvil - Responder Consulta")
 @Route(value = "respuesta", layout = MainLayout.class)
 @AnonymousAllowed
 public class ResponderConsultaView extends VerticalLayout {
-    public ResponderConsultaView() {
+    private final RepositorioRespuesta repositorioRespuesta;
+    private final RepositorioCliente repositorioCliente;
+
+    private TextField correoField;
+    private TextArea asuntoArea;
+    private TextArea cuerpoArea;
+    public ResponderConsultaView(RepositorioRespuesta repositorioRespuesta, RepositorioCliente repositorioCliente) {
+        this.repositorioRespuesta = repositorioRespuesta;
+        this.repositorioCliente = repositorioCliente;
+
+        setAlignItems(Alignment.CENTER);
+        setJustifyContentMode(JustifyContentMode.CENTER);
+
         H1 titulo = new H1("Responder Consulta");
-        add(titulo);
 
         FormLayout formLayout = new FormLayout();
 
-        TextField correoField = new TextField("Correo del destinatario");
-        correoField.setRequired(true); // Puedes establecer este campo como obligatorio
 
-        TextArea asuntoArea = new TextArea("Asunto");
-        asuntoArea.setValue("RE: "); // Establecer "RE: " por defecto en el campo de asunto
-        asuntoArea.setRequired(true); // Puedes establecer este campo como obligatorio
+        correoField = new TextField("Correo del destinatario");
+        correoField.setRequired(true);
 
-        TextArea cuerpoArea = new TextArea("Cuerpo");
-        cuerpoArea.setRequired(true); // Puedes establecer este campo como obligatorio
+        asuntoArea = new TextArea("Asunto");
+        asuntoArea.setValue("RE: ");
+        asuntoArea.setRequired(true);
+
+        cuerpoArea = new TextArea("Cuerpo");
+        cuerpoArea.setRequired(true);
 
         formLayout.add(asuntoArea, correoField, cuerpoArea);
 
-        // Botón para enviar la respuesta (debes implementar la lógica de almacenamiento)
-        Button enviarButton = new Button("Enviar Respuesta", e -> {
-            // Aquí deberías implementar la lógica para almacenar la respuesta en la base de datos
-            // Utiliza los valores de correoField.getValue(), asuntoArea.getValue(), cuerpoArea.getValue()
-            // para crear una instancia de Respuesta y guardarla en tu repositorio correspondiente.
-        });
+        Button enviarButton = new Button("Enviar respuesta", event -> enviarRespuesta());
+        formLayout.add(enviarButton);
 
-        BeanValidationBinder<Respuesta> binder = new BeanValidationBinder<>(Respuesta.class);
-        binder.bindInstanceFields(this);
+        add(titulo, formLayout);
+    }
 
-// TODO: Implementa la validación de todos los campos según los requisitos
+    @Transactional
+    protected void enviarRespuesta() {
+        String correoDestinatario = correoField.getValue();
+        String asunto = asuntoArea.getValue();
+        String cuerpo = cuerpoArea.getValue();
 
-        binder.forField(asuntoArea)
-                .withValidator(new NotBlankValidator("El asunto no puede estar vacío"))
-                .bind(Respuesta::getAsunto, Respuesta::setAsunto);
+        Optional<Cliente> clienteOptional = repositorioCliente.findByEmail(correoDestinatario);
 
-        binder.forField(cuerpoArea)
-                .withValidator(new NotBlankValidator("El cuerpo no puede estar vacío"))
-                .bind(Respuesta::getCuerpo, Respuesta::setCuerpo);
+        if (clienteOptional.isPresent()) {
+            Cliente cliente = clienteOptional.get();
+            Respuesta respuesta = new Respuesta();
+            respuesta.setCliente(cliente);
+            respuesta.setAsunto(asunto);
+            respuesta.setCuerpo(cuerpo);
 
-        correoField.addValueChangeListener(
-                event -> binder.validate());
+            repositorioRespuesta.save(respuesta);
 
-        binder.setBean(new Respuesta());
-
-
-        add(formLayout, enviarButton);
+            Notification.show("Respuesta enviada correctamente", 3000, Notification.Position.TOP_CENTER);
+        } else {
+            Notification.show("El cliente con el correo especificado no existe", 3000, Notification.Position.TOP_CENTER);
+        }
     }
 }
+
 

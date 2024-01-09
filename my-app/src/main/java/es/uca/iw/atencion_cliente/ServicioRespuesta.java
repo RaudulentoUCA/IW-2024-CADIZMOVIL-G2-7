@@ -14,12 +14,7 @@ public class ServicioRespuesta {
         this.respuestaRepository = respuestaRepository;
     }
 
-    public boolean registrarRespuesta(Respuesta respuesta) {
-        try {
-            respuestaRepository.save(respuesta);
-            return true;
-        } catch (DataIntegrityViolationException e) {
-            return false;
-        }
+    public Respuesta guardarRespuesta(Respuesta respuesta) {
+        return respuestaRepository.save(respuesta);
     }
 }
