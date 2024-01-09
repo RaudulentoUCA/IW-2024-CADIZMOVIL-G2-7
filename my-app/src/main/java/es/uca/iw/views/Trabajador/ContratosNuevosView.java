@@ -13,7 +13,6 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import es.uca.iw.AuthenticatedUser;
-import es.uca.iw.atencion_cliente.RepositorioConsulta;
 import es.uca.iw.cliente.Cliente;
 import es.uca.iw.cliente.RepositorioCliente;
 import es.uca.iw.contrato.Contrato;
@@ -89,17 +88,13 @@ public class ContratosNuevosView extends VerticalLayout {
 
                 repositorioContrato.save(contrato);
 
-                // Mostrar notificación de éxito
                 Notification.show("Contrato almacenado correctamente", 3000, Notification.Position.TOP_CENTER);
 
-                // Recargar la página
                 UI.getCurrent().getPage().reload();
             } else {
-                // Puedes manejar el caso en que el cliente no exista
                 Notification.show("Error: Cliente no encontrado", 3000, Notification.Position.TOP_CENTER);
             }
         } else {
-            // Puedes manejar el caso en que los campos estén vacíos
             Notification.show("Error: Por favor, complete todos los campos", 3000, Notification.Position.TOP_CENTER);
         }
     }

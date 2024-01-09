@@ -34,7 +34,18 @@ public class CerrarConsultaView extends VerticalLayout {
         Button cerrarButton = new Button("Cerrar consulta");
         cerrarButton.setWidth("150px");
 
+
         cerrarButton.addClickListener(event -> cerrarConsulta(idField.getValue()));
+
+        Button atras = new Button("Volver atrás");
+        atras.addClickListener(event -> {
+            getUI().get().navigate(ConsultasView.class);
+        });
+
+        Button principal = new Button("Volver a tu página principal");
+        atras.addClickListener(event -> {
+            getUI().get().navigate(AtencionView.class);
+        });
 
         formLayout.add(idField, cerrarButton);
         add(formLayout);
