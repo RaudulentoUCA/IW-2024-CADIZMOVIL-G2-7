@@ -26,10 +26,14 @@ public class Contrato {
     public Cliente getCliente() {
         return cliente;
     }
+    public int getId() {
+        return id;
+    }
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
 
     public LocalDate getFechaInicio() {
         return fechaInicio;

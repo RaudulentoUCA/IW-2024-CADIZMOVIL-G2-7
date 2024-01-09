@@ -33,8 +33,7 @@ public class AtencionView extends VerticalLayout {
 
         H1 titulo = new H1("Sección de atención al cliente");
 
-        H2 saludo = new H2("Bienvenido,¡ papito !");
-        //H3 saludo = new H3("Bienvenido, " + cliente.getNombre() + " " + cliente.getApellidos() + "!");
+        H3 saludo = new H3("Bienvenido, ¡" + cliente.getNombre() + " " + cliente.getApellidos() + "!");
 
         H3 trabajo = new H3("Comience su jornada con una de las siguientes opciones");
 

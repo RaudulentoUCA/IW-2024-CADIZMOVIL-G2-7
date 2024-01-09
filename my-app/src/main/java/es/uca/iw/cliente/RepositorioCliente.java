@@ -13,6 +13,8 @@ public interface RepositorioCliente extends JpaRepository<Cliente, UUID> {
 
     List<Cliente> findByIsActiveTrue();
 
+    Optional<Cliente> findByDni(String dni);
+
     @Query("SELECT c FROM Cliente c WHERE c.nombre = ?1")
     Optional<Cliente> findByUsername(String username);
 }

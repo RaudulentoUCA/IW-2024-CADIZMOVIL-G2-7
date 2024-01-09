@@ -35,35 +35,46 @@ public class ConsultasView extends VerticalLayout {
 
         List<Consulta> consultas = repositorioConsulta.findAll();
 
+        if (consultas.isEmpty()) {
+            // Mostrar mensaje cuando no hay consultas
+            add(new Paragraph("No hay consultas pendientes."));
+        } else {
+            for (Consulta consulta : consultas) {
+                String correoCliente = consulta.getCliente().getEmail();
+                Div consultaDiv = new Div();
+                consultaDiv.getStyle().set("border", "1px solid #ccc");
+                consultaDiv.getStyle().set("padding", "10px");
+                consultaDiv.setWidth("1000px");
 
-        for (Consulta consulta : consultas) {
-            String correoCliente = consulta.getCliente().getEmail();
-            Div consultaDiv = new Div();
-            consultaDiv.getStyle().set("border", "1px solid #ccc");
-            consultaDiv.getStyle().set("padding", "10px");
-            consultaDiv.setWidth("300px");
+                consultaDiv.add(
+                        new Paragraph("ID: " + consulta.getId()),
+                        new Hr(),
+                        new H5("Remitente: " + correoCliente),
+                        new Hr(),
+                        new H5("Asunto: " + consulta.getAsunto()),
+                        new Hr(),
+                        new Paragraph(consulta.getCuerpo())
+                );
+                add(consultaDiv);
+            }
 
-            consultaDiv.add(
-                    new Paragraph("ID: " + consulta.getId()),
-                    new Hr(),
-                    new H5("Remitente: " + correoCliente),
-                    new Hr(),
-                    new H5("Asunto: " + consulta.getAsunto()),
-                    new Hr(),
-                    new Paragraph(consulta.getCuerpo())
-            );
-            add(consultaDiv);
+            // Mostrar botones solo si hay consultas
+            Button responder = new Button("Responder consultas");
+            responder.addClickListener(event -> UI.getCurrent().navigate(ResponderConsultaView.class));
+            Button cerrar = new Button("Cerrar consultas");
+            cerrar.addClickListener(event -> UI.getCurrent().navigate(EliminarConsultaView.class));
+            add(new HorizontalLayout(responder, cerrar));
         }
+
+        // Botón para volver atrás siempre se muestra
         Button volver = new Button("Volver atrás");
         volver.addClickListener(event -> UI.getCurrent().navigate(AtencionView.class));
-        Button responder = new Button("Responder consultas");
-        responder.addClickListener(event -> UI.getCurrent().navigate(ResponderConsultaView.class));
-        Button cerrar = new Button("Cerrar consultas");
-        cerrar.addClickListener(event -> UI.getCurrent().navigate(CerrarConsultaView.class));
-        add(new HorizontalLayout(volver, responder, cerrar));
-
+        add(volver);
     }
 }
+
+
+
 
 
 
