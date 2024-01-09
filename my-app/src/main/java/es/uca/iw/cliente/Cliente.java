@@ -1,6 +1,8 @@
 package es.uca.iw.cliente;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import org.springframework.security.core.GrantedAuthority;
@@ -83,7 +85,6 @@ public class Cliente implements UserDetails {
     public List<GrantedAuthority> getAuthorities() {
         return this.getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role))
                 .collect(Collectors.toList());
-
     }
 
     public String getPassword() {
