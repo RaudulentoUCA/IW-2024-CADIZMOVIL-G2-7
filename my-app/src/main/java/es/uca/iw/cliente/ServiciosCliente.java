@@ -1,5 +1,7 @@
 package es.uca.iw.cliente;
 
+import es.uca.iw.tarifa.Tarifa;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -53,5 +56,10 @@ public class ServiciosCliente implements UserDetailsService {
 
     public void eliminar(Cliente user) {
         repositorio.delete(user);
+    }
+
+    @Transactional
+    public List<Cliente> getAllClientes(){
+        return repositorio.findAll();
     }
 }
