@@ -1,9 +1,11 @@
 package es.uca.iw.views.Trabajador;
 
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
@@ -57,7 +59,14 @@ public class ResponderConsultaView extends VerticalLayout {
         Button enviarButton = new Button("Enviar respuesta", event -> enviarRespuesta());
         formLayout.add(enviarButton);
 
-        add(titulo, formLayout);
+        // Botón para volver a la página principal
+        Button inicio = new Button("Volver a tu página principal");
+        inicio.addClickListener(event -> UI.getCurrent().navigate(AtencionView.class));
+
+        Button atras = new Button("Volver a la página anterior");
+        atras.addClickListener(event -> UI.getCurrent().navigate(ConsultasView.class));
+
+        add(titulo, formLayout, new HorizontalLayout(inicio, atras));
     }
 
     @Transactional

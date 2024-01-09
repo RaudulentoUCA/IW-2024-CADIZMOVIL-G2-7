@@ -36,14 +36,15 @@ public class ConsultasView extends VerticalLayout {
         List<Consulta> consultas = repositorioConsulta.findAll();
 
         if (consultas.isEmpty()) {
-            add(new H2("No hay consultas pendientes."));
+            // Mostrar mensaje cuando no hay consultas
+            add(new Paragraph("No hay consultas pendientes."));
         } else {
             for (Consulta consulta : consultas) {
                 String correoCliente = consulta.getCliente().getEmail();
                 Div consultaDiv = new Div();
                 consultaDiv.getStyle().set("border", "1px solid #ccc");
                 consultaDiv.getStyle().set("padding", "10px");
-                consultaDiv.setWidth("300px");
+                consultaDiv.setWidth("1000px");
 
                 consultaDiv.add(
                         new Paragraph("ID: " + consulta.getId()),
@@ -61,7 +62,7 @@ public class ConsultasView extends VerticalLayout {
             Button responder = new Button("Responder consultas");
             responder.addClickListener(event -> UI.getCurrent().navigate(ResponderConsultaView.class));
             Button cerrar = new Button("Cerrar consultas");
-            cerrar.addClickListener(event -> UI.getCurrent().navigate(CerrarConsultaView.class));
+            cerrar.addClickListener(event -> UI.getCurrent().navigate(EliminarConsultaView.class));
             add(new HorizontalLayout(responder, cerrar));
         }
 
@@ -71,6 +72,8 @@ public class ConsultasView extends VerticalLayout {
         add(volver);
     }
 }
+
+
 
 
 

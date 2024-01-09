@@ -8,5 +8,5 @@ import java.util.UUID;
 
 public interface RepositorioConsulta extends JpaRepository<Consulta, UUID> {
     List<Consulta> findAll();
-    Optional<Consulta> findById(UUID id);
+
 }

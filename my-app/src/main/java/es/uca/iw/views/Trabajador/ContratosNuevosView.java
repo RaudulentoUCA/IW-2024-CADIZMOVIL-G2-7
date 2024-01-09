@@ -90,7 +90,11 @@ public class ContratosNuevosView extends VerticalLayout {
 
                 Notification.show("Contrato almacenado correctamente", 3000, Notification.Position.TOP_CENTER);
 
-                UI.getCurrent().getPage().reload();
+                dni.setValue("");
+                fechaInicio.clear();
+                fechaFin.clear();
+                descuento.clear();
+                fechaInicio.setValue(LocalDate.now());
             } else {
                 Notification.show("Error: Cliente no encontrado", 3000, Notification.Position.TOP_CENTER);
             }
