@@ -1,4 +1,4 @@
-package es.uca.iw.Contrato;
+package es.uca.iw.contrato;
 
 import es.uca.iw.cliente.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,5 +10,5 @@ public interface RepositorioContrato extends JpaRepository<Contrato, Integer> {
 
     List<Contrato> findAll();
 
-    Optional<Contrato> findByCliente(Cliente cliente);
+    List<Contrato> findAllByCliente(Cliente cliente);
 }

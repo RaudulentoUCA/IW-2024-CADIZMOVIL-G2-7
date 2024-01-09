@@ -1,4 +1,4 @@
-package es.uca.iw.Contrato;
+package es.uca.iw.contrato;
 
 import es.uca.iw.cliente.Cliente;
 import jakarta.transaction.Transactional;
@@ -23,7 +23,7 @@ public class ServiciosContrato {
     }
 
     @Transactional
-    public Optional<Contrato> getContratosByCliente(Cliente cliente) {
-        return repositorioContrato.findByCliente(cliente);
+    public List<Contrato> getContratosByCliente(Cliente cliente) {
+        return repositorioContrato.findAllByCliente(cliente);
     }
 }

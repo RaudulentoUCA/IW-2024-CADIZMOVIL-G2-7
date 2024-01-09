@@ -84,9 +84,10 @@
         </dependency>
 
         <dependency>
-            <groupId>org.seleniymhq.selenium</groupId>
+            <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
         </dependency>
+
 
         <dependency>
             <groupId>io.github.bonigarcia</groupId>

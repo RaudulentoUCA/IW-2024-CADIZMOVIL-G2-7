@@ -3,7 +3,9 @@ import es.uca.iw.Application;
 import es.uca.iw.cliente.Cliente;
 import es.uca.iw.cliente.RepositorioCliente;
 import es.uca.iw.cliente.ServiciosCliente;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.hamcrest.CoreMatchers.is;
@@ -15,8 +17,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+
 import java.time.Duration;
 import java.util.*;
 
@@ -26,6 +31,7 @@ public class ClienteTest {
     private Map<String, Object> vars;
     JavascriptExecutor js;
 
+    @MockBean
     private final ServiciosCliente servicios;
 
     @Autowired
@@ -33,12 +39,7 @@ public class ClienteTest {
         this.servicios = servicios;
     }
 
-    /*
-    @BeforeAll
-    public static void setUpClass(){
-        WebDriverManager.chromedriver().setup();
-    }
-    */
+
     @BeforeEach
     public void setUp() {
         driver = new ChromeDriver();
@@ -91,7 +92,7 @@ public class ClienteTest {
         driver.findElement(By.id("input-vaadin-text-field-69")).sendKeys(Keys.ENTER);
         driver.findElement(By.id("input-vaadin-password-field-70")).sendKeys("1234");
         driver.findElement(By.id("input-vaadin-password-field-70")).sendKeys(Keys.ENTER);
-        driver.findElement(By.cssSelector("vaadin-icon")).click();
+        driver.findElement(By.cssSelector("vaadin-icon:nth-child(2)")).click();
         driver.findElement(By.cssSelector("vaadin-menu-bar-list-box > vaadin-menu-bar-item")).click();
         user = servicios.cargarUsuarioPorEmail("prueba@gmail.com");
         if(user.isPresent()){

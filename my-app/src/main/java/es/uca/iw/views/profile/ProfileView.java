@@ -6,6 +6,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import es.uca.iw.AuthenticatedUser;
 import es.uca.iw.cliente.Cliente;
+import es.uca.iw.cliente.Role;
 import es.uca.iw.views.MainLayout;
 import jakarta.annotation.security.PermitAll;
 
@@ -24,16 +25,18 @@ public class ProfileView extends VerticalLayout {
         this.authenticatedUser = authenticatedUser;
 
         Optional<Cliente> optionalCliente = authenticatedUser.get();
+        if (optionalCliente.get().getRoles().stream().anyMatch(role -> role.equals(Role.MARKETING))){
+            H1 h1 = new H1();
+            setWidth("100%");
+            getStyle().set("flex-grow", "1");
 
-        H1 h1 = new H1();
-        setWidth("100%");
-        getStyle().set("flex-grow", "1");
+            h1.setText("Marketing overview page");
+            h1.setWidth("max-content");
+            add(h1);
 
-        h1.setText("Profile page");
-        h1.setWidth("max-content");
-        add(h1);
-
-        optionalCliente.ifPresent(user ->
-            add(new H1("Welcome, " + user.getNombre() + " " + user.getApellidos())));
+            optionalCliente.ifPresent(user ->
+                    add(new H1("Welcome, " + user.getNombre() + " " + user.getApellidos() + "ROLE: " + user.getAuthorities())));
+        }
+        add(new H1(String.valueOf(optionalCliente.get().getRoles())));
     }
 }

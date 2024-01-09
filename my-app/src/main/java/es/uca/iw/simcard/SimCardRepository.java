@@ -1,7 +1,7 @@
 package es.uca.iw.simcard;
 
-import es.uca.iw.Contrato.Contrato;
-import es.uca.iw.Tarifa.Tarifa;
+import es.uca.iw.contrato.Contrato;
+import es.uca.iw.tarifa.Tarifa;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -13,6 +13,6 @@ public interface SimCardRepository extends JpaRepository<SimCard, Integer> {
 
     List<SimCard> findAll();
 
-    Optional<SimCard> findByContrato(Contrato contrato);
+    List<SimCard> findAllByContrato(Contrato contrato);
     Optional<SimCard> findByTarifa(Tarifa tarifa);
 }

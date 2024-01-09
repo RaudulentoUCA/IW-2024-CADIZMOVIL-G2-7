@@ -197,6 +197,8 @@ public class FormularioView extends Composite<VerticalLayout> {
         if (binder.validate().isOk() & contra.getValue().equals(repcontra.getValue())) {
             if (servicios.registrarCliente(binder.getBean())) {
                 binder.setBean(new Cliente());
+                Notification.show("You were successfully registered. Log in.");
+                navigateToLoginView();
             } else {
                 Notification.show("Ha ocurrido un fallo inesperado");
             }

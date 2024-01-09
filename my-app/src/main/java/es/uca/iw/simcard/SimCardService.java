@@ -1,7 +1,8 @@
 package es.uca.iw.simcard;
 
-import es.uca.iw.Contrato.Contrato;
-import es.uca.iw.Tarifa.Tarifa;
+import es.uca.iw.tarifa.Tarifa;
+import es.uca.iw.contrato.Contrato;
+import es.uca.iw.tarifa.Tarifa;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,8 +36,8 @@ public class SimCardService {
     }
 
     @Transactional
-    public Optional<SimCard> getSimCardsByContrato(Contrato contrato) {
-        return simCardRepository.findByContrato(contrato);
+    public List<SimCard> getSimCardsByContrato(Contrato contrato) {
+        return simCardRepository.findAllByContrato(contrato);
     }
 
     public Optional<SimCard> getSimCardsByTarifa(Tarifa tarifa) {

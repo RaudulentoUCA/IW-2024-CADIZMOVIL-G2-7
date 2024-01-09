@@ -1,6 +1,5 @@
-package es.uca.iw.Tarifa;
+package es.uca.iw.tarifa;
 
-import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -13,13 +12,12 @@ import com.vaadin.flow.data.converter.StringToFloatConverter;
 import com.vaadin.flow.data.converter.StringToIntegerConverter;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
-import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 
 import java.util.List;
 
 @Route("tarifa-view")
-@AnonymousAllowed
+@RolesAllowed("MARKETING")
 public class TarifaView extends VerticalLayout {
 
     private final ComboBox<Tarifa> tarifaComboBox = new ComboBox<>("Seleccionar Tarifa");
@@ -29,13 +27,13 @@ public class TarifaView extends VerticalLayout {
     private final Binder<Tarifa> binder = new Binder<>(Tarifa.class);
 
     // Aquí deberías inyectar tu servicio o repositorio de tarifas para obtener la lista de tarifas
-    private final ServiciosTarifa tarifaService;
+    private final TarifaService tarifaService;
 
-    public TarifaView(ServiciosTarifa tarifaService) {
+    public TarifaView(TarifaService tarifaService) {
         this.tarifaService = tarifaService;
 
         // ComboBox
-        List<Tarifa> tarifas = tarifaService.obtenerTodasLasTarifas();
+        List<Tarifa> tarifas = tarifaService.getAllTarifas();
         tarifaComboBox.setItems(tarifas);
         tarifaComboBox.setItemLabelGenerator(Tarifa::getNombre);
 
@@ -69,15 +67,26 @@ public class TarifaView extends VerticalLayout {
         binder.bind(fibra, "fibra");
 
         TextField megas = new TextField();
-        formLayout.addFormItem(megas, "Megas Móvil");
+        formLayout.addFormItem(megas, "Megas Disponibles");
         binder.forField(megas)
                 .withConverter(new StringToIntegerConverter("Ingrese un valor válido"))
-                .bind(Tarifa::getmegasMovil, Tarifa::setmegasMovil);
+                .bind(Tarifa::getAvailableMB, Tarifa::setAvailableMB);
+
+        TextField min = new TextField();
+        formLayout.addFormItem(min, "Minutos Disponibles");
+        binder.forField(min)
+                .withConverter(new StringToIntegerConverter("Ingrese un valor válido"))
+                .bind(Tarifa::getAvailableMin, Tarifa::setAvailableMin);
+
+        TextField sms = new TextField();
+        formLayout.addFormItem(sms, "Mensajes Disponibles");
+        binder.forField(sms)
+                .withConverter(new StringToIntegerConverter("Ingrese un valor válido"))
+                .bind(Tarifa::getAvailableSMS, Tarifa::setAvailableSMS);
 
         guardarButton.addClickListener(event -> guardarTarifa());
         tarifaComboBox.addValueChangeListener(event -> mostrarDetallesTarifa(event.getValue()));
         add(formLayout, guardarButton);
-
     }
 
     private void mostrarDetallesTarifa(Tarifa tarifa) {
