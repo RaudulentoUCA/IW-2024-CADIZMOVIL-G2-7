@@ -18,4 +18,14 @@ public class Respuesta {
     @Column(name = "cuerpo", nullable = false, length = 1024)
     private String cuerpo;
 
+    public UUID getId() {
+        return id;
+    }
+    public String getAsunto() {
+        return asunto;
+    }
+
+    public String getCuerpo() {
+        return cuerpo;
+    }
 }

@@ -19,4 +19,19 @@ public class Consulta {
     private String asunto;
     @Column(name = "cuerpo", nullable = false, length = 1024)
     private String cuerpo;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+    public String getAsunto() {
+        return asunto;
+    }
+
+    public String getCuerpo() {
+        return cuerpo;
+    }
 }
