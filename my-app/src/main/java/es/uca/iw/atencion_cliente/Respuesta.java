@@ -3,6 +3,8 @@ package es.uca.iw.atencion_cliente;
 import es.uca.iw.Trabajador;
 import es.uca.iw.cliente.Cliente;
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.util.UUID;
 
@@ -10,6 +12,7 @@ import java.util.UUID;
 public class Respuesta {
     @Id
     @GeneratedValue
+    @JdbcTypeCode(SqlTypes.CHAR)
     private UUID id;
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)

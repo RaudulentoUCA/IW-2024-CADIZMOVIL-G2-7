@@ -1,8 +1,10 @@
 package es.uca.iw.atencion_cliente;
 
+import es.uca.iw.cliente.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ServicioRespuesta {
@@ -16,5 +18,9 @@ public class ServicioRespuesta {
 
     public Respuesta guardarRespuesta(Respuesta respuesta) {
         return respuestaRepository.save(respuesta);
+    }
+
+    public List<Respuesta> getRespuestasByCliente(Cliente cliente) {
+        return respuestaRepository.findByCliente(cliente);
     }
 }

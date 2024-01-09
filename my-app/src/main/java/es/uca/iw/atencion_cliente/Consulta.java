@@ -11,6 +11,7 @@ import java.util.UUID;
 public class Consulta {
     @Id
     @GeneratedValue
+    @JdbcTypeCode(SqlTypes.CHAR)
     private UUID id;
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
@@ -27,11 +28,23 @@ public class Consulta {
     public Cliente getCliente() {
         return cliente;
     }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
     public String getAsunto() {
         return asunto;
     }
 
+    public void setAsunto(String asunto) {
+        this.asunto = asunto;
+    }
+
     public String getCuerpo() {
         return cuerpo;
+    }
+
+    public void setCuerpo(String cuerpo) {
+        this.cuerpo = cuerpo;
     }
 }

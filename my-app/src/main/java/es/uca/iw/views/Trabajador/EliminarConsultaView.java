@@ -33,11 +33,9 @@ public class EliminarConsultaView extends VerticalLayout {
 
         H1 titulo = new H1("Cerrar consultas");
 
-        // Crear el grid para mostrar las consultas
         Grid<Consulta> gridConsultas = new Grid<>(Consulta.class);
         gridConsultas.setItems(consultas.get());
 
-        // Columnas que deseas mostrar en el grid
         gridConsultas.setColumns("id");
         gridConsultas.addColumn(consulta -> consulta.getCliente().getEmail()).setHeader("Correo del Cliente");
         gridConsultas.addColumn(Consulta::getAsunto).setHeader("Asunto").setSortable(true);
@@ -54,18 +52,14 @@ public class EliminarConsultaView extends VerticalLayout {
             }
         });
 
-        // Botón para volver a la página principal
         Button inicio = new Button("Volver a tu página principal");
         inicio.addClickListener(event -> UI.getCurrent().navigate(AtencionView.class));
 
         Button atras = new Button("Volver a la página anterior");
         atras.addClickListener(event -> UI.getCurrent().navigate(ConsultasView.class));
 
-        // Agregar los componentes al diseño
         add(titulo, gridConsultas, new HorizontalLayout(btnEliminar, inicio, atras));
     }
-
-    // Método para obtener la lista de consultas
     private List<Consulta> obtenerConsultas() {
         return servicioConsulta.obtenerTodasLasConsultas();
     }
