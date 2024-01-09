@@ -31,7 +31,7 @@ public class EliminarConsultaView extends VerticalLayout {
         this.servicioConsulta = servicioConsulta;
         this.consultas = new AtomicReference<>(obtenerConsultas());
 
-        H1 titulo = new H1("Gestión de bajas de consultas");
+        H1 titulo = new H1("Cerrar consultas");
 
         // Crear el grid para mostrar las consultas
         Grid<Consulta> gridConsultas = new Grid<>(Consulta.class);
@@ -43,7 +43,7 @@ public class EliminarConsultaView extends VerticalLayout {
         gridConsultas.addColumn(Consulta::getAsunto).setHeader("Asunto").setSortable(true);
 
         // Botón para eliminar consulta seleccionada
-        Button btnEliminar = new Button("Eliminar Consulta");
+        Button btnEliminar = new Button("Cerrar Consulta");
         btnEliminar.addClickListener(event -> {
             Consulta consultaSeleccionada = gridConsultas.asSingleSelect().getValue();
             if (consultaSeleccionada != null) {

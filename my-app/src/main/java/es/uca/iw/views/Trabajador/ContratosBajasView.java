@@ -28,7 +28,7 @@ public class ContratosBajasView extends VerticalLayout {
         this.serviciosContrato = serviciosContrato;
 
         H1 titulo = new H1("Gestión de bajas de contratos");
-        Button btnEliminar = new Button("Eliminar Contrato");
+        Button btnEliminar = new Button("Dar de baja contrato");
 
         // Crear el grid para mostrar los contratos
         Grid<Contrato> gridContratos = new Grid<>(Contrato.class);
