@@ -14,8 +14,15 @@ import java.util.Random;
 public class CustomCardElement extends VerticalLayout {
     private static final List<String> EMOJIS = List.of("⭐", "\uD83D\uDE80", "\uD83D\uDEA9", "⌚", "☕", "⚡","\uD83C\uDF08", "\uD83C\uDF1F", "\uD83C\uDF6D", "\uD83C\uDF81", "\uD83C\uDF89", "\uD83D\uDCAB");
 
+    private ButtonClickListener buttonClickListener;
+
+    public void setButtonClickListener(ButtonClickListener buttonClickListener) {
+        this.buttonClickListener = buttonClickListener;
+    }
 
     public CustomCardElement(String title, String internet, String calls, String sms, boolean isRoamingIncluded, String buttonText) {
+
+
         Div titleDiv = new Div();
         titleDiv.setHeight("auto");
         titleDiv.setWidth("380px");
@@ -107,6 +114,13 @@ public class CustomCardElement extends VerticalLayout {
         changeButton.getStyle().set("margin-bottom", "10px");
         changeButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         changeButton.getStyle().set("float", "right");
+
+        changeButton.addClickListener(e -> {
+            if (buttonClickListener != null) {
+                buttonClickListener.onButtonClick();
+            }
+        });
+
         titleDiv.add(changeButton);
 
         add(titleDiv);

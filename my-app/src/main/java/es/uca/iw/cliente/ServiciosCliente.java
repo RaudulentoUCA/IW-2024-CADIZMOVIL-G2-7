@@ -1,6 +1,5 @@
 package es.uca.iw.cliente;
 
-import es.uca.iw.tarifa.Tarifa;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ServiciosCliente implements UserDetailsService {
@@ -30,7 +30,7 @@ public class ServiciosCliente implements UserDetailsService {
     public boolean registrarCliente(Cliente cliente) {
         cliente.setPassword(passwordEncoder.encode(cliente.getPassword()));
         cliente.setActive(true);
-        cliente.addRole(Role.FINANCE);
+        cliente.addRole(Role.USER);
         try {
             repositorio.save(cliente);
             return true;
@@ -62,5 +62,22 @@ public class ServiciosCliente implements UserDetailsService {
     @Transactional
     public List<Cliente> getAllClientes(){
         return repositorio.findAll();
+    }
+
+    @Transactional
+    public boolean actualizarContactNumber(UUID clientId, String newContactNumber) {
+        Optional<Cliente> optionalCliente = repositorio.findById(clientId);
+        if (optionalCliente.isPresent()) {
+            Cliente cliente = optionalCliente.get();
+            cliente.setNumeroContacto(newContactNumber);
+            try {
+                repositorio.save(cliente);
+                return true;
+            } catch (DataIntegrityViolationException e) {
+                // Handle exception if needed
+                return false;
+            }
+        }
+        return false;
     }
 }
