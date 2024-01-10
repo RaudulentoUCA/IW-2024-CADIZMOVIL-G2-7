@@ -85,7 +85,6 @@ public class Cliente implements UserDetails {
     public List<GrantedAuthority> getAuthorities() {
         return this.getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role))
                 .collect(Collectors.toList());
-
     }
 
     public String getPassword() {

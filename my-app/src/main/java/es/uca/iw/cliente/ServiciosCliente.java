@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -46,6 +47,20 @@ public class ServiciosCliente implements UserDetailsService {
         } else {
             return user.get();
         }
+    }
+
+    public Optional<Cliente> cargarUsuarioPorEmail(String email) throws UsernameNotFoundException {
+        Optional<Cliente> user = repositorio.findByEmail(email);
+        return user;
+    }
+
+    public void eliminar(Cliente user) {
+        repositorio.delete(user);
+    }
+
+    @Transactional
+    public List<Cliente> getAllClientes(){
+        return repositorio.findAll();
     }
 
     @Transactional

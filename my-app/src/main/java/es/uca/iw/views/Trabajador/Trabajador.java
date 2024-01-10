@@ -7,8 +7,11 @@ public class Trabajador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "puesto_id")
+
+    public enum TipoTrabajador {
+        MARKETING, ATENCION, FINANZA
+    }
+    @Column(name = "puesto", nullable = false)
     private TipoTrabajador puesto;
     @Column(name = "nombre", nullable = false, length = 64)
     private String nombre;
@@ -21,9 +24,7 @@ public class Trabajador {
     @Column(name = "password", nullable = false, length = 64)
     private String password;
 
-    public TipoTrabajador getPuesto() {
-        return puesto;
-    }
+    public TipoTrabajador getPuesto() { return puesto; }
 
     public void setPuesto(TipoTrabajador pt) {
         puesto = pt;

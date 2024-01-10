@@ -18,6 +18,8 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 import es.uca.iw.AuthenticatedUser;
 import es.uca.iw.cliente.Cliente;
 import es.uca.iw.cliente.Role;
+import es.uca.iw.tarifa.TarifaView;
+import es.uca.iw.views.Trabajador.FacturacionView;
 import es.uca.iw.views.about.AboutView;
 import es.uca.iw.views.client_views.*;
 import es.uca.iw.views.helloworld.HelloWorldView;
@@ -76,17 +78,18 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver {
             nav.addItem(new SideNavItem("Facturas", FacturasView.class, VaadinIcon.INVOICE.create()));
             nav.addItem(new SideNavItem( "Chat", ChatView.class, VaadinIcon.CHAT.create()));
             nav.addItem(new SideNavItem("Ajustes", AjustesView.class, VaadinIcon.TOOLS.create()));
+            nav.addItem(new SideNavItem("Consultas/Reclamaciones", ConsultasReclamacionesView.class, VaadinIcon.CHAT.create()));
         } else if (optionalCliente.get().getRoles().stream().anyMatch(role -> role.equals(Role.MARKETING))) {
-            nav.addItem(new SideNavItem("Servicios", HelloWorldView.class, VaadinIcon.SLIDERS.create()));
-            nav.addItem(new SideNavItem("Tarifas", AboutView.class, VaadinIcon.ABACUS.create()));
+            nav.addItem(new SideNavItem("Servicios", AboutView.class, VaadinIcon.SLIDERS.create()));
+            nav.addItem(new SideNavItem("Tarifas", TarifaView.class, VaadinIcon.ABACUS.create()));
             nav.addItem(new SideNavItem("Noticias y promociones", AboutView.class, VaadinIcon.NEWSPAPER.create()));
         } else if (optionalCliente.get().getRoles().stream().anyMatch(role -> role.equals(Role.ATTENTION))) {
-            nav.addItem(new SideNavItem("Contratos", HelloWorldView.class, VaadinIcon.OPEN_BOOK.create()));
+            nav.addItem(new SideNavItem("Contratos", AboutView.class, VaadinIcon.OPEN_BOOK.create()));
             nav.addItem(new SideNavItem("Consultas", AboutView.class, VaadinIcon.QUESTION.create()));
             nav.addItem(new SideNavItem("Chat", AboutView.class, VaadinIcon.CHAT.create()));
         }
         else {
-            nav.addItem(new SideNavItem("Facturacion", HelloWorldView.class, VaadinIcon.INVOICE.create()));
+            nav.addItem(new SideNavItem("Facturacion", FacturacionView.class, VaadinIcon.INVOICE.create()));
             nav.addItem(new SideNavItem("Estadistica", AboutView.class, VaadinIcon.BAR_CHART_H.create()));
         }
 

@@ -26,4 +26,9 @@ public class ServiciosContrato {
     public List<Contrato> getContratosByCliente(Cliente cliente) {
         return repositorioContrato.findAllByCliente(cliente);
     }
+
+    @Transactional
+    public void eliminarContrato(int id) {
+        repositorioContrato.deleteById(id);
+    }
 }
