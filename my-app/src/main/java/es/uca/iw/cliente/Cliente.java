@@ -1,8 +1,7 @@
 package es.uca.iw.cliente;
 
+import es.uca.iw.contrato.Contrato;
 import jakarta.persistence.*;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,10 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -41,6 +37,10 @@ public class Cliente implements UserDetails {
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
+
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<Contrato> contratos = new ArrayList<>();
 
     public UUID getId() {
         return id;

@@ -1,11 +1,23 @@
 package es.uca.iw.views.client_views;
 
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import es.uca.iw.AuthenticatedUser;
+import es.uca.iw.cliente.Cliente;
+import es.uca.iw.cliente.ServiciosCliente;
 import es.uca.iw.views.MainLayout;
 import jakarta.annotation.security.RolesAllowed;
+
+import java.time.format.DateTimeFormatter;
+import java.util.Optional;
+
 @Route(value = "ajustes", layout = MainLayout.class)
 @RolesAllowed("USER")
 @PageTitle("Ajustes")
@@ -13,7 +25,55 @@ import jakarta.annotation.security.RolesAllowed;
 public class AjustesView extends VerticalLayout {
     private final AuthenticatedUser authenticatedUser;
 
-    public AjustesView(AuthenticatedUser authenticatedUser){
+    private final ServiciosCliente serviciosCliente;
+
+    public AjustesView(AuthenticatedUser authenticatedUser, ServiciosCliente serviciosCliente){
         this.authenticatedUser = authenticatedUser;
+        this.serviciosCliente = serviciosCliente;
+
+        add(new H2("Tus datos personales"));
+        Optional<Cliente> optionalCliente = authenticatedUser.get();
+
+        optionalCliente.ifPresent(cliente->{
+
+            TextField nameField = new TextField("Nombre");
+            nameField.setValue(cliente.getNombre());
+            nameField.setReadOnly(true);
+
+            TextField surnameField = new TextField("Apellidos");
+            surnameField.setValue(cliente.getApellidos());
+            surnameField.setReadOnly(true);
+
+            TextField birthDateField = new TextField("Fecha de nacimiento");
+            birthDateField.setValue(cliente.getFechaDeNacimiento().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+            birthDateField.setReadOnly(true);
+
+            TextField documentNumberField = new TextField("Documento de identificación");
+            documentNumberField.setValue(cliente.getDni());
+            documentNumberField.setReadOnly(true);
+
+            TextField emailField = new TextField("Email");
+            emailField.setValue(cliente.getEmail());
+            emailField.setReadOnly(true);
+
+            TextField contactNumberField = new TextField("Numero de contacto");
+            contactNumberField.setValue(cliente.getNumeroContacto());
+
+
+            Button saveButton = new Button("Guardar cambios");
+            add(nameField, surnameField, birthDateField, documentNumberField,contactNumberField,emailField,saveButton);
+            saveButton.addClickListener((event)->{
+                if (serviciosCliente.actualizarContactNumber(cliente.getId(), contactNumberField.getValue())){
+                    Notification notification = Notification.show("Datos cambiado.");
+                    notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+                }
+                UI.getCurrent().navigate(AjustesView.class);
+            });
+
+        });
+
+
+
+
     }
 }
