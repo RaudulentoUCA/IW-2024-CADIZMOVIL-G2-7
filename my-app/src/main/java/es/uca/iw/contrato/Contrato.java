@@ -11,7 +11,8 @@ public class Contrato {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
     @Column(name="fechaInicio", nullable = false)
@@ -53,5 +54,9 @@ public class Contrato {
 
     public void setDescuento(float descuento) {
         this.descuento = descuento;
+    }
+
+    public int getId() {
+        return id;
     }
 }
