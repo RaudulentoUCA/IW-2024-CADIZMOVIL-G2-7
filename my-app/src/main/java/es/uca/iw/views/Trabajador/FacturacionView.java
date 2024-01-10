@@ -186,14 +186,29 @@ public class FacturacionView extends VerticalLayout {
         List<Contrato> contratos = serviciosContrato.getContratosByCliente(clienteSeleccionado);
         double precioTotal = 0.0;
         double precioContrato;
+        double megasextra;
+        double minextra;
+        double smsextra;
         for (Contrato contrato : contratos) {
             List<SimCard> simCards = servicioSimcard.getSimCardsByContrato(contrato);
             precioContrato = 0.0;
+            megasextra = 0.0;
+            minextra = 0.0;
+            smsextra = 0.0;
 
             for (SimCard simCard : simCards) {
                 precioContrato += simCard.getTarifa().getPrecio();
+                if(simCard.getTarifa().getAvailableMB() - simCard.getUsedMb() < 0)  // Megas, falta tener en cuenta compartido
+                    megasextra = megasextra - (simCard.getTarifa().getAvailableMB() - simCard.getUsedMb());
+                if(simCard.getTarifa().getAvailableMin() - simCard.getUsedMinutes() < 0)  // Minutos
+                    minextra = minextra - (simCard.getTarifa().getAvailableMin() - simCard.getUsedMinutes());
+                if(simCard.getTarifa().getAvailableSMS() - simCard.getUsedSms() < 0)  // SMS
+                    smsextra = smsextra - (simCard.getTarifa().getAvailableSMS() - simCard.getUsedSms());
             }
             precioTotal = precioContrato * contrato.getDescuento() + precioTotal;
+            precioTotal = precioTotal + megasextra*0.004;   // Precio de mega extra
+            precioTotal = precioTotal + minextra*0.11;   // Precio de minuto extra
+            precioTotal = precioTotal + smsextra*0.2;   // Precio de sms extra
         }
 
         // Detalles de la factura
