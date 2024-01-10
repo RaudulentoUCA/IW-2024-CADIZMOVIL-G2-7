@@ -37,4 +37,8 @@ public class ServiciosFactura {
             return false;
         }
     }
+
+    public byte[] getFacturabyId(Long id) {
+        return repositorioFactura.findAllById(id);
+    }
 }

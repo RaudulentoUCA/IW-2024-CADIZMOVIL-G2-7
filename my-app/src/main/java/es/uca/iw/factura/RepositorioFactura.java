@@ -5,9 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface RepositorioFactura extends JpaRepository<Factura, Integer> {
+public interface RepositorioFactura extends JpaRepository<Factura, Long> {
 
     List<Factura> findAll();
 
     List<Factura> findAllByCliente(Cliente cliente);
+
+    byte[] findAllById(Long id);
 }
