@@ -7,9 +7,6 @@ import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.auth.AnonymousAllowed;
-import es.uca.iw.AuthenticatedUser;
-import es.uca.iw.atencion_cliente.Consulta;
 import es.uca.iw.contrato.Contrato;
 import es.uca.iw.contrato.ServiciosContrato;
 import es.uca.iw.views.MainLayout;
@@ -21,17 +18,14 @@ import java.util.List;
 @Route(value = "contratos/bajas", layout = MainLayout.class)
 @RolesAllowed("ATTENTION")
 public class ContratosBajasView extends VerticalLayout {
-    private final AuthenticatedUser authenticatedUser;
     private final ServiciosContrato serviciosContrato;
 
-    public ContratosBajasView(AuthenticatedUser authenticatedUser, ServiciosContrato serviciosContrato) {
-        this.authenticatedUser = authenticatedUser;
+    public ContratosBajasView(ServiciosContrato serviciosContrato) {
         this.serviciosContrato = serviciosContrato;
 
         H1 titulo = new H1("Gestión de bajas de contratos");
         Button btnEliminar = new Button("Dar de baja contrato");
 
-        // Crear el grid para mostrar los contratos
         Grid<Contrato> gridContratos = new Grid<>(Contrato.class);
         List<Contrato> contratos = obtenerContratos();
         gridContratos.setItems(contratos);
@@ -45,8 +39,6 @@ public class ContratosBajasView extends VerticalLayout {
             btnEliminar.setEnabled(event.getValue() != null);
         });
 
-        // Botón para eliminar contrato seleccionado
-
         btnEliminar.setEnabled(false);
         btnEliminar.addClickListener(event -> {
             Contrato contratoSeleccionado = gridContratos.asSingleSelect().getValue();
@@ -57,15 +49,12 @@ public class ContratosBajasView extends VerticalLayout {
             }
         });
 
-        // Botón para volver a la página principal
         Button volver = new Button("Volver a tu página principal");
         volver.addClickListener(event -> UI.getCurrent().navigate(AtencionView.class));
 
-        // Agregar los componentes al diseño
         add(titulo, gridContratos, btnEliminar, volver);
     }
 
-    // Método para obtener la lista de contratos
     private List<Contrato> obtenerContratos() {
         return serviciosContrato.getAllContratos();
     }

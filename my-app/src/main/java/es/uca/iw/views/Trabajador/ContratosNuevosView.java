@@ -6,6 +6,7 @@ import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -89,7 +90,8 @@ public class ContratosNuevosView extends VerticalLayout {
 
                 repositorioContrato.save(contrato);
 
-                Notification.show("Contrato almacenado correctamente", 3000, Notification.Position.TOP_CENTER);
+                Notification.show("Contrato almacenado correctamente", 3000, Notification.Position.TOP_CENTER)
+                        .addThemeVariants(NotificationVariant.LUMO_SUCCESS);
 
                 dni.setValue("");
                 fechaInicio.clear();
@@ -97,10 +99,12 @@ public class ContratosNuevosView extends VerticalLayout {
                 descuento.clear();
                 fechaInicio.setValue(LocalDate.now());
             } else {
-                Notification.show("Error: Cliente no encontrado", 3000, Notification.Position.TOP_CENTER);
+                Notification.show("Error: Cliente no encontrado", 3000, Notification.Position.TOP_CENTER)
+                        .addThemeVariants(NotificationVariant.LUMO_ERROR);
             }
         } else {
-            Notification.show("Error: Por favor, complete todos los campos", 3000, Notification.Position.TOP_CENTER);
+            Notification.show("Error: Por favor, complete todos los campos", 3000, Notification.Position.TOP_CENTER)
+                    .addThemeVariants(NotificationVariant.LUMO_ERROR);
         }
     }
 }

@@ -8,12 +8,10 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.auth.AnonymousAllowed;
-import es.uca.iw.AuthenticatedUser;
 import es.uca.iw.atencion_cliente.Consulta;
 import es.uca.iw.atencion_cliente.ServicioConsulta;
-import es.uca.iw.cliente.Cliente;
 import es.uca.iw.views.MainLayout;
+import es.uca.iw.views.profile.ProfileView;
 import jakarta.annotation.security.RolesAllowed;
 
 import java.util.List;
@@ -23,12 +21,10 @@ import java.util.concurrent.atomic.AtomicReference;
 @Route(value = "consultas/bajas", layout = MainLayout.class)
 @RolesAllowed("ATTENTION")
 public class EliminarConsultaView extends VerticalLayout {
-    private final AuthenticatedUser authenticatedUser;
     private final ServicioConsulta servicioConsulta;
     private final AtomicReference<List<Consulta>> consultas;
 
-    public EliminarConsultaView(AuthenticatedUser authenticatedUser, ServicioConsulta servicioConsulta) {
-        this.authenticatedUser = authenticatedUser;
+    public EliminarConsultaView(ServicioConsulta servicioConsulta) {
         this.servicioConsulta = servicioConsulta;
         this.consultas = new AtomicReference<>(obtenerConsultas());
 
@@ -54,7 +50,7 @@ public class EliminarConsultaView extends VerticalLayout {
         });
 
         Button inicio = new Button("Volver a tu página principal");
-        inicio.addClickListener(event -> UI.getCurrent().navigate(AtencionView.class));
+        inicio.addClickListener(event -> UI.getCurrent().navigate(ProfileView.class));
 
         Button atras = new Button("Volver a la página anterior");
         atras.addClickListener(event -> UI.getCurrent().navigate(ConsultasView.class));

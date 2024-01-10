@@ -12,13 +12,12 @@ import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.auth.AnonymousAllowed;
 import es.uca.iw.atencion_cliente.Respuesta;
 import es.uca.iw.atencion_cliente.ServicioRespuesta;
 import es.uca.iw.cliente.Cliente;
-import es.uca.iw.cliente.RepositorioCliente;
 import es.uca.iw.cliente.ServiciosCliente;
 import es.uca.iw.views.MainLayout;
+import es.uca.iw.views.profile.ProfileView;
 import jakarta.annotation.security.RolesAllowed;
 
 import java.util.Optional;
@@ -62,7 +61,7 @@ public class ResponderConsultaView extends VerticalLayout {
 
         // Botón para volver a la página principal
         Button inicio = new Button("Volver a tu página principal");
-        inicio.addClickListener(event -> UI.getCurrent().navigate(AtencionView.class));
+        inicio.addClickListener(event -> UI.getCurrent().navigate(ProfileView.class));
 
         Button atras = new Button("Volver a la página anterior");
         atras.addClickListener(event -> UI.getCurrent().navigate(ConsultasView.class));

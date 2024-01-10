@@ -62,7 +62,6 @@ public class CerrarConsultaView extends VerticalLayout {
                     Consulta consulta = optionalConsulta.get();
                     consultaRepository.delete(consulta);
                     Notification.show("Consulta cerrada con éxito");
-                    // Puedes agregar más acciones después de cerrar la consulta si es necesario
                 } else {
                     Notification.show("No se encontró la consulta con el ID proporcionado");
                 }

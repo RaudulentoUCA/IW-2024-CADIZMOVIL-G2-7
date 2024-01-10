@@ -34,7 +34,6 @@ public class ServicioConsulta {
 
     @Transactional
     public void guardarConsulta(Consulta consulta) {
-        // Puedes realizar alguna lógica de validación o procesamiento adicional aquí si es necesario
         repositorioConsulta.save(consulta);
     }
 }

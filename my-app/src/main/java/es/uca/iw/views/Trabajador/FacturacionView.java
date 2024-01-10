@@ -50,7 +50,6 @@ public class FacturacionView extends VerticalLayout {
 
     private final Binder<Tarifa> binder = new Binder<>(Tarifa.class);
 
-    // Aquí deberías inyectar tu servicio o repositorio de tarifas para obtener la lista de tarifas
     private final ServiciosContrato serviciosContrato;
     private final SimCardService servicioSimcard;
 
