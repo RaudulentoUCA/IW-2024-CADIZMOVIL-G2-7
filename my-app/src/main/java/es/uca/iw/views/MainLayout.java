@@ -19,6 +19,7 @@ import es.uca.iw.AuthenticatedUser;
 import es.uca.iw.cliente.Cliente;
 import es.uca.iw.cliente.Role;
 import es.uca.iw.tarifa.TarifaView;
+import es.uca.iw.views.Trabajador.FacturacionView;
 import es.uca.iw.views.about.AboutView;
 import es.uca.iw.views.client_views.*;
 import es.uca.iw.views.helloworld.HelloWorldView;
@@ -88,7 +89,7 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver {
             nav.addItem(new SideNavItem("Chat", AboutView.class, VaadinIcon.CHAT.create()));
         }
         else {
-            nav.addItem(new SideNavItem("Facturacion", HelloWorldView.class, VaadinIcon.INVOICE.create()));
+            nav.addItem(new SideNavItem("Facturacion", FacturacionView.class, VaadinIcon.INVOICE.create()));
             nav.addItem(new SideNavItem("Estadistica", AboutView.class, VaadinIcon.BAR_CHART_H.create()));
         }
 
