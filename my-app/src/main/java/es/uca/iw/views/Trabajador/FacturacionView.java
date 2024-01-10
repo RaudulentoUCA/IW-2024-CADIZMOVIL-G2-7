@@ -17,6 +17,7 @@ import es.uca.iw.factura.ServiciosFactura;
 import es.uca.iw.simcard.SimCard;
 import es.uca.iw.simcard.SimCardService;
 import es.uca.iw.tarifa.Tarifa;
+import es.uca.iw.views.MainLayout;
 import jakarta.annotation.security.RolesAllowed;
 
 import java.time.LocalDate;
@@ -39,7 +40,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import java.util.List;
 
-@Route("factura-view")
+@Route(value = "factura-view", layout = MainLayout.class)
 @RolesAllowed("FINANCE")
 //@AnonymousAllowed
 public class FacturacionView extends VerticalLayout {
@@ -49,8 +50,6 @@ public class FacturacionView extends VerticalLayout {
     private final Button guardarButton = new Button("Enviar");
 
     private final Binder<Tarifa> binder = new Binder<>(Tarifa.class);
-
-    // Aquí deberías inyectar tu servicio o repositorio de tarifas para obtener la lista de tarifas
     private final ServiciosContrato serviciosContrato;
     private final SimCardService servicioSimcard;
 
