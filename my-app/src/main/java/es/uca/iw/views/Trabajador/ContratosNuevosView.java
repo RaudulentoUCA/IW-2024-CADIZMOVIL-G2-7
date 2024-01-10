@@ -18,12 +18,13 @@ import es.uca.iw.cliente.RepositorioCliente;
 import es.uca.iw.contrato.Contrato;
 import es.uca.iw.contrato.RepositorioContrato;
 import es.uca.iw.views.MainLayout;
+import jakarta.annotation.security.RolesAllowed;
 
 import java.time.LocalDate;
 
 @PageTitle("Cádiz Móvil")
 @Route(value = "contratos/altas", layout = MainLayout.class)
-@AnonymousAllowed
+@RolesAllowed("ATTENTION")
 public class ContratosNuevosView extends VerticalLayout {
     private final AuthenticatedUser authenticatedUser;
 

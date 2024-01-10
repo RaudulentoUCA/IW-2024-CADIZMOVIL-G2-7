@@ -5,6 +5,7 @@ import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
@@ -14,37 +15,33 @@ import es.uca.iw.AuthenticatedUser;
 import es.uca.iw.cliente.Cliente;
 import es.uca.iw.views.MainLayout;
 import es.uca.iw.views.helloworld.HelloWorldView;
+import jakarta.annotation.security.RolesAllowed;
+
 import java.util.Optional;
 
 @PageTitle("Cádiz Móvil")
 @Route(value = "atencion", layout = MainLayout.class)
-@AnonymousAllowed
+@RolesAllowed("ATTENTION")
 public class AtencionView extends VerticalLayout {
     private final AuthenticatedUser authenticatedUser;
 
     public AtencionView(AuthenticatedUser authenticatedUser) {
         this.authenticatedUser = authenticatedUser;
 
-        Optional<Cliente> optionalCliente = authenticatedUser.get();
+        Optional<Cliente> optionalUsuario = authenticatedUser.get();
 
-        Cliente cliente = null;
+        Cliente usuario = null;
 
-        if (optionalCliente.isPresent()) { cliente = optionalCliente.get();}
+        if (optionalUsuario.isPresent()) { usuario = optionalUsuario.get();}
 
         H1 titulo = new H1("Sección de atención al cliente");
 
-        H3 saludo = new H3("Bienvenido, ¡" + cliente.getNombre() + " " + cliente.getApellidos() + "!");
+        H3 saludo = new H3("Bienvenido, ¡" + usuario.getNombre() + " " + usuario.getApellidos() + "!");
 
-        H3 trabajo = new H3("Comience su jornada con una de las siguientes opciones");
+        H3 trabajo = new H3("Comience su jornada mientras disfruta de las vistas de nuestra maravillosa Ciudad");
 
-        Button consultas = new Button("Consultas");
-        consultas.addClickListener(event -> UI.getCurrent().navigate(ConsultasView.class));
-
-        Button altas = new Button("Nuevas altas");
-        altas.addClickListener(event -> UI.getCurrent().navigate(ContratosNuevosView.class));
-
-        Button bajas = new Button("Gestión de bajas");
-        bajas.addClickListener(event -> UI.getCurrent().navigate(ContratosBajasView.class));
+        Image img = new Image("images/puente-cadiz.jpg", "foto puente");
+        img.addClassName("img");
 
         Button cierresesion = new Button("Cerrar sesión");
         cierresesion.addClickListener(event -> cerrarSesion());
@@ -53,7 +50,7 @@ public class AtencionView extends VerticalLayout {
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
 
-        add(titulo, saludo, trabajo, new HorizontalLayout(consultas, altas, bajas), cierresesion);
+        add(titulo, saludo, trabajo, img, cierresesion);
 
     }
 

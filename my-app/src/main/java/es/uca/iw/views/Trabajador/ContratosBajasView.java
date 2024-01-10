@@ -13,12 +13,13 @@ import es.uca.iw.atencion_cliente.Consulta;
 import es.uca.iw.contrato.Contrato;
 import es.uca.iw.contrato.ServiciosContrato;
 import es.uca.iw.views.MainLayout;
+import jakarta.annotation.security.RolesAllowed;
 
 import java.util.List;
 
 @PageTitle("Cádiz Móvil")
 @Route(value = "contratos/bajas", layout = MainLayout.class)
-@AnonymousAllowed
+@RolesAllowed("ATTENTION")
 public class ContratosBajasView extends VerticalLayout {
     private final AuthenticatedUser authenticatedUser;
     private final ServiciosContrato serviciosContrato;

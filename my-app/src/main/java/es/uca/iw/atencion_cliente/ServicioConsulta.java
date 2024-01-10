@@ -27,6 +27,7 @@ public class ServicioConsulta {
         repositorioConsulta.deleteById(consultaId);
     }
 
+    @Transactional
     public List<Consulta> getConsultasByCliente(Cliente cliente) {
         return repositorioConsulta.findByCliente(cliente);
     }

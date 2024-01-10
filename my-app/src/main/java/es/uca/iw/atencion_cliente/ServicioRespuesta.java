@@ -3,6 +3,7 @@ package es.uca.iw.atencion_cliente;
 import es.uca.iw.cliente.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,10 +17,12 @@ public class ServicioRespuesta {
         this.respuestaRepository = respuestaRepository;
     }
 
-    public Respuesta guardarRespuesta(Respuesta respuesta) {
-        return respuestaRepository.save(respuesta);
+    @Transactional
+    public void guardarRespuesta(Respuesta respuesta) {
+        respuestaRepository.save(respuesta);
     }
 
+    @Transactional
     public List<Respuesta> getRespuestasByCliente(Cliente cliente) {
         return respuestaRepository.findByCliente(cliente);
     }

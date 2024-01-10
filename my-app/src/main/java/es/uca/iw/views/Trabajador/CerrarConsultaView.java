@@ -11,6 +11,7 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 import es.uca.iw.atencion_cliente.Consulta;
 import es.uca.iw.atencion_cliente.RepositorioConsulta;
 import es.uca.iw.views.MainLayout;
+import jakarta.annotation.security.RolesAllowed;
 import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.util.Optional;
@@ -18,7 +19,7 @@ import java.util.UUID;
 
 @PageTitle("Cádiz Móvil")
 @Route(value = "cerrarConsulta", layout = MainLayout.class)
-@AnonymousAllowed
+@RolesAllowed("ATTENTION")
 public class CerrarConsultaView extends VerticalLayout {
 
     private final RepositorioConsulta consultaRepository;

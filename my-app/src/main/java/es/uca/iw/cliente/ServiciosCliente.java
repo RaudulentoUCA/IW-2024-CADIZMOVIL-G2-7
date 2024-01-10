@@ -49,6 +49,7 @@ public class ServiciosCliente implements UserDetailsService {
         }
     }
 
+    @Transactional
     public Optional<Cliente> cargarUsuarioPorEmail(String email) throws UsernameNotFoundException {
         Optional<Cliente> user = repositorio.findByEmail(email);
         return user;

@@ -14,13 +14,14 @@ import es.uca.iw.atencion_cliente.Consulta;
 import es.uca.iw.atencion_cliente.ServicioConsulta;
 import es.uca.iw.cliente.Cliente;
 import es.uca.iw.views.MainLayout;
+import jakarta.annotation.security.RolesAllowed;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 @PageTitle("Cádiz Móvil")
 @Route(value = "consultas/bajas", layout = MainLayout.class)
-@AnonymousAllowed
+@RolesAllowed("ATTENTION")
 public class EliminarConsultaView extends VerticalLayout {
     private final AuthenticatedUser authenticatedUser;
     private final ServicioConsulta servicioConsulta;

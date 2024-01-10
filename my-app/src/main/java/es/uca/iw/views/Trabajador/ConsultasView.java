@@ -13,13 +13,14 @@ import es.uca.iw.AuthenticatedUser;
 import es.uca.iw.atencion_cliente.Consulta;
 import es.uca.iw.atencion_cliente.RepositorioConsulta;
 import es.uca.iw.views.MainLayout;
+import jakarta.annotation.security.RolesAllowed;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @PageTitle("Cádiz Móvil")
 @Route(value = "consultas", layout = MainLayout.class)
-@AnonymousAllowed
+@RolesAllowed("ATTENTION")
 public class ConsultasView extends VerticalLayout {
     private final AuthenticatedUser authenticatedUser;
     private final RepositorioConsulta repositorioConsulta;

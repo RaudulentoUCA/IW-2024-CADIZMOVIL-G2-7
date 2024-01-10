@@ -19,7 +19,7 @@ import es.uca.iw.AuthenticatedUser;
 import es.uca.iw.cliente.Cliente;
 import es.uca.iw.cliente.Role;
 import es.uca.iw.tarifa.TarifaView;
-import es.uca.iw.views.Trabajador.FacturacionView;
+import es.uca.iw.views.Trabajador.*;
 import es.uca.iw.views.about.AboutView;
 import es.uca.iw.views.client_views.*;
 import es.uca.iw.views.helloworld.HelloWorldView;
@@ -84,9 +84,10 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver {
             nav.addItem(new SideNavItem("Tarifas", TarifaView.class, VaadinIcon.ABACUS.create()));
             nav.addItem(new SideNavItem("Noticias y promociones", AboutView.class, VaadinIcon.NEWSPAPER.create()));
         } else if (optionalCliente.get().getRoles().stream().anyMatch(role -> role.equals(Role.ATTENTION))) {
-            nav.addItem(new SideNavItem("Contratos", AboutView.class, VaadinIcon.OPEN_BOOK.create()));
-            nav.addItem(new SideNavItem("Consultas", AboutView.class, VaadinIcon.QUESTION.create()));
-            nav.addItem(new SideNavItem("Chat", AboutView.class, VaadinIcon.CHAT.create()));
+            nav.addItem(new SideNavItem("Alta de Contratos", ContratosNuevosView.class, VaadinIcon.OPEN_BOOK.create()));
+            nav.addItem(new SideNavItem("Baja de Contratos", ContratosBajasView.class, VaadinIcon.QUESTION.create()));
+            nav.addItem(new SideNavItem("Consultas/Reclamaciones pendientes", ConsultasView.class, VaadinIcon.CHAT.create()));
+            nav.addItem(new SideNavItem("Responder Consultas/Reclamaciones", ResponderConsultaView.class, VaadinIcon.CHAT.create()));
         }
         else {
             nav.addItem(new SideNavItem("Facturacion", FacturacionView.class, VaadinIcon.INVOICE.create()));
