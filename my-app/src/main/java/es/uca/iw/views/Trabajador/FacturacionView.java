@@ -2,25 +2,24 @@ package es.uca.iw.views.Trabajador;
 
 import com.itextpdf.text.*;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.converter.StringToFloatConverter;
-import com.vaadin.flow.data.converter.StringToIntegerConverter;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.auth.AnonymousAllowed;
 import es.uca.iw.cliente.Cliente;
 import es.uca.iw.cliente.ServiciosCliente;
 import es.uca.iw.contrato.Contrato;
 import es.uca.iw.contrato.ServiciosContrato;
+import es.uca.iw.factura.Factura;
+import es.uca.iw.factura.ServiciosFactura;
 import es.uca.iw.simcard.SimCard;
 import es.uca.iw.simcard.SimCardService;
 import es.uca.iw.tarifa.Tarifa;
 import jakarta.annotation.security.RolesAllowed;
+
+import java.time.LocalDate;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.time.LocalDateTime;
@@ -33,20 +32,16 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.util.ByteArrayDataSource;
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import java.util.List;
 
 @Route("factura-view")
-@AnonymousAllowed
+@RolesAllowed("FINANCE")
+//@AnonymousAllowed
 public class FacturacionView extends VerticalLayout {
 
     private final ComboBox<Cliente> clienteComboBox = new ComboBox<>("Seleccionar Cliente");
@@ -60,12 +55,14 @@ public class FacturacionView extends VerticalLayout {
     private final SimCardService servicioSimcard;
 
     private final ServiciosCliente serviciosCliente;
+    private final ServiciosFactura serviciosFactura;
     private Cliente clienteSeleccionado = null;
 
-    public FacturacionView(ServiciosContrato serviciosContrato, SimCardService servicioSimcard, ServiciosCliente serviciosCliente) {
+    public FacturacionView(ServiciosContrato serviciosContrato, SimCardService servicioSimcard, ServiciosCliente serviciosCliente, ServiciosFactura serviciosFactura) {
         this.serviciosContrato = serviciosContrato;
         this.servicioSimcard = servicioSimcard;
         this.serviciosCliente = serviciosCliente;
+        this.serviciosFactura = serviciosFactura;
 
         // ComboBox
         List<Cliente> clientes = serviciosCliente.getAllClientes();
@@ -152,6 +149,11 @@ public class FacturacionView extends VerticalLayout {
                 Transport.send(message);
 
                 Notification.show("Factura enviada correctamente a " + clienteSeleccionado.getEmail());
+                Factura factura = new Factura();
+                factura.setCliente(clienteSeleccionado);
+                factura.setFecha(LocalDate.now());
+                factura.setPdfContenido(pdfContent);
+                serviciosFactura.registrarFactura(factura);
 
             } catch (MessagingException | InterruptedException | ExecutionException e) {
                 e.printStackTrace();
