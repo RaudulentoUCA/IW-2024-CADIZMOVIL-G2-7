@@ -24,6 +24,9 @@ public class Contrato {
     @Column(name = "descuento", nullable = false, columnDefinition = "float default 0")
     private float descuento;
 
+    @Column(name = "compartirDatos", nullable = false, columnDefinition = "boolean default false")
+    private boolean compartirDatos;
+
     public Cliente getCliente() {
         return cliente;
     }
@@ -60,4 +63,11 @@ public class Contrato {
         this.descuento = descuento;
     }
 
+    public boolean isCompartirDatos() {
+        return compartirDatos;
+    }
+
+    public void setCompartirDatos(boolean compartirDatos) {
+        this.compartirDatos = compartirDatos;
+    }
 }
