@@ -54,9 +54,6 @@ public class ClienteTest {
     }
     @Test
     public void testCliente() {
-        Optional<Cliente> user = servicios.cargarUsuarioPorEmail("prueba@gmail.com");
-        if(user.isPresent())
-            servicios.eliminar(user.get());
         driver.get("http://localhost:8080/");
         driver.manage().window().setSize(new Dimension(1066, 816));
         driver.findElement(By.cssSelector("vaadin-button:nth-child(2)")).click();
@@ -94,11 +91,5 @@ public class ClienteTest {
         driver.findElement(By.id("input-vaadin-password-field-70")).sendKeys(Keys.ENTER);
         driver.findElement(By.cssSelector("vaadin-icon:nth-child(2)")).click();
         driver.findElement(By.cssSelector("vaadin-menu-bar-list-box > vaadin-menu-bar-item")).click();
-        user = servicios.cargarUsuarioPorEmail("prueba@gmail.com");
-        if(user.isPresent()){
-            servicios.eliminar(user.get());
-            System.out.println("Se ha borrado el usuario de prueba");
-        }
-
     }
 }
