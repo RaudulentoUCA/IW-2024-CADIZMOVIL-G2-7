@@ -24,6 +24,7 @@ import javax.swing.*;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Route(value = "ajustes-contrato", layout = MainLayout.class)
 @RolesAllowed("USER")
@@ -33,8 +34,8 @@ public class AjustesContrato extends VerticalLayout {
 
     private final ServiciosContrato serviciosContrato;
     private final ComboBox<Contrato> contratoComboBox = new ComboBox<>("Seleccionar Contrato");
-    private final Button guardarButton = new Button("Guardar");
     private final Checkbox compartirDatos;
+    private final TextField numerosBloqueadosField;  // Nuevo campo para los números bloqueados
     private final Button guardar;
 
     public AjustesContrato(AuthenticatedUser authenticatedUser, ServiciosContrato serviciosContrato){
@@ -45,33 +46,44 @@ public class AjustesContrato extends VerticalLayout {
         compartirDatos = new Checkbox();
         compartirDatos.setLabel("Compartir Datos");
         compartirDatos.setVisible(false);
+
+        numerosBloqueadosField = new TextField("Números Bloqueados");  // Campo para los números bloqueados
+        numerosBloqueadosField.setVisible(false);
+
         guardar = new Button();
         guardar.setText("Guardar Datos");
         guardar.setVisible(false);
+
         Optional<Cliente> optionalCliente = authenticatedUser.get();
 
-        add(contratoComboBox, compartirDatos, guardar);
+        add(contratoComboBox, compartirDatos, numerosBloqueadosField, guardar);
 
         if(optionalCliente.isPresent()){
             // ComboBox
             List<Contrato> contratos = serviciosContrato.getContratosByCliente(optionalCliente.get());
             contratoComboBox.setItems(contratos);
             contratoComboBox.setItemLabelGenerator(contrato -> String.valueOf(contrato.getId()));
-            contratoComboBox.addValueChangeListener(event -> ejecutarfuncion(event.getValue()));
+            contratoComboBox.addValueChangeListener(event -> ejecutarFuncion(event.getValue()));
         }
-
     }
 
-    private void ejecutarfuncion(Contrato value) {
+    private void ejecutarFuncion(Contrato value) {
         compartirDatos.setVisible(true);
+        numerosBloqueadosField.setVisible(true);
         guardar.setVisible(true);
+
 
         guardar.addClickListener(event -> actualizarContrato(value));
     }
 
     private void actualizarContrato(Contrato value) {
-
         value.setCompartirDatos(compartirDatos.getValue());
+
+        // Obtener y guardar los números bloqueados desde el campo de texto
+        Set<String> numerosBloqueados = value.getNumerosBloqueados();
+        numerosBloqueados.add(numerosBloqueadosField.getValue());
+        value.setNumerosBloqueados(numerosBloqueados);
+
         serviciosContrato.guardarContrato(value);
     }
 }

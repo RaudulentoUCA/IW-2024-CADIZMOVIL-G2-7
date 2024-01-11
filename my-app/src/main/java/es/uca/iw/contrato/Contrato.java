@@ -77,4 +77,12 @@ public class Contrato {
     public void setCompartirDatos(boolean compartirDatos) {
         this.compartirDatos = compartirDatos;
     }
+
+    public Set<String> getNumerosBloqueados() {
+        return numerosBloqueados;
+    }
+
+    public void setNumerosBloqueados(Set<String> numerosBloqueados) {
+        this.numerosBloqueados = numerosBloqueados;
+    }
 }
