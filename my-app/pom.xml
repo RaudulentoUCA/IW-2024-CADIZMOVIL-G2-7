@@ -7,7 +7,7 @@
     <groupId>es.uca.iw</groupId>
     <artifactId>cadizmovil</artifactId>
     <name>cadizmovil</name>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.7-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>
