@@ -1,18 +1,23 @@
 package es.uca.iw.cliente;
 
+import es.uca.iw.auditoria.CustomAuditingEntityListener;
 import es.uca.iw.contrato.Contrato;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
+@EntityListeners(CustomAuditingEntityListener.class)
 public class Cliente implements UserDetails {
     @Id
     @GeneratedValue
@@ -41,6 +46,23 @@ public class Cliente implements UserDetails {
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Contrato> contratos = new ArrayList<>();
+
+
+    @CreatedDate
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
+
+    @LastModifiedDate
+    @Column(name = "last_modified_date")
+    private LocalDateTime lastModifiedDate;
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public void setLastModifiedDate(LocalDateTime lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
 
     public UUID getId() {
         return id;
