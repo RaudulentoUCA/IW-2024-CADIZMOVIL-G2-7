@@ -3,40 +3,35 @@ package es.uca.iw.views.Trabajador;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.*;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.auth.AnonymousAllowed;
-import es.uca.iw.AuthenticatedUser;
 import es.uca.iw.atencion_cliente.Consulta;
-import es.uca.iw.atencion_cliente.RepositorioConsulta;
+import es.uca.iw.atencion_cliente.ServicioConsulta;
 import es.uca.iw.views.MainLayout;
-import org.springframework.transaction.annotation.Transactional;
+import es.uca.iw.views.profile.ProfileView;
+import jakarta.annotation.security.RolesAllowed;
 
 import java.util.List;
 
 @PageTitle("Cádiz Móvil")
 @Route(value = "consultas", layout = MainLayout.class)
-@AnonymousAllowed
+@RolesAllowed("ATTENTION")
 public class ConsultasView extends VerticalLayout {
-    private final AuthenticatedUser authenticatedUser;
-    private final RepositorioConsulta repositorioConsulta;
+    private final ServicioConsulta servicioConsulta;
 
-    public ConsultasView(AuthenticatedUser authenticatedUser, RepositorioConsulta repositorioConsulta) {
-        this.authenticatedUser = authenticatedUser;
-        this.repositorioConsulta = repositorioConsulta;
+    public ConsultasView(ServicioConsulta servicioConsulta) {
+        this.servicioConsulta = servicioConsulta;
 
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
         H1 titulo = new H1("Consultas pendientes de clientes");
         add(titulo);
 
-        List<Consulta> consultas = repositorioConsulta.findAll();
+        List<Consulta> consultas = servicioConsulta.obtenerTodasLasConsultas();
 
         if (consultas.isEmpty()) {
-            // Mostrar mensaje cuando no hay consultas
             add(new Paragraph("No hay consultas pendientes."));
         } else {
             for (Consulta consulta : consultas) {
@@ -58,7 +53,6 @@ public class ConsultasView extends VerticalLayout {
                 add(consultaDiv);
             }
 
-            // Mostrar botones solo si hay consultas
             Button responder = new Button("Responder consultas");
             responder.addClickListener(event -> UI.getCurrent().navigate(ResponderConsultaView.class));
             Button cerrar = new Button("Cerrar consultas");
@@ -66,9 +60,8 @@ public class ConsultasView extends VerticalLayout {
             add(new HorizontalLayout(responder, cerrar));
         }
 
-        // Botón para volver atrás siempre se muestra
-        Button volver = new Button("Volver atrás");
-        volver.addClickListener(event -> UI.getCurrent().navigate(AtencionView.class));
+        Button volver = new Button("Volver a tu página principal");
+        volver.addClickListener(event -> UI.getCurrent().navigate(ProfileView.class));
         add(volver);
     }
 }

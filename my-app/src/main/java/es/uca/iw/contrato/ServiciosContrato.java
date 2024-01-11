@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ServiciosContrato {
@@ -30,5 +29,10 @@ public class ServiciosContrato {
     @Transactional
     public void eliminarContrato(int id) {
         repositorioContrato.deleteById(id);
+    }
+
+    @Transactional
+    public void guardarContrato(Contrato contrato) {
+        repositorioContrato.save(contrato);
     }
 }

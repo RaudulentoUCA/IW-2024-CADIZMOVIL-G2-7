@@ -6,39 +6,41 @@ import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.auth.AnonymousAllowed;
 import es.uca.iw.AuthenticatedUser;
 import es.uca.iw.cliente.Cliente;
-import es.uca.iw.cliente.RepositorioCliente;
+import es.uca.iw.cliente.Role;
+import es.uca.iw.cliente.ServiciosCliente;
 import es.uca.iw.contrato.Contrato;
-import es.uca.iw.contrato.RepositorioContrato;
+import es.uca.iw.contrato.ServiciosContrato;
 import es.uca.iw.views.MainLayout;
+import es.uca.iw.views.profile.ProfileView;
+import jakarta.annotation.security.RolesAllowed;
 
 import java.time.LocalDate;
 
 @PageTitle("Cádiz Móvil")
 @Route(value = "contratos/altas", layout = MainLayout.class)
-@AnonymousAllowed
+@RolesAllowed("ATTENTION")
 public class ContratosNuevosView extends VerticalLayout {
-    private final AuthenticatedUser authenticatedUser;
 
-    private final RepositorioCliente repositorioCliente;
-    private final RepositorioContrato repositorioContrato;
+    private final ServiciosCliente serviciosCliente;
+
+    private final ServiciosContrato serviciosContrato;
     private final TextField dni;
     private final DatePicker fechaInicio;
 
     private final DatePicker fechaFin;
 
     private final TextField descuento;
-    public ContratosNuevosView(AuthenticatedUser authenticatedUser, RepositorioCliente repositorioCliente, RepositorioContrato repositorioContrato) {
-        this.authenticatedUser = authenticatedUser;
-        this.repositorioCliente = repositorioCliente;
-        this.repositorioContrato = repositorioContrato;
+    public ContratosNuevosView(AuthenticatedUser authenticatedUser, ServiciosCliente serviciosCliente, ServiciosContrato serviciosContrato) {
+        this.serviciosCliente = serviciosCliente;
+        this.serviciosContrato = serviciosContrato;
 
         FormLayout formLayout = new FormLayout();
         H1 titulo = new H1("Gestión de altas de contratos");
@@ -64,7 +66,7 @@ public class ContratosNuevosView extends VerticalLayout {
         crearContrato.addClickListener(event -> crearContrato());
 
         Button volver = new Button("Volver a tu página principal");
-        volver.addClickListener(event -> UI.getCurrent().navigate(AtencionView.class));
+        volver.addClickListener(event -> UI.getCurrent().navigate(ProfileView.class));
 
         formLayout.add(dni, fechaInicio, fechaFin, descuento);
         add(titulo, formLayout, new HorizontalLayout(crearContrato, volver));
@@ -77,29 +79,44 @@ public class ContratosNuevosView extends VerticalLayout {
             LocalDate fechaFinValue = fechaFin.getValue();
             float descuentoValue = Float.parseFloat(descuento.getValue());
 
-            Cliente cliente = repositorioCliente.findByDni(dniValue).orElse(null);
+            Cliente cliente = serviciosCliente.findByDni(dniValue).orElse(null);
 
             if (cliente != null) {
-                Contrato contrato = new Contrato();
-                contrato.setCliente(cliente);
-                contrato.setFechaInicio(fechaInicioValue);
-                contrato.setFechaFin(fechaFinValue);
-                contrato.setDescuento(descuentoValue);
+                if(cliente.getRoles().stream().noneMatch(role -> role.equals(Role.USER))){
+                    Notification.show("Error: Existe el usuario, pero es administrador.", 3000, Notification.Position.TOP_CENTER)
+                            .addThemeVariants(NotificationVariant.LUMO_ERROR);
 
-                repositorioContrato.save(contrato);
+                }else {
+                    if(fechaInicioValue.isAfter(fechaFinValue)){
+                        Notification.show("Error: La fecha de inicio no puede ser posterior a la fecha de fin.", 3000, Notification.Position.TOP_CENTER)
+                                .addThemeVariants(NotificationVariant.LUMO_ERROR);
 
-                Notification.show("Contrato almacenado correctamente", 3000, Notification.Position.TOP_CENTER);
+                    }else {
+                        Contrato contrato = new Contrato();
+                        contrato.setCliente(cliente);
+                        contrato.setFechaInicio(fechaInicioValue);
+                        contrato.setFechaFin(fechaFinValue);
+                        contrato.setDescuento(descuentoValue);
 
-                dni.setValue("");
-                fechaInicio.clear();
-                fechaFin.clear();
-                descuento.clear();
-                fechaInicio.setValue(LocalDate.now());
+                        serviciosContrato.guardarContrato(contrato);
+
+                        Notification.show("Contrato almacenado correctamente", 3000, Notification.Position.TOP_CENTER)
+                                .addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+
+                        dni.setValue("");
+                        fechaInicio.clear();
+                        fechaFin.clear();
+                        descuento.clear();
+                        fechaInicio.setValue(LocalDate.now());
+                    }
+                }
             } else {
-                Notification.show("Error: Cliente no encontrado", 3000, Notification.Position.TOP_CENTER);
+                Notification.show("Error: Cliente no encontrado", 3000, Notification.Position.TOP_CENTER)
+                        .addThemeVariants(NotificationVariant.LUMO_ERROR);
             }
         } else {
-            Notification.show("Error: Por favor, complete todos los campos", 3000, Notification.Position.TOP_CENTER);
+            Notification.show("Error: Por favor, complete todos los campos", 3000, Notification.Position.TOP_CENTER)
+                    .addThemeVariants(NotificationVariant.LUMO_ERROR);
         }
     }
 }

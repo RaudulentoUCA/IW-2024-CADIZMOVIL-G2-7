@@ -1,6 +1,5 @@
 package es.uca.iw.atencion_cliente;
 
-import es.uca.iw.Trabajador;
 import es.uca.iw.cliente.Cliente;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;

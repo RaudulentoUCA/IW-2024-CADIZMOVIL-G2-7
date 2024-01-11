@@ -42,16 +42,16 @@ public class ServiciosCliente implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<Cliente> user = repositorio.findByEmail(email);
-        if (!user.isPresent()) {
+        if (user.isEmpty()) {
             throw new UsernameNotFoundException("No user present with username: " + email);
         } else {
             return user.get();
         }
     }
 
+    @Transactional
     public Optional<Cliente> cargarUsuarioPorEmail(String email) throws UsernameNotFoundException {
-        Optional<Cliente> user = repositorio.findByEmail(email);
-        return user;
+        return repositorio.findByEmail(email);
     }
 
     public void eliminar(Cliente user) {
@@ -78,5 +78,10 @@ public class ServiciosCliente implements UserDetailsService {
             }
         }
         return false;
+    }
+
+    @Transactional
+    public Optional<Cliente> findByDni(String dni) {
+        return repositorio.findByDni(dni);
     }
 }

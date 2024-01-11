@@ -3,6 +3,7 @@ package es.uca.iw.views.client_views;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
@@ -16,6 +17,7 @@ import es.uca.iw.atencion_cliente.ServicioConsulta;
 import es.uca.iw.cliente.Cliente;
 import es.uca.iw.views.MainLayout;
 import jakarta.annotation.security.RolesAllowed;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Route(value = "nueva_consulta", layout = MainLayout.class)
@@ -27,7 +29,11 @@ public class CrearConsultaReclamacionView extends VerticalLayout {
     private final ServicioConsulta consultaService;
 
     private final Binder<Consulta> binder;
+
+    @NotBlank(message = "El asunto no puede estar vacío")
     private final TextArea asuntoField;
+
+    @NotBlank(message = "El cuerpo no puede estar vacío")
     private final TextArea cuerpoField;
 
     public CrearConsultaReclamacionView(AuthenticatedUser authenticatedUser, ServicioConsulta consultaService) {
@@ -63,11 +69,15 @@ public class CrearConsultaReclamacionView extends VerticalLayout {
         if (binder.validate().isOk()) {
             Consulta nuevaConsulta = binder.getBean();
             nuevaConsulta.setCliente(authenticatedUser.get().orElseThrow()); // Asignar el cliente autenticado
-            consultaService.guardarConsulta(nuevaConsulta);
-            Notification.show("Consulta enviada con éxito");
-            limpiarFormulario();
-        } else {
-            Notification.show("Por favor, complete correctamente el formulario");
+            if (nuevaConsulta.getAsunto().isEmpty() || nuevaConsulta.getCuerpo().isEmpty()) {
+                Notification.show("Error: El asunto y el cuerpo no pueden estar vacíos.", 3000, Notification.Position.TOP_CENTER)
+                        .addThemeVariants(NotificationVariant.LUMO_ERROR);
+            }else {
+                consultaService.guardarConsulta(nuevaConsulta);
+                Notification.show("Consulta/Reclamación enviada correctamente.", 3000, Notification.Position.TOP_CENTER)
+                        .addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+                limpiarFormulario();
+            }
         }
     }
 

@@ -27,13 +27,13 @@ public class ServicioConsulta {
         repositorioConsulta.deleteById(consultaId);
     }
 
+    @Transactional
     public List<Consulta> getConsultasByCliente(Cliente cliente) {
         return repositorioConsulta.findByCliente(cliente);
     }
 
     @Transactional
     public void guardarConsulta(Consulta consulta) {
-        // Puedes realizar alguna lógica de validación o procesamiento adicional aquí si es necesario
         repositorioConsulta.save(consulta);
     }
 }

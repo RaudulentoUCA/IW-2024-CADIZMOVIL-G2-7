@@ -31,7 +31,7 @@ public class HelloWorldView extends VerticalLayout {
         registro.addClickListener(event -> navigateToRegisterView());
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
-        img.addClassName("img-inicio");
+        img.addClassName("img");
         inisesion.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         registro.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         setMargin(true);

@@ -106,7 +106,7 @@ public class LoginView extends Composite<VerticalLayout> implements BeforeEnterO
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
         if (authenticatedUser.get().isPresent()) {
-            event.forwardTo(ProfileView.class);
+            UI.getCurrent().navigate(ProfileView.class);
         }
 
         if(event.getLocation()
