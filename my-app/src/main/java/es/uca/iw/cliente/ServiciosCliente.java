@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -64,10 +65,14 @@ public class ServiciosCliente implements UserDetailsService {
     }
 
     @Transactional
-    public boolean actualizarContactNumber(UUID clientId, String newContactNumber) {
+    public boolean actualizarDatosDelCliente(UUID clientId, String newName, String newSurname, LocalDate newBirthDate,String newDNI, String newContactNumber) {
         Optional<Cliente> optionalCliente = repositorio.findById(clientId);
         if (optionalCliente.isPresent()) {
             Cliente cliente = optionalCliente.get();
+            cliente.setNombre(newName);
+            cliente.setApellidos(newSurname);
+            cliente.setFechaDeNacimiento(newBirthDate);
+            cliente.setDni(newDNI);
             cliente.setNumeroContacto(newContactNumber);
             try {
                 repositorio.save(cliente);

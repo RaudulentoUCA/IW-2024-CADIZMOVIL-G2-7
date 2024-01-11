@@ -2,6 +2,7 @@ package es.uca.iw.views.client_views;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
@@ -15,6 +16,7 @@ import es.uca.iw.cliente.ServiciosCliente;
 import es.uca.iw.views.MainLayout;
 import jakarta.annotation.security.RolesAllowed;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
@@ -38,19 +40,19 @@ public class AjustesView extends VerticalLayout {
 
             TextField nameField = new TextField("Nombre");
             nameField.setValue(cliente.getNombre());
-            nameField.setReadOnly(true);
+            nameField.setRequired(true);
 
             TextField surnameField = new TextField("Apellidos");
             surnameField.setValue(cliente.getApellidos());
-            surnameField.setReadOnly(true);
+            surnameField.setRequired(true);
 
-            TextField birthDateField = new TextField("Fecha de nacimiento");
-            birthDateField.setValue(cliente.getFechaDeNacimiento().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
-            birthDateField.setReadOnly(true);
+            DatePicker birthDateField = new DatePicker("Fecha de nacimiento");
+            birthDateField.setValue(cliente.getFechaDeNacimiento());
+            birthDateField.setRequired(true);
 
             TextField documentNumberField = new TextField("Documento de identificación");
             documentNumberField.setValue(cliente.getDni());
-            documentNumberField.setReadOnly(true);
+            documentNumberField.setRequired(true);
 
             TextField emailField = new TextField("Email");
             emailField.setValue(cliente.getEmail());
@@ -63,7 +65,7 @@ public class AjustesView extends VerticalLayout {
             Button saveButton = new Button("Guardar cambios");
             add(nameField, surnameField, birthDateField, documentNumberField,contactNumberField,emailField,saveButton);
             saveButton.addClickListener((event)->{
-                if (serviciosCliente.actualizarContactNumber(cliente.getId(), contactNumberField.getValue())){
+                if (serviciosCliente.actualizarDatosDelCliente(cliente.getId(), nameField.getValue(), surnameField.getValue(), birthDateField.getValue(), documentNumberField.getValue(), contactNumberField.getValue())){
                     Notification notification = Notification.show("Datos cambiado.");
                     notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
                 }
