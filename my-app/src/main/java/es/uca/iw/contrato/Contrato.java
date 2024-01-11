@@ -1,10 +1,13 @@
 package es.uca.iw.contrato;
 
 import es.uca.iw.cliente.Cliente;
+import es.uca.iw.cliente.Role;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Contrato {
@@ -26,6 +29,10 @@ public class Contrato {
 
     @Column(name = "compartirDatos", nullable = false, columnDefinition = "boolean default false")
     private boolean compartirDatos;
+
+    @Enumerated(EnumType.STRING)
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<String> numerosBloqueados = new HashSet<>();
 
     public Cliente getCliente() {
         return cliente;
