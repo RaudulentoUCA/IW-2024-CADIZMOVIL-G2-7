@@ -199,15 +199,20 @@ public class FacturacionView extends VerticalLayout {
 
             for (SimCard simCard : simCards) {
                 precioContrato += simCard.getTarifa().getPrecio();
-                if(simCard.getTarifa().getAvailableMB() - simCard.getUsedMb() < 0)  // Megas, falta tener en cuenta compartido
-                    megasextra = megasextra - (simCard.getTarifa().getAvailableMB() - simCard.getUsedMb());
+                if(!contrato.isCompartirDatos()){
+                    if(simCard.getTarifa().getAvailableMB() - simCard.getUsedMb() < 0)  // Megas
+                        megasextra = megasextra - (simCard.getTarifa().getAvailableMB() - simCard.getUsedMb());
+                }
+                else {
+                    megasextra = megasextra - (simCard.getTarifa().getAvailableMB() - simCard.getUsedMb()); //Si no ha consumido todos sera negativo
+                }
                 if(simCard.getTarifa().getAvailableMin() - simCard.getUsedMinutes() < 0)  // Minutos
                     minextra = minextra - (simCard.getTarifa().getAvailableMin() - simCard.getUsedMinutes());
                 if(simCard.getTarifa().getAvailableSMS() - simCard.getUsedSms() < 0)  // SMS
                     smsextra = smsextra - (simCard.getTarifa().getAvailableSMS() - simCard.getUsedSms());
             }
             precioTotal = precioContrato * contrato.getDescuento() + precioTotal;
-            precioTotal = precioTotal + megasextra*0.004;   // Precio de mega extra
+            if(megasextra > 0) precioTotal = precioTotal + megasextra*0.004;   // Precio de mega extra - if está por si hay compartir datos
             precioTotal = precioTotal + minextra*0.11;   // Precio de minuto extra
             precioTotal = precioTotal + smsextra*0.2;   // Precio de sms extra
         }
