@@ -50,10 +50,6 @@ public class FacturacionView extends VerticalLayout {
     private final Button guardarButton = new Button("Enviar");
 
     private final Binder<Tarifa> binder = new Binder<>(Tarifa.class);
-<<<<<<< HEAD
-
-=======
->>>>>>> main
     private final ServiciosContrato serviciosContrato;
     private final SimCardService servicioSimcard;
 

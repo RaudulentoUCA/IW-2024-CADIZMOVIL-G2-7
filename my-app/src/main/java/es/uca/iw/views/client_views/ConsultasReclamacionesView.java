@@ -13,7 +13,6 @@ import es.uca.iw.atencion_cliente.Consulta;
 import es.uca.iw.atencion_cliente.ServicioConsulta;
 import es.uca.iw.cliente.Cliente;
 import es.uca.iw.views.MainLayout;
-import es.uca.iw.views.Trabajador.AtencionView;
 import jakarta.annotation.security.RolesAllowed;
 
 import java.util.Optional;

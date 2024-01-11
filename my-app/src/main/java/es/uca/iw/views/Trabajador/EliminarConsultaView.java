@@ -52,10 +52,8 @@ public class EliminarConsultaView extends VerticalLayout {
         Button inicio = new Button("Volver a tu página principal");
         inicio.addClickListener(event -> UI.getCurrent().navigate(ProfileView.class));
 
-        Button atras = new Button("Volver a la página anterior");
-        atras.addClickListener(event -> UI.getCurrent().navigate(ConsultasView.class));
 
-        add(titulo, gridConsultas, new HorizontalLayout(btnEliminar, inicio, atras));
+        add(titulo, gridConsultas, new HorizontalLayout(btnEliminar, inicio));
     }
     private List<Consulta> obtenerConsultas() {
         return servicioConsulta.obtenerTodasLasConsultas();

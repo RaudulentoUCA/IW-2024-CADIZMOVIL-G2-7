@@ -84,10 +84,11 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver {
             nav.addItem(new SideNavItem("Tarifas", TarifaView.class, VaadinIcon.ABACUS.create()));
             nav.addItem(new SideNavItem("Noticias y promociones", AboutView.class, VaadinIcon.NEWSPAPER.create()));
         } else if (optionalCliente.get().getRoles().stream().anyMatch(role -> role.equals(Role.ATTENTION))) {
-            nav.addItem(new SideNavItem("Alta de Contratos", ContratosNuevosView.class, VaadinIcon.OPEN_BOOK.create()));
-            nav.addItem(new SideNavItem("Baja de Contratos", ContratosBajasView.class, VaadinIcon.QUESTION.create()));
-            nav.addItem(new SideNavItem("Consultas/Reclamaciones pendientes", ConsultasView.class, VaadinIcon.CHAT.create()));
-            nav.addItem(new SideNavItem("Responder Consultas/Reclamaciones", ResponderConsultaView.class, VaadinIcon.CHAT.create()));
+            nav.addItem(new SideNavItem("Alta de Contratos", ContratosNuevosView.class, VaadinIcon.INVOICE.create()));
+            nav.addItem(new SideNavItem("Baja de Contratos", ContratosBajasView.class, VaadinIcon.INVOICE.create()));
+            nav.addItem(new SideNavItem("Consultas pendientes", ConsultasView.class, VaadinIcon.CHAT.create()));
+            nav.addItem(new SideNavItem("Responder Consultas", ResponderConsultaView.class, VaadinIcon.CHAT.create()));
+            nav.addItem(new SideNavItem("Cerrar Consultas", EliminarConsultaView.class, VaadinIcon.CHAT.create()));
         }
         else {
             nav.addItem(new SideNavItem("Facturacion", FacturacionView.class, VaadinIcon.INVOICE.create()));

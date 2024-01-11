@@ -10,6 +10,7 @@ import com.vaadin.flow.router.Route;
 import es.uca.iw.contrato.Contrato;
 import es.uca.iw.contrato.ServiciosContrato;
 import es.uca.iw.views.MainLayout;
+import es.uca.iw.views.profile.ProfileView;
 import jakarta.annotation.security.RolesAllowed;
 
 import java.util.List;
@@ -50,7 +51,7 @@ public class ContratosBajasView extends VerticalLayout {
         });
 
         Button volver = new Button("Volver a tu página principal");
-        volver.addClickListener(event -> UI.getCurrent().navigate(AtencionView.class));
+        volver.addClickListener(event -> UI.getCurrent().navigate(ProfileView.class));
 
         add(titulo, gridContratos, btnEliminar, volver);
     }

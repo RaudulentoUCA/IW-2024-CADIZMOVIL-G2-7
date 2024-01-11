@@ -60,7 +60,7 @@ public class ConsultasView extends VerticalLayout {
             add(new HorizontalLayout(responder, cerrar));
         }
 
-        Button volver = new Button("Volver atrás");
+        Button volver = new Button("Volver a tu página principal");
         volver.addClickListener(event -> UI.getCurrent().navigate(ProfileView.class));
         add(volver);
     }

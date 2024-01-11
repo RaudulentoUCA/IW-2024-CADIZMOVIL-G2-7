@@ -1,12 +1,10 @@
 package es.uca.iw.views.Trabajador;
 
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
@@ -17,7 +15,6 @@ import es.uca.iw.atencion_cliente.ServicioRespuesta;
 import es.uca.iw.cliente.Cliente;
 import es.uca.iw.cliente.ServiciosCliente;
 import es.uca.iw.views.MainLayout;
-import es.uca.iw.views.profile.ProfileView;
 import jakarta.annotation.security.RolesAllowed;
 
 import java.util.Optional;
@@ -59,14 +56,7 @@ public class ResponderConsultaView extends VerticalLayout {
         Button enviarButton = new Button("Enviar respuesta", event -> enviarRespuesta());
         formLayout.add(enviarButton);
 
-        // Botón para volver a la página principal
-        Button inicio = new Button("Volver a tu página principal");
-        inicio.addClickListener(event -> UI.getCurrent().navigate(ProfileView.class));
-
-        Button atras = new Button("Volver a la página anterior");
-        atras.addClickListener(event -> UI.getCurrent().navigate(ConsultasView.class));
-
-        add(titulo, formLayout, new HorizontalLayout(inicio, atras));
+        add(titulo, formLayout);
     }
 
     protected void enviarRespuesta() {
@@ -83,12 +73,14 @@ public class ResponderConsultaView extends VerticalLayout {
             respuesta.setAsunto(asunto);
             respuesta.setCuerpo(cuerpo);
 
-            servicioRespuesta.guardarRespuesta(respuesta);
-
-            // Enviar notificación con fondo verde para éxito
-            Notification.show("Respuesta enviada correctamente", 3000, Notification.Position.TOP_CENTER)
-                    .addThemeVariants(NotificationVariant.LUMO_SUCCESS);
-
+            if (respuesta.getAsunto().isEmpty() || respuesta.getCuerpo().isEmpty()) {
+                Notification.show("Error: El asunto y el cuerpo no pueden estar vacíos.", 3000, Notification.Position.TOP_CENTER)
+                        .addThemeVariants(NotificationVariant.LUMO_ERROR);
+            }else {
+                servicioRespuesta.guardarRespuesta(respuesta);
+                Notification.show("Respuesta enviada correctamente", 3000, Notification.Position.TOP_CENTER)
+                        .addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+            }
         } else {
             Notification.show("El cliente con el correo especificado no existe", 3000, Notification.Position.TOP_CENTER)
                     .addThemeVariants(NotificationVariant.LUMO_ERROR);

@@ -27,10 +27,6 @@ import es.uca.iw.views.profile.ProfileView;
 @PageTitle("Login")
 @Route(value = "login", layout = MainLayout.class)
 @AnonymousAllowed
-<<<<<<< HEAD
-
-=======
->>>>>>> main
 public class LoginView extends Composite<VerticalLayout> implements BeforeEnterObserver {
     private final AuthenticatedUser authenticatedUser;
     private final LoginForm login = new LoginForm();

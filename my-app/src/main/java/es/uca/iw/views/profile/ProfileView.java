@@ -1,7 +1,5 @@
 package es.uca.iw.views.profile;
 
-import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Image;
@@ -12,7 +10,6 @@ import es.uca.iw.AuthenticatedUser;
 import es.uca.iw.cliente.Cliente;
 import es.uca.iw.cliente.Role;
 import es.uca.iw.views.MainLayout;
-import es.uca.iw.views.helloworld.HelloWorldView;
 import jakarta.annotation.security.PermitAll;
 
 import java.util.Optional;
@@ -41,9 +38,6 @@ public class ProfileView extends VerticalLayout {
         Image img = new Image("images/puente-cadiz.jpg", "foto puente");
         img.addClassName("img");
 
-        Button cierresesion = new Button("Cerrar sesión");
-        cierresesion.addClickListener(event -> cerrarSesion());
-
         if (usuario.getRoles().stream().anyMatch(role -> role.equals(Role.MARKETING))){
             H1 titulo = new H1("Sección de Marketing");
             H3 trabajo = new H3("Comience su jornada mientras disfruta de las vistas de nuestra maravillosa Ciudad");
@@ -51,13 +45,13 @@ public class ProfileView extends VerticalLayout {
             getStyle().set("flex-grow", "1");
             add(titulo, trabajo);
         }else if (usuario.getRoles().stream().anyMatch(role -> role.equals(Role.ATTENTION))){
-            H1 titulo = new H1("Sección de Marketing");
+            H1 titulo = new H1("Sección de Atención al Cliente");
             H3 trabajo = new H3("Comience su jornada mientras disfruta de las vistas de nuestra maravillosa Ciudad");
             setWidth("100%");
             getStyle().set("flex-grow", "1");
             add(titulo, trabajo);
         }else if (usuario.getRoles().stream().anyMatch(role -> role.equals(Role.FINANCE))) {
-            H1 titulo = new H1("Sección de Marketing");
+            H1 titulo = new H1("Sección de Finanzas");
             H3 trabajo = new H3("Comience su jornada mientras disfruta de las vistas de nuestra maravillosa Ciudad");
             setWidth("100%");
             getStyle().set("flex-grow", "1");
@@ -69,11 +63,6 @@ public class ProfileView extends VerticalLayout {
             getStyle().set("flex-grow", "1");
             add(titulo, publi);
         }
-        add(img, cierresesion);
-    }
-
-    private void cerrarSesion() {
-        authenticatedUser.logout();
-        UI.getCurrent().navigate(HelloWorldView.class);
+        add(img);
     }
 }
