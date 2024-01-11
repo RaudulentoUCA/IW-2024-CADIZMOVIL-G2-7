@@ -127,6 +127,7 @@ public class CustomCardElement extends VerticalLayout {
 
     }
 
+
     private String getRandomEmoji() {
         Random random = new Random();
         return EMOJIS.get(random.nextInt(EMOJIS.size()));

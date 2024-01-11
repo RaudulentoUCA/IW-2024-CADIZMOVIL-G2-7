@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 
 @Service
@@ -47,6 +48,17 @@ public class SimCardService {
     @Transactional
     public List<SimCard> getAllSimCards() {
         return simCardRepository.findAll();
+    }
+
+    @Transactional
+    public void changePlan(Integer number, Tarifa tarifa) {
+        Optional<SimCard> optionalSimCard = simCardRepository.findByNumber(number);
+
+        if (optionalSimCard.isPresent()) {
+            SimCard simCard = optionalSimCard.get();
+            simCard.setTarifa(tarifa);
+            simCardRepository.save(simCard);
+        }
     }
 
     @Transactional
