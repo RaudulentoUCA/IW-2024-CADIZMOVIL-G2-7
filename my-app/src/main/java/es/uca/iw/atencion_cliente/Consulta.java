@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@EntityListeners(CustomAuditingEntityListener.class)
 public class Consulta {
     @Id
     @GeneratedValue
@@ -25,14 +24,6 @@ public class Consulta {
     private String asunto;
     @Column(name = "cuerpo", nullable = false, length = 1024)
     private String cuerpo;
-
-    @CreatedDate
-    @Column(name = "created_date")
-    private LocalDateTime createdDate;
-
-    @LastModifiedDate
-    @Column(name = "last_modified_date")
-    private LocalDateTime lastModifiedDate;
     public UUID getId() {
         return id;
     }
@@ -58,13 +49,5 @@ public class Consulta {
 
     public void setCuerpo(String cuerpo) {
         this.cuerpo = cuerpo;
-    }
-
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public void setLastModifiedDate(LocalDateTime lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
     }
 }
