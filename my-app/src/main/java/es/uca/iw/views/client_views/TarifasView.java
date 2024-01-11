@@ -82,10 +82,6 @@ public class TarifasView extends VerticalLayout {
 
                     add(contentLayout);
 
-                    select.addValueChangeListener(event -> {
-                        contentLayout.removeAll();
-                        contentLayout.add(new CustomCardElement(event.getValue().getTarifa().getNombre(),event.getValue().getTarifa().getAvailableMB().toString(),event.getValue().getTarifa().getAvailableMin().toString(),event.getValue().getTarifa().getAvailableSMS().toString(),event.getValue().getTarifa().isPermiteRoaming(),"Cambiar"));
-                    });
 
                     Tarifa currentPlanOfUser = select.getValue().getTarifa();
 
@@ -99,14 +95,56 @@ public class TarifasView extends VerticalLayout {
                     for (Tarifa tarifa : allPlans){
                         CustomCardElement tarifaCardElement = new CustomCardElement(tarifa.getNombre(),tarifa.getAvailableMB().toString(),tarifa.getAvailableMin().toString(),tarifa.getAvailableSMS().toString(),tarifa.isPermiteRoaming(),"Elegir");
                         tarifaCardElement.setButtonClickListener(()->{
-                            SimCard selectedSimCard = select.getValue();
                             simCardService.changePlan(select.getValue().getNumber(), tarifa);
                             Notification notification = Notification.show("Tarifa fue cambiado.");
                             notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+
+                            Optional<SimCard> oldSimCard = simCardService.getSimCardByNumber(select.getValue().getNumber());
+
+                            contentLayout.removeAll();
+                            Optional<SimCard> newSimCardRef = simCardService.getSimCardByNumber(select.getValue().getNumber());
+
+                            contentLayout.add(new CustomCardElement(newSimCardRef.get().getTarifa().getNombre(),newSimCardRef.get().getTarifa().getAvailableMB().toString(),newSimCardRef.get().getTarifa().getAvailableMin().toString(),newSimCardRef.get().getTarifa().getAvailableSMS().toString(),newSimCardRef.get().getTarifa().isPermiteRoaming(),"Cambiar"));
+
+                            UI.getCurrent().getPage().reload();
+
+                            select.setValue(oldSimCard.get());
+
                         });
                         tarifaCardElement.getStyle().set("width", "auto");
                         horizontalLayout.add(tarifaCardElement);
                     }
+
+                    select.addValueChangeListener(event -> {
+                        contentLayout.removeAll();
+                        contentLayout.add(new CustomCardElement(event.getValue().getTarifa().getNombre(),event.getValue().getTarifa().getAvailableMB().toString(),event.getValue().getTarifa().getAvailableMin().toString(),event.getValue().getTarifa().getAvailableSMS().toString(),event.getValue().getTarifa().isPermiteRoaming(),"Cambiar"));
+
+                        horizontalLayout.removeAll();
+                        allPlans.clear();
+                        allPlans.addAll(tarifaService.getAllTarifas());
+                        allPlans.remove(select.getValue().getTarifa());
+
+                        for (Tarifa tarifa : allPlans){
+                            CustomCardElement tarifaCardElement = new CustomCardElement(tarifa.getNombre(),tarifa.getAvailableMB().toString(),tarifa.getAvailableMin().toString(),tarifa.getAvailableSMS().toString(),tarifa.isPermiteRoaming(),"Elegir");
+                            tarifaCardElement.setButtonClickListener(()->{
+                                simCardService.changePlan(select.getValue().getNumber(), tarifa);
+                                Notification notification = Notification.show("Tarifa fue cambiado.");
+                                notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+                                contentLayout.removeAll();
+
+                                SimCard newSimCard = event.getValue();
+
+                                contentLayout.add(new CustomCardElement(event.getValue().getTarifa().getNombre(),event.getValue().getTarifa().getAvailableMB().toString(),event.getValue().getTarifa().getAvailableMin().toString(),event.getValue().getTarifa().getAvailableSMS().toString(),event.getValue().getTarifa().isPermiteRoaming(),"Cambiar"));
+
+                                UI.getCurrent().getPage().reload();
+
+                                select.setValue(newSimCard);
+                            });
+                            tarifaCardElement.getStyle().set("width", "auto");
+                            horizontalLayout.add(tarifaCardElement);
+                        }
+                    });
+
                     add(horizontalLayout);
                 }
 
