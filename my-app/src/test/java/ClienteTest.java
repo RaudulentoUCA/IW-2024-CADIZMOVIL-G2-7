@@ -64,7 +64,7 @@ public class ClienteTest {
         driver.findElement(By.id("input-vaadin-text-field-26")).sendKeys("prueba2");
         driver.findElement(By.id("input-vaadin-text-field-26")).sendKeys(Keys.ENTER);
         driver.findElement(By.id("input-vaadin-date-picker-27")).click();
-        driver.findElement(By.id("input-vaadin-date-picker-27")).sendKeys("19/04/1989");
+        driver.findElement(By.id("input-vaadin-date-picker-27")).sendKeys("19.04.1989");
         driver.findElement(By.id("input-vaadin-date-picker-27")).sendKeys(Keys.ENTER);
         driver.findElement(By.id("input-vaadin-text-field-28")).click();
         driver.findElement(By.id("input-vaadin-text-field-28")).sendKeys("123456789");

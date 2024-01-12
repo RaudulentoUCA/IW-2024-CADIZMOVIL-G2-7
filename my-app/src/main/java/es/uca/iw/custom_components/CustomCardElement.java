@@ -8,6 +8,7 @@ import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Random;
 
@@ -129,7 +130,7 @@ public class CustomCardElement extends VerticalLayout {
 
 
     private String getRandomEmoji() {
-        Random random = new Random();
+        SecureRandom random = new SecureRandom();
         return EMOJIS.get(random.nextInt(EMOJIS.size()));
     }
 }

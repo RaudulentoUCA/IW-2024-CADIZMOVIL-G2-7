@@ -9,6 +9,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 
+import java.security.SecureRandom;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.Random;
@@ -131,13 +132,13 @@ public class RecuperarContraView extends VerticalLayout {
     }
 
     private int generarNumeroAleatorio(int min, int max) {
-        Random random = new Random();
+        SecureRandom random = new SecureRandom();
         return random.nextInt((max - min) + 1) + min;
     }
 
     private char generarVocalAleatoria() {
         char[] vocales = {'a', 'e', 'i', 'o', 'u'};
-        Random random = new Random();
+        SecureRandom random = new SecureRandom();
         return vocales[random.nextInt(vocales.length)];
     }
 }
