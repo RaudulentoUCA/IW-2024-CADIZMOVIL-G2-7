@@ -4,20 +4,25 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.converter.StringToFloatConverter;
 import com.vaadin.flow.data.converter.StringToIntegerConverter;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
+import es.uca.iw.views.MainLayout;
 import jakarta.annotation.security.RolesAllowed;
 
 import java.util.List;
 
-@Route("tarifa-view")
+@Route(value = "tarifa-view", layout = MainLayout.class)
 @RolesAllowed("MARKETING")
+@PageTitle("Manejar tarifas")
 public class TarifaView extends VerticalLayout {
 
     private final ComboBox<Tarifa> tarifaComboBox = new ComboBox<>("Seleccionar Tarifa");
@@ -26,11 +31,12 @@ public class TarifaView extends VerticalLayout {
 
     private final Binder<Tarifa> binder = new Binder<>(Tarifa.class);
 
-    // Aquí deberías inyectar tu servicio o repositorio de tarifas para obtener la lista de tarifas
     private final TarifaService tarifaService;
 
     public TarifaView(TarifaService tarifaService) {
         this.tarifaService = tarifaService;
+
+        add(new H3("Cambiar tarifas existentes"));
 
         // ComboBox
         List<Tarifa> tarifas = tarifaService.getAllTarifas();
@@ -87,6 +93,9 @@ public class TarifaView extends VerticalLayout {
         guardarButton.addClickListener(event -> guardarTarifa());
         tarifaComboBox.addValueChangeListener(event -> mostrarDetallesTarifa(event.getValue()));
         add(formLayout, guardarButton);
+
+        add(new H3("Añadir nueva tarifas"));
+
     }
 
     private void mostrarDetallesTarifa(Tarifa tarifa) {
