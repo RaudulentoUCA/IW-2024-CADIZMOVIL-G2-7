@@ -9,7 +9,7 @@ public class SimCard {
     @Id
     @Column(name="number", unique = true, nullable = false)
     private Integer number;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Tarifa tarifa;
 
     @Column(name="usedMinutes")

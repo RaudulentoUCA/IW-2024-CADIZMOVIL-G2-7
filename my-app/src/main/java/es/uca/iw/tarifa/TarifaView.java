@@ -1,24 +1,38 @@
 package es.uca.iw.tarifa;
 
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.FlexLayout;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.progressbar.ProgressBar;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.converter.StringToFloatConverter;
 import com.vaadin.flow.data.converter.StringToIntegerConverter;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
+import es.uca.iw.contrato.Contrato;
+import es.uca.iw.custom_components.CustomCardElement;
 import es.uca.iw.views.MainLayout;
+import es.uca.iw.views.client_views.TarifasView;
 import jakarta.annotation.security.RolesAllowed;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @Route(value = "tarifa-view", layout = MainLayout.class)
 @RolesAllowed("MARKETING")
@@ -32,6 +46,8 @@ public class TarifaView extends VerticalLayout {
     private final Binder<Tarifa> binderForChangeTarifa = new Binder<>(Tarifa.class);
 
     private final Binder<Tarifa> binderForAddTarifa = new Binder<>(Tarifa.class);
+
+    Grid<Tarifa> tarifaGrid = new Grid<>(Tarifa.class, false);
 
 
     private final TarifaService tarifaService;
@@ -154,8 +170,32 @@ public class TarifaView extends VerticalLayout {
         agregarButton.addClickListener(event -> agregarNuevaTarifa());
         add(nuevaTarifaFormLayout, agregarButton);
 
-        add(new H3("Lista de todas tarifas"));
-
+        add(new H3("Lista de todas tarifas:"));
+        List<Tarifa> allTarifas = tarifaService.getAllTarifas();
+        tarifaGrid.setAllRowsVisible(true);
+        tarifaGrid.addColumn(Tarifa::getId).setHeader("№");
+        tarifaGrid.addColumn(Tarifa::getNombre).setHeader("Nombre");
+        tarifaGrid.addColumn(Tarifa::getDescripcion).setHeader("Descripcion");
+        tarifaGrid.addColumn(Tarifa::getPrecio).setHeader("Precio");
+        tarifaGrid.addColumn(tarifa -> tarifa.isFibra() ? "Sí" : "No").setHeader("Fibra");
+        tarifaGrid.addColumn(tarifa -> tarifa.isFijo() ? "Sí" : "No").setHeader("Fijo");
+        tarifaGrid.addColumn(tarifa -> tarifa.isPermiteRoaming() ? "Sí" : "No").setHeader("Roaming");
+        tarifaGrid.addColumn(Tarifa::getAvailableMB).setHeader("Mb.");
+        tarifaGrid.addColumn(Tarifa::getAvailableMin).setHeader("Min.");
+        tarifaGrid.addColumn(Tarifa::getAvailableSMS).setHeader("SMS");
+        tarifaGrid.addColumn(
+                new ComponentRenderer<>(Button::new, (button, tarifa) -> {
+                    button.addThemeVariants(ButtonVariant.LUMO_ICON,
+                            ButtonVariant.LUMO_ERROR,
+                            ButtonVariant.LUMO_TERTIARY);
+                    button.addClickListener(e -> {
+                        eliminarTarifa(tarifa);
+                        actualizarGrid();
+                    });
+                    button.setIcon(new Icon(VaadinIcon.TRASH));
+                })).setHeader("");
+        tarifaGrid.setItems(allTarifas);
+        add(tarifaGrid);
     }
 
     private void mostrarDetallesTarifa(Tarifa tarifa) {
@@ -174,5 +214,20 @@ public class TarifaView extends VerticalLayout {
         Tarifa tarifa = binderForChangeTarifa.getBean();
         tarifaService.guardarTarifa(tarifa);
         Notification.show("Tarifa guardada correctamente");
+    }
+
+    // Method to delete Tarifa
+    private void eliminarTarifa(Tarifa tarifa) {
+        if (tarifa != null) {
+            Optional<Tarifa> tarifaToDelete = tarifaService.getTarifaById(tarifa.getId());
+            tarifaToDelete.ifPresent(tarifaService::removeTarifa);
+            Notification.show("Tarifa eliminada correctamente");
+        }
+    }
+
+    // Method to update the grid after deletion
+    private void actualizarGrid() {
+        List<Tarifa> updatedTarifas = tarifaService.getAllTarifas();
+        tarifaGrid.setItems(updatedTarifas);
     }
 }

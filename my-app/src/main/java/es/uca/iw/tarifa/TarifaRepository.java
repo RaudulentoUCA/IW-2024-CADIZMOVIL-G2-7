@@ -9,4 +9,6 @@ public interface TarifaRepository extends JpaRepository<Tarifa, Integer> {
     List<Tarifa> findAll();
 
     Optional<Tarifa> findByNombre(String nombre);
+
+    Optional<Tarifa> findById(Long id);
 }
