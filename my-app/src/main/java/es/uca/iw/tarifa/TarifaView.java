@@ -94,7 +94,59 @@ public class TarifaView extends VerticalLayout {
         tarifaComboBox.addValueChangeListener(event -> mostrarDetallesTarifa(event.getValue()));
         add(formLayout, guardarButton);
 
-        add(new H3("Añadir nueva tarifas"));
+        // Formulario para añadir nueva tarifa
+        H3 nuevaTarifaHeader = new H3("Añadir nueva tarifa");
+        add(nuevaTarifaHeader);
+
+        FormLayout nuevaTarifaFormLayout = new FormLayout();
+
+        TextField nuevoNombre = new TextField();
+        nuevaTarifaFormLayout.addFormItem(nuevoNombre, "Nombre");
+        binder.bind(nuevoNombre, "nombre");
+
+        TextField nuevoPrecio = new TextField();
+        nuevaTarifaFormLayout.addFormItem(nuevoPrecio, "Precio");
+        binder.forField(nuevoPrecio)
+                .withConverter(new StringToFloatConverter("Ingrese un valor válido"))
+                .bind(Tarifa::getPrecio, Tarifa::setPrecio);
+
+        Checkbox nuevoPermiteRoaming = new Checkbox();
+        nuevaTarifaFormLayout.addFormItem(nuevoPermiteRoaming, "Roaming");
+        binder.bind(nuevoPermiteRoaming, "permiteRoaming");
+
+        TextField nuevoDescripcion = new TextField();
+        nuevaTarifaFormLayout.addFormItem(nuevoDescripcion, "Descripción");
+        binder.bind(nuevoDescripcion, "descripcion");
+
+        Checkbox nuevoFijo = new Checkbox();
+        nuevaTarifaFormLayout.addFormItem(nuevoFijo, "Fijo");
+        binder.bind(nuevoFijo, "fijo");
+
+        Checkbox nuevoFibra = new Checkbox();
+        nuevaTarifaFormLayout.addFormItem(nuevoFibra, "Fibra");
+        binder.bind(nuevoFibra, "fibra");
+
+        TextField nuevoMegas = new TextField();
+        nuevaTarifaFormLayout.addFormItem(nuevoMegas, "Megas Disponibles");
+        binder.forField(nuevoMegas)
+                .withConverter(new StringToIntegerConverter("Ingrese un valor válido"))
+                .bind(Tarifa::getAvailableMB, Tarifa::setAvailableMB);
+
+        TextField nuevoMin = new TextField();
+        nuevaTarifaFormLayout.addFormItem(nuevoMin, "Minutos Disponibles");
+        binder.forField(nuevoMin)
+                .withConverter(new StringToIntegerConverter("Ingrese un valor válido"))
+                .bind(Tarifa::getAvailableMin, Tarifa::setAvailableMin);
+
+        TextField nuevoSms = new TextField();
+        nuevaTarifaFormLayout.addFormItem(nuevoSms, "Mensajes Disponibles");
+        binder.forField(nuevoSms)
+                .withConverter(new StringToIntegerConverter("Ingrese un valor válido"))
+                .bind(Tarifa::getAvailableSMS, Tarifa::setAvailableSMS);
+
+        Button agregarButton = new Button("Agregar");
+        agregarButton.addClickListener(event -> agregarNuevaTarifa());
+        add(nuevaTarifaFormLayout, agregarButton);
 
     }
 
@@ -102,6 +154,12 @@ public class TarifaView extends VerticalLayout {
         if (tarifa != null) {
             binder.setBean(tarifa);
         }
+    }
+
+    private void agregarNuevaTarifa() {
+        Tarifa nuevaTarifa = binder.getBean();
+        tarifaService.guardarTarifa(nuevaTarifa);
+        Notification.show("Nueva tarifa agregada correctamente");
     }
 
     private void guardarTarifa() {
