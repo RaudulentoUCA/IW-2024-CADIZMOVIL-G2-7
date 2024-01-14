@@ -29,11 +29,16 @@ public class TarifaView extends VerticalLayout {
     private final FormLayout formLayout = new FormLayout();
     private final Button guardarButton = new Button("Guardar");
 
-    private final Binder<Tarifa> binder = new Binder<>(Tarifa.class);
+    private final Binder<Tarifa> binderForChangeTarifa = new Binder<>(Tarifa.class);
+
+    private final Binder<Tarifa> binderForAddTarifa = new Binder<>(Tarifa.class);
+
 
     private final TarifaService tarifaService;
 
     public TarifaView(TarifaService tarifaService) {
+
+
         this.tarifaService = tarifaService;
 
         add(new H3("Cambiar tarifas existentes"));
@@ -43,50 +48,50 @@ public class TarifaView extends VerticalLayout {
         tarifaComboBox.setItems(tarifas);
         tarifaComboBox.setItemLabelGenerator(Tarifa::getNombre);
 
-        // Formulario
+        // Formulario para cambiar tarifa
         formLayout.addFormItem(tarifaComboBox, "Tarifa");
 
         TextField nombre = new TextField();
         formLayout.addFormItem(nombre, "Nombre");
-        binder.bind(nombre, "nombre");
+        binderForChangeTarifa.bind(nombre, "nombre");
 
         TextField precio = new TextField();
         formLayout.addFormItem(precio, "Precio");
-        binder.forField(precio)
+        binderForChangeTarifa.forField(precio)
                 .withConverter(new StringToFloatConverter("Ingrese un valor válido"))
                 .bind(Tarifa::getPrecio, Tarifa::setPrecio);
 
         Checkbox permiteRoaming = new Checkbox();
         formLayout.addFormItem(permiteRoaming, "Roaming");
-        binder.bind(permiteRoaming, "permiteRoaming");
+        binderForChangeTarifa.bind(permiteRoaming, "permiteRoaming");
 
         TextField descripcion = new TextField();
         formLayout.addFormItem(descripcion, "Descripción");
-        binder.bind(descripcion, "descripcion");
+        binderForChangeTarifa.bind(descripcion, "descripcion");
 
         Checkbox fijo = new Checkbox();
         formLayout.addFormItem(fijo, "Fijo");
-        binder.bind(fijo, "fijo");
+        binderForChangeTarifa.bind(fijo, "fijo");
 
         Checkbox fibra = new Checkbox();
         formLayout.addFormItem(fibra, "Fibra");
-        binder.bind(fibra, "fibra");
+        binderForChangeTarifa.bind(fibra, "fibra");
 
         TextField megas = new TextField();
         formLayout.addFormItem(megas, "Megas Disponibles");
-        binder.forField(megas)
+        binderForChangeTarifa.forField(megas)
                 .withConverter(new StringToIntegerConverter("Ingrese un valor válido"))
                 .bind(Tarifa::getAvailableMB, Tarifa::setAvailableMB);
 
         TextField min = new TextField();
         formLayout.addFormItem(min, "Minutos Disponibles");
-        binder.forField(min)
+        binderForChangeTarifa.forField(min)
                 .withConverter(new StringToIntegerConverter("Ingrese un valor válido"))
                 .bind(Tarifa::getAvailableMin, Tarifa::setAvailableMin);
 
         TextField sms = new TextField();
         formLayout.addFormItem(sms, "Mensajes Disponibles");
-        binder.forField(sms)
+        binderForChangeTarifa.forField(sms)
                 .withConverter(new StringToIntegerConverter("Ingrese un valor válido"))
                 .bind(Tarifa::getAvailableSMS, Tarifa::setAvailableSMS);
 
@@ -100,47 +105,48 @@ public class TarifaView extends VerticalLayout {
 
         FormLayout nuevaTarifaFormLayout = new FormLayout();
 
+
         TextField nuevoNombre = new TextField();
         nuevaTarifaFormLayout.addFormItem(nuevoNombre, "Nombre");
-        binder.bind(nuevoNombre, "nombre");
+        binderForAddTarifa.forField(nuevoNombre).bind(Tarifa::getNombre, Tarifa::setNombre);
 
         TextField nuevoPrecio = new TextField();
         nuevaTarifaFormLayout.addFormItem(nuevoPrecio, "Precio");
-        binder.forField(nuevoPrecio)
+        binderForAddTarifa.forField(nuevoPrecio)
                 .withConverter(new StringToFloatConverter("Ingrese un valor válido"))
                 .bind(Tarifa::getPrecio, Tarifa::setPrecio);
 
         Checkbox nuevoPermiteRoaming = new Checkbox();
         nuevaTarifaFormLayout.addFormItem(nuevoPermiteRoaming, "Roaming");
-        binder.bind(nuevoPermiteRoaming, "permiteRoaming");
+        binderForAddTarifa.forField(nuevoPermiteRoaming).bind(Tarifa::isPermiteRoaming, Tarifa::setPermiteRoaming);
 
         TextField nuevoDescripcion = new TextField();
         nuevaTarifaFormLayout.addFormItem(nuevoDescripcion, "Descripción");
-        binder.bind(nuevoDescripcion, "descripcion");
+        binderForAddTarifa.forField(nuevoDescripcion).bind(Tarifa::getDescripcion, Tarifa::setDescripcion);
 
         Checkbox nuevoFijo = new Checkbox();
         nuevaTarifaFormLayout.addFormItem(nuevoFijo, "Fijo");
-        binder.bind(nuevoFijo, "fijo");
+        binderForAddTarifa.forField(nuevoFijo).bind(Tarifa::isFijo, Tarifa::setFijo);
 
         Checkbox nuevoFibra = new Checkbox();
         nuevaTarifaFormLayout.addFormItem(nuevoFibra, "Fibra");
-        binder.bind(nuevoFibra, "fibra");
+        binderForAddTarifa.forField(nuevoFibra).bind(Tarifa::isFibra, Tarifa::setFibra);
 
         TextField nuevoMegas = new TextField();
         nuevaTarifaFormLayout.addFormItem(nuevoMegas, "Megas Disponibles");
-        binder.forField(nuevoMegas)
+        binderForAddTarifa.forField(nuevoMegas)
                 .withConverter(new StringToIntegerConverter("Ingrese un valor válido"))
                 .bind(Tarifa::getAvailableMB, Tarifa::setAvailableMB);
 
         TextField nuevoMin = new TextField();
         nuevaTarifaFormLayout.addFormItem(nuevoMin, "Minutos Disponibles");
-        binder.forField(nuevoMin)
+        binderForAddTarifa.forField(nuevoMin)
                 .withConverter(new StringToIntegerConverter("Ingrese un valor válido"))
                 .bind(Tarifa::getAvailableMin, Tarifa::setAvailableMin);
 
         TextField nuevoSms = new TextField();
         nuevaTarifaFormLayout.addFormItem(nuevoSms, "Mensajes Disponibles");
-        binder.forField(nuevoSms)
+        binderForAddTarifa.forField(nuevoSms)
                 .withConverter(new StringToIntegerConverter("Ingrese un valor válido"))
                 .bind(Tarifa::getAvailableSMS, Tarifa::setAvailableSMS);
 
@@ -148,22 +154,24 @@ public class TarifaView extends VerticalLayout {
         agregarButton.addClickListener(event -> agregarNuevaTarifa());
         add(nuevaTarifaFormLayout, agregarButton);
 
+        add(new H3("Lista de todas tarifas"));
+
     }
 
     private void mostrarDetallesTarifa(Tarifa tarifa) {
         if (tarifa != null) {
-            binder.setBean(tarifa);
+            binderForChangeTarifa.setBean(tarifa);
         }
     }
 
     private void agregarNuevaTarifa() {
-        Tarifa nuevaTarifa = binder.getBean();
+        Tarifa nuevaTarifa = binderForAddTarifa.getBean();
         tarifaService.guardarTarifa(nuevaTarifa);
         Notification.show("Nueva tarifa agregada correctamente");
     }
 
     private void guardarTarifa() {
-        Tarifa tarifa = binder.getBean();
+        Tarifa tarifa = binderForChangeTarifa.getBean();
         tarifaService.guardarTarifa(tarifa);
         Notification.show("Tarifa guardada correctamente");
     }
