@@ -1,6 +1,6 @@
 package es.uca.iw.tarifa;
 
-import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.checkbox.Checkbox;
@@ -11,11 +11,9 @@ import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
-import com.vaadin.flow.component.orderedlayout.FlexLayout;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.progressbar.ProgressBar;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.converter.StringToFloatConverter;
@@ -23,16 +21,13 @@ import com.vaadin.flow.data.converter.StringToIntegerConverter;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.auth.AnonymousAllowed;
-import es.uca.iw.contrato.Contrato;
-import es.uca.iw.custom_components.CustomCardElement;
+import es.uca.iw.simcard.SimCardService;
 import es.uca.iw.views.MainLayout;
-import es.uca.iw.views.client_views.TarifasView;
 import jakarta.annotation.security.RolesAllowed;
 
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Route(value = "tarifa-view", layout = MainLayout.class)
 @RolesAllowed("MARKETING")
@@ -51,11 +46,14 @@ public class TarifaView extends VerticalLayout {
 
 
     private final TarifaService tarifaService;
+    private final SimCardService simCardService;
 
-    public TarifaView(TarifaService tarifaService) {
+
+    public TarifaView(TarifaService tarifaService, SimCardService simCardService) {
 
 
         this.tarifaService = tarifaService;
+        this.simCardService = simCardService;
 
         add(new H3("Cambiar tarifas existentes"));
 
@@ -172,6 +170,7 @@ public class TarifaView extends VerticalLayout {
 
         add(new H3("Lista de todas tarifas:"));
         List<Tarifa> allTarifas = tarifaService.getAllTarifas();
+        Set<Long> assignedTarifasIds = simCardService.getUniqueTarifaIds();
         tarifaGrid.setAllRowsVisible(true);
         tarifaGrid.addColumn(Tarifa::getId).setHeader("№");
         tarifaGrid.addColumn(Tarifa::getNombre).setHeader("Nombre");
@@ -183,16 +182,48 @@ public class TarifaView extends VerticalLayout {
         tarifaGrid.addColumn(Tarifa::getAvailableMB).setHeader("Mb.");
         tarifaGrid.addColumn(Tarifa::getAvailableMin).setHeader("Min.");
         tarifaGrid.addColumn(Tarifa::getAvailableSMS).setHeader("SMS");
+
+        // Notification message for used tarifa
+        Notification existRelationNotification = new Notification();
+        existRelationNotification.addThemeVariants(NotificationVariant.LUMO_ERROR);
+
+        Div text = new Div(new Text("No puedes borrar tarifa que usa el cliente!"));
+
+        Button closeButton = new Button(new Icon("lumo", "cross"));
+        closeButton.addThemeVariants(ButtonVariant.LUMO_TERTIARY_INLINE);
+        closeButton.getElement().setAttribute("aria-label", "Close");
+        closeButton.addClickListener(event -> {
+            existRelationNotification.close();
+        });
+
+        HorizontalLayout layoutForNotification = new HorizontalLayout(text, closeButton);
+        layoutForNotification.setAlignItems(Alignment.CENTER);
+
+        existRelationNotification.add(layoutForNotification);
+        existRelationNotification.setPosition(Notification.Position.MIDDLE);
+
+
         tarifaGrid.addColumn(
                 new ComponentRenderer<>(Button::new, (button, tarifa) -> {
-                    button.addThemeVariants(ButtonVariant.LUMO_ICON,
-                            ButtonVariant.LUMO_ERROR,
-                            ButtonVariant.LUMO_TERTIARY);
-                    button.addClickListener(e -> {
-                        eliminarTarifa(tarifa);
-                        actualizarGrid();
-                    });
-                    button.setIcon(new Icon(VaadinIcon.TRASH));
+                    if (assignedTarifasIds.contains(tarifa.getId())){
+                        button.addThemeVariants(ButtonVariant.LUMO_ICON,
+                                ButtonVariant.LUMO_ERROR,
+                                ButtonVariant.LUMO_TERTIARY);
+                        button.addClickListener(e -> {
+                            existRelationNotification.open();
+                        });
+                        button.setIcon(new Icon(VaadinIcon.INFO));
+                    }
+                    else {
+                        button.addThemeVariants(ButtonVariant.LUMO_ICON,
+                                ButtonVariant.LUMO_ERROR,
+                                ButtonVariant.LUMO_TERTIARY);
+                        button.addClickListener(e -> {
+                            eliminarTarifa(tarifa);
+                            actualizarGrid();
+                        });
+                        button.setIcon(new Icon(VaadinIcon.TRASH));
+                    }
                 })).setHeader("");
         tarifaGrid.setItems(allTarifas);
         add(tarifaGrid);

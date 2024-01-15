@@ -1,6 +1,7 @@
 package es.uca.iw.tarifa;
 
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Objects;
 
@@ -34,6 +35,9 @@ public class Tarifa {
 
     @Column(name = "fibra", nullable = false)
     private boolean fibra;
+
+    @Column(name = "disponible", nullable = false)
+    private boolean isAvailable;
 
     public String getNombre() {
         return nombre;
@@ -125,5 +129,13 @@ public class Tarifa {
 
     public void setFibra(boolean fibra) {
         this.fibra = fibra;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
     }
 }
