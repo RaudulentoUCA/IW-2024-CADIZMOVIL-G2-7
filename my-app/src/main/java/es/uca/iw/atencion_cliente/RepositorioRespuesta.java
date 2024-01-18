@@ -9,4 +9,6 @@ import java.util.UUID;
 public interface RepositorioRespuesta extends JpaRepository<Respuesta, UUID> {
 
     List<Respuesta> findByCliente(Cliente cliente);
+
+
 }

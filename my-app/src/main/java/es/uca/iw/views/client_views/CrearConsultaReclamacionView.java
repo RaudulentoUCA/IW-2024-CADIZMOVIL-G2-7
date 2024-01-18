@@ -1,5 +1,6 @@
 package es.uca.iw.views.client_views;
 
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.notification.Notification;
@@ -9,6 +10,8 @@ import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.router.BeforeLeaveEvent;
+import com.vaadin.flow.router.BeforeLeaveObserver;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import es.uca.iw.AuthenticatedUser;
@@ -23,7 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Route(value = "nueva_consulta", layout = MainLayout.class)
 @RolesAllowed("USER")
 @PageTitle("Nueva Consulta")
-public class CrearConsultaReclamacionView extends VerticalLayout {
+public class CrearConsultaReclamacionView extends VerticalLayout implements BeforeLeaveObserver {
 
     private final AuthenticatedUser authenticatedUser;
     private final ServicioConsulta consultaService;
@@ -74,17 +77,15 @@ public class CrearConsultaReclamacionView extends VerticalLayout {
                         .addThemeVariants(NotificationVariant.LUMO_ERROR);
             }else {
                 consultaService.guardarConsulta(nuevaConsulta);
-                Notification.show("Consulta/Reclamación enviada correctamente.", 3000, Notification.Position.TOP_CENTER)
-                        .addThemeVariants(NotificationVariant.LUMO_SUCCESS);
-                limpiarFormulario();
+                UI.getCurrent().navigate("mis_consultas");
             }
         }
     }
 
-    private void limpiarFormulario() {
-        binder.setBean(new Consulta()); // Crear un nuevo objeto Consulta para el siguiente formulario
-        asuntoField.clear();
-        cuerpoField.clear();
+    @Override
+    public void beforeLeave(BeforeLeaveEvent event) {
+        Notification.show("Consulta/Reclamación enviada correctamente.", 3000, Notification.Position.TOP_CENTER)
+                .addThemeVariants(NotificationVariant.LUMO_SUCCESS);
     }
 }
 

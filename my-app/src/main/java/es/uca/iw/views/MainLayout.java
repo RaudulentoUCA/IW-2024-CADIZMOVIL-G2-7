@@ -88,7 +88,6 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver {
             nav.addItem(new SideNavItem("Alta de Contratos", ContratosNuevosView.class, VaadinIcon.INVOICE.create()));
             nav.addItem(new SideNavItem("Baja de Contratos", ContratosBajasView.class, VaadinIcon.INVOICE.create()));
             nav.addItem(new SideNavItem("Consultas pendientes", ConsultasView.class, VaadinIcon.CHAT.create()));
-            nav.addItem(new SideNavItem("Responder Consultas", ResponderConsultaView.class, VaadinIcon.CHAT.create()));
             nav.addItem(new SideNavItem("Cerrar Consultas", EliminarConsultaView.class, VaadinIcon.CHAT.create()));
         }
         else {
