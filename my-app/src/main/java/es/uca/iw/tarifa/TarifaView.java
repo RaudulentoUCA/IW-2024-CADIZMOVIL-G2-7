@@ -14,6 +14,7 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.converter.StringToFloatConverter;
@@ -119,6 +120,7 @@ public class TarifaView extends VerticalLayout {
 
         FormLayout nuevaTarifaFormLayout = new FormLayout();
 
+        binderForAddTarifa.setBean(new Tarifa());
 
         TextField nuevoNombre = new TextField();
         nuevaTarifaFormLayout.addFormItem(nuevoNombre, "Nombre");
@@ -146,23 +148,22 @@ public class TarifaView extends VerticalLayout {
         nuevaTarifaFormLayout.addFormItem(nuevoFibra, "Fibra");
         binderForAddTarifa.forField(nuevoFibra).bind(Tarifa::isFibra, Tarifa::setFibra);
 
-        TextField nuevoMegas = new TextField();
+        IntegerField nuevoMegas = new IntegerField();
         nuevaTarifaFormLayout.addFormItem(nuevoMegas, "Megas Disponibles");
         binderForAddTarifa.forField(nuevoMegas)
-                .withConverter(new StringToIntegerConverter("Ingrese un valor válido"))
                 .bind(Tarifa::getAvailableMB, Tarifa::setAvailableMB);
 
-        TextField nuevoMin = new TextField();
+        IntegerField nuevoMin = new IntegerField();
         nuevaTarifaFormLayout.addFormItem(nuevoMin, "Minutos Disponibles");
         binderForAddTarifa.forField(nuevoMin)
-                .withConverter(new StringToIntegerConverter("Ingrese un valor válido"))
                 .bind(Tarifa::getAvailableMin, Tarifa::setAvailableMin);
 
-        TextField nuevoSms = new TextField();
+        IntegerField nuevoSms = new IntegerField();
         nuevaTarifaFormLayout.addFormItem(nuevoSms, "Mensajes Disponibles");
         binderForAddTarifa.forField(nuevoSms)
-                .withConverter(new StringToIntegerConverter("Ingrese un valor válido"))
                 .bind(Tarifa::getAvailableSMS, Tarifa::setAvailableSMS);
+
+
 
         Button agregarButton = new Button("Agregar");
         agregarButton.addClickListener(event -> agregarNuevaTarifa());
@@ -239,6 +240,7 @@ public class TarifaView extends VerticalLayout {
         Tarifa nuevaTarifa = binderForAddTarifa.getBean();
         tarifaService.guardarTarifa(nuevaTarifa);
         Notification.show("Nueva tarifa agregada correctamente");
+        actualizarGrid();
     }
 
     private void guardarTarifa() {
