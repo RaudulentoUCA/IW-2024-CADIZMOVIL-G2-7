@@ -7,6 +7,7 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.icon.Icon;
@@ -22,13 +23,17 @@ import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.validator.EmailValidator;
+import com.vaadin.flow.router.BeforeLeaveEvent;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 import es.uca.iw.cliente.Cliente;
 import es.uca.iw.cliente.ServiciosCliente;
 import es.uca.iw.views.MainLayout;
+import com.vaadin.flow.component.dialog.Dialog;
+import org.aspectj.weaver.ast.Not;
 
 
 @PageTitle("Formulario")
@@ -47,6 +52,7 @@ public class FormularioView extends Composite<VerticalLayout> {
     private final PasswordField contra;
     private final PasswordField repcontra;
     private final BeanValidationBinder<Cliente> binder;
+    private boolean usuarioDioRetroceso = false;
     private final ServiciosCliente servicios;
 
 
@@ -64,27 +70,35 @@ public class FormularioView extends Composite<VerticalLayout> {
         FormLayout formLayout2Col = new FormLayout();
         nombre = new TextField();
         nombre.setRequiredIndicatorVisible(true);
+        nombre.setPlaceholder("Ejemplo: Juan");
 
         apellidos = new TextField();
         apellidos.setRequiredIndicatorVisible(true);
+        apellidos.setPlaceholder("Ejemplo: Pérez Gómez");
 
         fechaNacimiento = new DatePicker();
         fechaNacimiento.setRequiredIndicatorVisible(true);
+        fechaNacimiento.setPlaceholder("Selecciona tu fecha de nacimiento aquí");
 
         movil = new TextField();
         movil.setRequiredIndicatorVisible(false);
+        movil.setPlaceholder("Ejemplo: 602986754");
 
         email = new EmailField();
         email.setRequiredIndicatorVisible(true);
+        email.setPlaceholder("Ejemplo: tu_correo@example.com");
 
         dni = new TextField();
         dni.setRequiredIndicatorVisible(true);
+        dni.setPlaceholder("Ejemplo: 12345678A");
 
         HorizontalLayout layoutRow = new HorizontalLayout();
         contra = new PasswordField();
         contra.setRequiredIndicatorVisible(true);
+        contra.setPlaceholder("Mínimo 4 caracteres");
         repcontra = new PasswordField();
         repcontra.setRequiredIndicatorVisible(true);
+        repcontra.setPlaceholder("Mínimo 4 caracteres");
 
         HorizontalLayout layoutRow2 = new HorizontalLayout();
         Button baceptar = new Button();
@@ -186,7 +200,40 @@ public class FormularioView extends Composite<VerticalLayout> {
         email.addValueChangeListener(
                 event -> binder.validate());
 
+        Button infoButton = new Button("Por qué necesitamos tus datos");
+        infoButton.addClickListener(e -> showInfoDialog());
+        layoutColumn2.add(infoButton);
+
         binder.setBean(new Cliente());
+        UI.getCurrent().addBeforeLeaveListener(this::beforeLeave);
+    }
+
+    public void beforeLeave(BeforeLeaveEvent event) {
+        if (!usuarioDioRetroceso) {
+            // El usuario intenta retroceder, mostrar mensaje de advertencia
+            Div message = new Div();
+            message.setText("¿Estás seguro de que deseas abandonar el formulario? Se perderán los datos no guardados.");
+
+            Button backButton = new Button("Salir", e -> {
+                usuarioDioRetroceso = true;
+                UI.getCurrent().navigate("");
+            });
+
+            Button stayButton = new Button("Permanecer", e -> {
+                usuarioDioRetroceso = false;
+            });
+
+            // Mostrar mensaje y botones
+            Notification notification = new Notification(message, backButton, stayButton);
+            notification.setPosition(Notification.Position.MIDDLE);
+            notification.setDuration(0);
+            notification.open();
+
+            backButton.addClickListener(closeEvent -> notification.close());
+            stayButton.addClickListener(closeEvent -> notification.close());
+
+            event.postpone();
+        }
     }
 
     private void navigateToLoginView() {
@@ -194,16 +241,57 @@ public class FormularioView extends Composite<VerticalLayout> {
     }
 
     private void onRegisterButtonClick() {
-        if (binder.validate().isOk() & contra.getValue().equals(repcontra.getValue())) {
-            if (servicios.registrarCliente(binder.getBean())) {
+        if (binder.validate().isOk() && contra.getValue().equals(repcontra.getValue())) {
+            String condiciones = confirmarCampos();
+            if (servicios.registrarCliente(binder.getBean()) && condiciones.equals("bien")) {
                 binder.setBean(new Cliente());
-                Notification.show("You were successfully registered. Log in.");
+                Notification.show("Te has registrado correctamente");
+                usuarioDioRetroceso = true;
                 navigateToLoginView();
             } else {
-                Notification.show("Ha ocurrido un fallo inesperado");
+                Notification.show("Ha ocurrido un fallo inesperado:" + condiciones);
             }
         } else {
             Notification.show("Revisa los datos incluidos");
         }
+    }
+
+    private String confirmarCampos() {
+        StringBuilder devolver = new StringBuilder();
+
+        // Validar longitud del DNI y contraseña
+        if (dni.getValue().length() != 9 && contra.getValue().length() < 4) {
+            devolver.append(" \n DNI debe tener exactamente 9 caracteres y contraseña debe tener al menos 4 caracteres.");
+        }
+        else{
+            if (contra.getValue().length() < 4) {
+                devolver.append(" \n Contraseña debe tener al menos 4 caracteres.");
+            }
+
+            if (dni.getValue().length() != 9) {
+                devolver.append(" \n DNI debe tener exactamente 9 caracteres.");
+            }
+        }
+
+        return devolver.isEmpty() ? "bien" : devolver.toString();
+    }
+
+    private void showInfoDialog() {
+        // Crear texto
+        Dialog infoDialog = new Dialog();
+
+        Paragraph infoParagraph1 = new Paragraph("Necesitamos sus datos para proporcionarle " +
+                "una experiencia personalizada y garantizar la seguridad " +
+                "de su cuenta. Además, con ellos podemos identificarle y comunicarnos con usted de forma sencilla.");
+
+        Paragraph infoParagraph2 = new Paragraph("No compartiremos su información con terceros.");
+
+        // Crear botón para cerrar el diálogo
+        Button closeButton = new Button("Cerrar", event -> infoDialog.close());
+
+        infoDialog.add(infoParagraph1, infoParagraph2, closeButton);
+
+        // Mostrar el diálogo
+        infoDialog.open();
     }
 }
