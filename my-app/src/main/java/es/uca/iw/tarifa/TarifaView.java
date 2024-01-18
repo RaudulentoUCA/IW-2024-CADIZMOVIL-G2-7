@@ -110,7 +110,7 @@ public class TarifaView extends VerticalLayout {
                 .withConverter(new StringToIntegerConverter("Ingrese un valor válido"))
                 .bind(Tarifa::getAvailableSMS, Tarifa::setAvailableSMS);
 
-        guardarButton.addClickListener(event -> guardarTarifa());
+        guardarButton.addClickListener(event -> {guardarTarifa(); actualizarGrid();});
         tarifaComboBox.addValueChangeListener(event -> mostrarDetallesTarifa(event.getValue()));
         add(formLayout, guardarButton);
 
@@ -247,6 +247,7 @@ public class TarifaView extends VerticalLayout {
         Tarifa tarifa = binderForChangeTarifa.getBean();
         tarifaService.guardarTarifa(tarifa);
         Notification.show("Tarifa guardada correctamente");
+        actualizarGrid();
     }
 
     // Method to delete Tarifa

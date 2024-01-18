@@ -128,7 +128,7 @@ public class NewsMarketingView extends VerticalLayout {
         if (news != null) {
             Optional<News> tarifaToDelete = newsServicio.findById(news.getId());
             tarifaToDelete.ifPresent(newsServicio::removeNews);
-            Notification.show("Tarifa eliminada correctamente");
+            Notification.show("Noticias eliminado correctamente");
         }
     }
 
