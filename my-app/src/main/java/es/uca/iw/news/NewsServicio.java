@@ -1,4 +1,5 @@
 package es.uca.iw.news;
+import es.uca.iw.tarifa.Tarifa;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public class NewsServicio {
     }
 
     @Transactional
-    public List<News> getAllTarifas(){
+    public List<News> getAllNews(){
         return newsRepositorio.findAll();
     }
 
@@ -28,4 +29,11 @@ public class NewsServicio {
         Optional<News> news = newsRepositorio.findById(id);
         return news;
     }
+
+    public void removeNews(News news){
+        newsRepositorio.delete(news);
+    }
+
+
+
 }

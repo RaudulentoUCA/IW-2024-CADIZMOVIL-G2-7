@@ -36,6 +36,11 @@ public class TarifaService {
         return tarifa;
     }
 
+    public Optional<Tarifa> getTarifaByNombre(String nombre) {
+        Optional<Tarifa> tarifa = tarifaRepository.findByNombre(nombre);
+        return tarifa;
+    }
+
     public void removeTarifa(Tarifa tarifa){
         tarifaRepository.delete(tarifa);
     }
