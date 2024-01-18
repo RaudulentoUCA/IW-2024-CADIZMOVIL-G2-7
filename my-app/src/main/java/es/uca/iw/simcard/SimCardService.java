@@ -7,9 +7,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 
 @Service
@@ -117,4 +115,21 @@ public class SimCardService {
             simCardRepository.save(simCard);
         }
     }
+
+    @Transactional
+    public Set<Long> getUniqueTarifaIds() {
+        Set<Long> uniqueTarifaIds = new HashSet<>();
+
+        List<SimCard> allSimCards = simCardRepository.findAll();
+
+        for (SimCard simCard : allSimCards) {
+            Tarifa tarifa = simCard.getTarifa();
+            if (tarifa != null) {
+                uniqueTarifaIds.add(tarifa.getId());
+            }
+        }
+
+        return uniqueTarifaIds;
+    }
+
 }

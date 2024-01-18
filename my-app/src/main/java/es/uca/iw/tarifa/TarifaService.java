@@ -30,4 +30,15 @@ public class TarifaService {
         Optional<Tarifa> tarifa = tarifaRepository.findByNombre(nombre);
         return tarifa;
     }
+
+    public Optional<Tarifa> getTarifaById(Long id) {
+        Optional<Tarifa> tarifa = tarifaRepository.findById(id);
+        return tarifa;
+    }
+
+    public void removeTarifa(Tarifa tarifa){
+        tarifaRepository.delete(tarifa);
+    }
+
+
 }

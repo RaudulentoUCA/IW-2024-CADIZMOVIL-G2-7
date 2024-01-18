@@ -22,8 +22,6 @@ public class CustomCardElement extends VerticalLayout {
     }
 
     public CustomCardElement(String title, String internet, String calls, String sms, boolean isRoamingIncluded, String buttonText) {
-
-
         Div titleDiv = new Div();
         titleDiv.setHeight("auto");
         titleDiv.setWidth("380px");

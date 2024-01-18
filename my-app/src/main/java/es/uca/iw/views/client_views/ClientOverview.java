@@ -115,6 +115,7 @@ public class ClientOverview extends VerticalLayout {
                                 Integer availableMin = simCard.getTarifa().getAvailableMin();
                                 Integer spentMin = simCard.getUsedMinutes();
                                 double percentageMin = (((double)availableMin- (double) spentMin) /availableMin);
+                                if (percentageMin < 0.0){percentageMin=0.0;}
                                 progressBarMin.setValue(percentageMin);
 
                                 NativeLabel progressBarLabelTextMin = new NativeLabel("Llamadas:");
@@ -133,6 +134,7 @@ public class ClientOverview extends VerticalLayout {
                                 Integer availableMb = simCard.getTarifa().getAvailableMB();
                                 Integer spentMb = simCard.getUsedMb();
                                 double percentageMb = (((double)availableMb-(double)spentMb)/availableMb);
+                                if (percentageMb < 0.0){percentageMb=0.0;}
                                 progressBarMb.setValue(percentageMb);
 
                                 NativeLabel progressBarLabelTextMb = new NativeLabel("Internet:");
@@ -153,6 +155,7 @@ public class ClientOverview extends VerticalLayout {
                                 Integer availableSMS = simCard.getTarifa().getAvailableSMS();
                                 Integer spentSMS = simCard.getUsedSms();
                                 double percentageSMS = (((double) availableSMS - (double) spentSMS) / availableSMS);
+                                if (percentageSMS < 0.0){percentageSMS=0.0;}
                                 progressBarSMS.setValue(percentageSMS);
 
                                 NativeLabel progressBarLabelTextSMS = new NativeLabel("Mensajes:");
