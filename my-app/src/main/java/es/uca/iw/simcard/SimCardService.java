@@ -26,6 +26,9 @@ public class SimCardService {
         simCard.setTarifa(tarifa);
         simCard.setContrato(contrato);
         simCard.setActive(true);
+        simCard.setUsedMb(0);
+        simCard.setUsedSms(0);
+        simCard.setUsedMinutes(0);
         return simCardRepository.save(simCard);
     }
 

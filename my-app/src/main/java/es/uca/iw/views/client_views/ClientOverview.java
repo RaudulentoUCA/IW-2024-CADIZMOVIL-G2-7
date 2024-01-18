@@ -3,12 +3,12 @@ package es.uca.iw.views.client_views;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.*;
-import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -26,15 +26,17 @@ import es.uca.iw.contrato.ServiciosContrato;
 import es.uca.iw.custom_components.CustomCardElement;
 import es.uca.iw.simcard.SimCard;
 import es.uca.iw.simcard.SimCardService;
+import es.uca.iw.tarifa.Tarifa;
+import es.uca.iw.tarifa.TarifaService;
 import es.uca.iw.views.MainLayout;
-import es.uca.iw.views.formulario.FormularioView;
 import jakarta.annotation.security.RolesAllowed;
 
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 
 //TODO Add opportunity to choose contract to show information
@@ -45,15 +47,23 @@ public class ClientOverview extends VerticalLayout {
     private final SimCardService simCardService;
 
     private final ServiciosContrato contratoService;
+    private final TarifaService tarifaService;
+
     private final AuthenticatedUser authenticatedUser;
-    public ClientOverview(SimCardService simCardService, ServiciosContrato contratoService, AuthenticatedUser authenticatedUser) {
+
+    public ClientOverview(SimCardService simCardService, ServiciosContrato contratoService, TarifaService tarifaService, AuthenticatedUser authenticatedUser) {
         this.simCardService = simCardService;
         this.contratoService = contratoService;
+        this.tarifaService = tarifaService;
         this.authenticatedUser = authenticatedUser;
 
         Optional<Cliente> optionalCliente = authenticatedUser.get();
         setWidth("100%");
         getStyle().set("flex-grow", "1");
+
+        Random random = new Random();
+        Button activateSimCardConTarifaBasica = new Button("Activar tarjeta sim con Tárifa básica");
+
 
         optionalCliente.ifPresent(cliente -> {
             add(new H1(" \uD83D\uDC4B, " + cliente.getNombre() + " " + cliente.getApellidos()));
@@ -89,7 +99,7 @@ public class ClientOverview extends VerticalLayout {
                 simCardInfoLayout.setPadding(false);
                 add(simCardInfoLayout);
 
-                H5 noSimCardToContract = new H5("No hay ninguna tarjeta relacionada con este contrsto :(");
+                H5 noSimCardToContract = new H5("No hay ninguna tarjeta relacionada con este contrato :(");
                 add(noSimCardToContract);
                 noSimCardToContract.setVisible(false);
 
@@ -194,6 +204,38 @@ public class ClientOverview extends VerticalLayout {
                             button.setIcon(new Icon(VaadinIcon.EYE));
                         })).setHeader("");
 
+                add(activateSimCardConTarifaBasica);
+                activateSimCardConTarifaBasica.setVisible(false);
+                activateSimCardConTarifaBasica.addClickListener(buttonClickEvent -> {
+                    // getting user first contract
+                    Contrato clientContract = contratoService.getContratosByCliente(cliente).get(0);
+                    Optional<Tarifa> basicTarifa = tarifaService.getTarifaByNombre("Tarifa básica");
+                    if (basicTarifa.isPresent()){
+                    basicTarifa.ifPresent(tarifa -> simCardService.createSimCard(100000000 + random.nextInt(900000000), tarifa, clientContract));
+                    UI.getCurrent().getPage().reload();
+                    }
+                    else {
+                        Tarifa tarifa = new Tarifa();
+                        tarifa.setNombre("Tarifa básica");
+                        tarifa.setAvailable(true);
+                        tarifa.setPrecio(10);
+                        tarifa.setFibra(true);
+                        tarifa.setFijo(false);
+                        tarifa.setPermiteRoaming(false);
+                        tarifa.setDescripcion("Tarifa básica para tarjeta sim");
+                        tarifa.setAvailableMB(10000);
+                        tarifa.setAvailableMin(100);
+                        tarifa.setAvailableSMS(10);
+                        tarifaService.guardarTarifa(tarifa);
+                        Optional<Tarifa> newTarifaBasica = tarifaService.getTarifaByNombre("Tarifa básica");
+                        newTarifaBasica.ifPresent(tarifa1 -> {
+                            simCardService.createSimCard(100000000 + random.nextInt(900000000), tarifa1, clientContract);
+                        });
+                        UI.getCurrent().getPage().reload();
+                    }
+
+
+                });
 
 
                 select.addValueChangeListener(event -> {
@@ -207,6 +249,7 @@ public class ClientOverview extends VerticalLayout {
                         simCardsVerticalLayout.remove(simCardsContractH4, gridSimCards);
                         simCardsVerticalLayout.setVisible(false);
                         noSimCardToContract.setVisible(true);
+                        activateSimCardConTarifaBasica.setVisible(true);
                     }
                     else {
                         simCardsVerticalLayout.add(simCardsContractH4);
@@ -217,75 +260,29 @@ public class ClientOverview extends VerticalLayout {
                 });
 
                 select.setValue(userContracts.get(0));
-
-
-
-
-
-
-
-
-//                Div balanceDiv = new Div();
-//                Image walletImage = new Image("icons/wallet_icon.png", "wallet icon");
-//                walletImage.setWidth("80px");
-//                walletImage.setHeight("80px");
-//                H4 saldo = new H4(cliente.getContracts().get(0).getSimCard().getBalance() + "€");
-//                saldo.getStyle().set("margin", "10px 0px 10px 0px");
-//
-//                Dialog recargarDialog = new Dialog();
-//                recargarDialog.getElement().setAttribute("aria-label", "Recargar tarjeta SIM");
-
-//                VerticalLayout dialogLayout = createDialogLayout(recargarDialog, cliente, simCardService);
-//                recargarDialog.add(dialogLayout);
-
-//                Button recargarButton = new Button("Recargar", e -> recargarDialog.open());
-//                balanceDiv.add(walletImage, saldo, recargarButton);
-//                balanceDiv.getStyle().set("flex-wrap", "wrap");
-//                balanceDiv.getStyle().set("display", "flex");
-//                balanceDiv.getStyle().set("flex-direction", "column");
-//                balanceDiv.getStyle().set("justify-content", "center");
-//                balanceDiv.getStyle().set("align-items", "center");
-//                contentLayout.add(balanceDiv);
-//
-//                add(contentLayout, recargarDialog);
             }
             else {
                 add(new H4("Todavia no tienes el contrato"));
+                add(new Paragraph("Hay opción de contratarse por 1 año con descuento de 0%"));
+                Button buttonNewContract = new Button("Contratarse");
+                buttonNewContract.addClickListener(buttonClickEvent -> {
+                    Contrato newBasicContract = new Contrato();
+                    newBasicContract.setCliente(cliente);
+                    newBasicContract.setDescuento(0);
+                    newBasicContract.setFechaInicio(LocalDate.now());
+                    newBasicContract.setFechaFin(LocalDate.now().plusYears(1));
+                    newBasicContract.setNumerosBloqueados(null);
+                    newBasicContract.setCompartirDatos(false);
+                    contratoService.guardarContrato(newBasicContract);
+                    Notification notification = new Notification("Contratado correctamente");
+                    notification.setDuration(3000);
+                    notification.setPosition(Notification.Position.TOP_CENTER);
+                    notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+                    notification.open();
+                    UI.getCurrent().getPage().reload();
+                });
+                add(buttonNewContract);
             }
         });
     }
-
-//    private static VerticalLayout createDialogLayout(Dialog dialog, Cliente cliente, SimCardService simCardService) {
-//        H2 headline = new H2("Recargar tarjeta SIM");
-//        headline.getStyle().set("margin", "var(--lumo-space-m) 0 0 0")
-//                .set("font-size", "1.5em").set("font-weight", "bold");
-//
-//        TextField amountOfMoneyField = new TextField("Cantidad");
-//        VerticalLayout fieldLayout = new VerticalLayout(amountOfMoneyField);
-//        fieldLayout.setSpacing(false);
-//        fieldLayout.setPadding(false);
-//        fieldLayout.setAlignItems(FlexComponent.Alignment.STRETCH);
-//
-//        Button cancelButton = new Button("Cancel", e -> dialog.close());
-//        Button saveButton = new Button("Pagar", e -> {
-//            if (!amountOfMoneyField.isEmpty()){
-//                simCardService.addMoney(cliente.getContracts().get(0).getSimCard().getNumber(), Float.parseFloat(amountOfMoneyField.getValue()));
-//            }
-//            dialog.close();
-//        });
-//        saveButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-//        HorizontalLayout buttonLayout = new HorizontalLayout(cancelButton,
-//                saveButton);
-//        buttonLayout
-//                .setJustifyContentMode(FlexComponent.JustifyContentMode.END);
-//
-//        VerticalLayout dialogLayout = new VerticalLayout(headline, fieldLayout,
-//                buttonLayout);
-//        dialogLayout.setPadding(false);
-//        dialogLayout.setAlignItems(FlexComponent.Alignment.STRETCH);
-//        dialogLayout.getStyle().set("width", "300px").set("max-width", "100%");
-//
-//        return dialogLayout;
-//    }
-
 }
