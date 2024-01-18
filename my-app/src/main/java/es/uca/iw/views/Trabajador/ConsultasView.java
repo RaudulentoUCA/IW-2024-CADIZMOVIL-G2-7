@@ -70,7 +70,6 @@ public class ConsultasView extends VerticalLayout {
             asunto.setValue("RE: " + primeraConsulta.getAsunto());
             asunto.setRequired(true);
 
-            // Campo de correo del cliente no modificable
             TextArea correoClienteField = new TextArea("Correo del Cliente");
             correoClienteField.setValue(correoCliente);
             correoClienteField.setReadOnly(true);
