@@ -102,9 +102,15 @@ public class RecuperarContraView extends VerticalLayout {
             // Configurar el destinatario
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(correoGuardado));
             // Asunto del correo
-            message.setSubject("Recuperar Contraseña CadizMovil"); // Asunto
+            message.setSubject("Recuperar Contraseña CadizMovil");
+
             // Establecer el contenido del mensaje
-            message.setText(codigo);
+            String cuerpoMensaje = "Estimado usuario,\n\n"
+                    + "Hemos recibido una solicitud para restablecer la contraseña de tu cuenta en CadizMovil.\n\n"
+                    + "Tu código de verificación es: " + codigo + "\n\n"
+                    + "Utiliza este código para restablecer tu contraseña en la aplicación.\n\n"
+                    + "Gracias, equipo de soporte CadizMovil.";
+            message.setText(cuerpoMensaje);
 
             // Enviar el mensaje
             Transport.send(message);

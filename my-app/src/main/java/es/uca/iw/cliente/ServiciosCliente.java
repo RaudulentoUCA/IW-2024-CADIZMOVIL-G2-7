@@ -68,6 +68,9 @@ public class ServiciosCliente implements UserDetailsService {
     public boolean actualizarDatosDelCliente(UUID clientId, String newName, String newSurname, LocalDate newBirthDate,String newDNI, String newContactNumber) {
         Optional<Cliente> optionalCliente = repositorio.findById(clientId);
         if (optionalCliente.isPresent()) {
+            // Condiciones de los campos que deben cumplirse
+            if(newDNI.length() != 9 || newName.isEmpty() || newSurname.isEmpty() || newSurname.equals(" ") || newName.equals(" ")) return false;
+
             Cliente cliente = optionalCliente.get();
             cliente.setNombre(newName);
             cliente.setApellidos(newSurname);

@@ -5,8 +5,7 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.login.LoginForm;
-import com.vaadin.flow.router.BeforeEnterEvent;
-import com.vaadin.flow.router.BeforeEnterObserver;
+import com.vaadin.flow.router.*;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
@@ -17,8 +16,6 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyContentMode;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import es.uca.iw.AuthenticatedUser;
 import es.uca.iw.views.MainLayout;
@@ -87,6 +84,13 @@ public class LoginView extends Composite<VerticalLayout> implements BeforeEnterO
         layoutRow2.add(forgotPasswordButton);
         layoutColumn2.add(new VerticalSpacer(), layoutRow2);
         getContent().add(layoutColumn2);
+        UI.getCurrent().addBeforeLeaveListener(this::beforeLeave);
+    }
+
+    public void beforeLeave(BeforeLeaveEvent event){
+        if (authenticatedUser.get().isPresent()) {
+            UI.getCurrent().navigate(ProfileView.class);
+        }
     }
 
     private void navigateToLoginView() {

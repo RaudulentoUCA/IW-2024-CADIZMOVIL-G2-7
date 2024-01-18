@@ -66,8 +66,12 @@ public class AjustesView extends VerticalLayout {
             add(nameField, surnameField, birthDateField, documentNumberField,contactNumberField,emailField,saveButton);
             saveButton.addClickListener((event)->{
                 if (serviciosCliente.actualizarDatosDelCliente(cliente.getId(), nameField.getValue(), surnameField.getValue(), birthDateField.getValue(), documentNumberField.getValue(), contactNumberField.getValue())){
-                    Notification notification = Notification.show("Datos cambiado.");
+                    Notification notification = Notification.show("Datos cambiados.");
                     notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+                }
+                else{
+                    Notification notification = Notification.show("Ha ocurrido un error, revisa los datos introducidos");
+                    notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
                 }
                 UI.getCurrent().navigate(AjustesView.class);
             });
