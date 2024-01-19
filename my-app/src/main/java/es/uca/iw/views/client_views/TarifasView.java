@@ -176,8 +176,9 @@ public class TarifasView extends VerticalLayout {
     }
 
     private boolean isValidPassword(String enteredPassword) {
-        if (authenticatedUser.get().isPresent()) {
-            String storedHashedPassword = authenticatedUser.get().get().getPassword();
+        Optional<Cliente> cliente = authenticatedUser.get();
+        if (cliente.isPresent()) {
+            String storedHashedPassword = cliente.get().getPassword();
             return passwordEncoder.matches(enteredPassword, storedHashedPassword);
         }
         return false;
