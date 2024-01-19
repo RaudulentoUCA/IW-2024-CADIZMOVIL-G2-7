@@ -1,13 +1,18 @@
 package es.uca.iw.atencion_cliente;
 
+import es.uca.iw.auditoria.CustomAuditingEntityListener;
 import es.uca.iw.cliente.Cliente;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
+@EntityListeners(CustomAuditingEntityListener.class)
 public class Consulta {
     @Id
     @GeneratedValue
@@ -28,6 +33,21 @@ public class Consulta {
     @Column(name = "cuerpo", nullable = false, length = 1024)
     private String cuerpo;
 
+    @CreatedDate
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
+
+    @LastModifiedDate
+    @Column(name = "last_modified_date")
+    private LocalDateTime lastModifiedDate;
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public void setLastModifiedDate(LocalDateTime lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
     @Column(name = "respondido", nullable = false)
     private boolean respondido;
 

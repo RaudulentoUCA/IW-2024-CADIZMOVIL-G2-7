@@ -1,13 +1,16 @@
 package es.uca.iw.contrato;
 
+import es.uca.iw.auditoria.CustomAuditingEntityListener;
 import es.uca.iw.cliente.Cliente;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@EntityListeners(CustomAuditingEntityListener.class)
 public class Contrato {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +28,11 @@ public class Contrato {
     @Column(name = "descuento", nullable = false, columnDefinition = "float default 0")
     private float descuento;
 
+    @Column(name = "created_at")
+    private LocalDateTime createdDate;
+
+    @Column(name = "modified_at")
+    private LocalDateTime lastModifiedDate;
     @Column(name = "compartirDatos", nullable = false, columnDefinition = "boolean default false")
     private boolean compartirDatos;
 
@@ -71,6 +79,10 @@ public class Contrato {
     public void setDescuento(float descuento) {
         this.descuento = descuento;
     }
+
+    public void setCreatedDate(LocalDateTime createdDate) { this.createdDate = createdDate; }
+
+    public void setLastModifiedDate(LocalDateTime lastModifiedDate)  { this.lastModifiedDate = lastModifiedDate; }
 
     public boolean isCompartirDatos() {
         return compartirDatos;
