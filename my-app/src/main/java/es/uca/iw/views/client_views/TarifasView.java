@@ -1,8 +1,11 @@
 package es.uca.iw.views.client_views;
 
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.html.H5;
+import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
@@ -10,6 +13,7 @@ import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.select.Select;
+import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -24,6 +28,8 @@ import es.uca.iw.tarifa.Tarifa;
 import es.uca.iw.tarifa.TarifaService;
 import es.uca.iw.views.MainLayout;
 import jakarta.annotation.security.RolesAllowed;
+import com.vaadin.flow.component.dialog.Dialog;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,11 +48,14 @@ public class TarifasView extends VerticalLayout {
 
     private final SimCardService simCardService;
 
-    public TarifasView(AuthenticatedUser authenticatedUser, TarifaService tarifaService, ServiciosContrato serviciosContrato, SimCardService simCardService){
+    private final PasswordEncoder passwordEncoder;
+
+    public TarifasView(AuthenticatedUser authenticatedUser, TarifaService tarifaService, ServiciosContrato serviciosContrato, SimCardService simCardService, PasswordEncoder passwordEncoder){
         this.authenticatedUser = authenticatedUser;
         this.tarifaService = tarifaService;
         this.serviciosContrato = serviciosContrato;
         this.simCardService = simCardService;
+        this.passwordEncoder = passwordEncoder;
 
         Optional<Cliente> optionalCliente = authenticatedUser.get();
 
@@ -78,7 +87,7 @@ public class TarifasView extends VerticalLayout {
 
                     add(select);
 
-                    CustomCardElement userTarifaCardElement = new CustomCardElement(userSimCards.get(0).getTarifa().getNombre(),userSimCards.get(0).getTarifa().getAvailableMB().toString(),userSimCards.get(0).getTarifa().getAvailableMin().toString(),userSimCards.get(0).getTarifa().getAvailableSMS().toString(),userSimCards.get(0).getTarifa().isPermiteRoaming(),"Cambiar");
+                    CustomCardElement userTarifaCardElement = new CustomCardElement(userSimCards.get(0).getTarifa().getNombre(),userSimCards.get(0).getTarifa().getAvailableMB().toString(),userSimCards.get(0).getTarifa().getAvailableMin().toString(),userSimCards.get(0).getTarifa().getAvailableSMS().toString(),userSimCards.get(0).getTarifa().isPermiteRoaming(),"Cambiar", String.format("%.2f", userSimCards.get(0).getTarifa().getPrecio()));
                     contentLayout.add(userTarifaCardElement);
 
                     add(contentLayout);
@@ -94,23 +103,58 @@ public class TarifasView extends VerticalLayout {
                     HorizontalLayout horizontalLayout = new HorizontalLayout();
                     horizontalLayout.getStyle().set("flex-wrap", "wrap");
                     for (Tarifa tarifa : allPlans){
-                        CustomCardElement tarifaCardElement = new CustomCardElement(tarifa.getNombre(),tarifa.getAvailableMB().toString(),tarifa.getAvailableMin().toString(),tarifa.getAvailableSMS().toString(),tarifa.isPermiteRoaming(),"Elegir");
-                        tarifaCardElement.setButtonClickListener(()->{
-                            simCardService.changePlan(select.getValue().getNumber(), tarifa);
-                            Notification notification = Notification.show("Tarifa fue cambiado.");
-                            notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+                        CustomCardElement tarifaCardElement = new CustomCardElement(tarifa.getNombre(),tarifa.getAvailableMB().toString(),tarifa.getAvailableMin().toString(),tarifa.getAvailableSMS().toString(),tarifa.isPermiteRoaming(),"Elegir", String.format("%.2f", tarifa.getPrecio()));
+                        tarifaCardElement.setButtonClickListener(() -> {
+                            Dialog confirmDialog = new Dialog();
+                            confirmDialog.setCloseOnEsc(false);
+                            confirmDialog.setCloseOnOutsideClick(false);
 
-                            Optional<SimCard> oldSimCard = simCardService.getSimCardByNumber(select.getValue().getNumber());
+                            VerticalLayout dialogLayout = new VerticalLayout();
+                            Paragraph parrafo = new Paragraph("¿Estás seguro de cambiar la tarifa?");
+                            dialogLayout.add(parrafo);
+                            parrafo = new Paragraph("Escribe tu contraseña para confirmar la operación");
+                            dialogLayout.add(parrafo);
 
-                            contentLayout.removeAll();
-                            Optional<SimCard> newSimCardRef = simCardService.getSimCardByNumber(select.getValue().getNumber());
+                            // Contraseña para re-autenticación
+                            PasswordField passwordField = new PasswordField("Contraseña");
+                            dialogLayout.add(passwordField);
 
-                            contentLayout.add(new CustomCardElement(newSimCardRef.get().getTarifa().getNombre(),newSimCardRef.get().getTarifa().getAvailableMB().toString(),newSimCardRef.get().getTarifa().getAvailableMin().toString(),newSimCardRef.get().getTarifa().getAvailableSMS().toString(),newSimCardRef.get().getTarifa().isPermiteRoaming(),"Cambiar"));
+                            // Botones confirmar y cancelar
+                            Button confirmButton = new Button("Confirmar", event -> {
+                                if (isValidPassword(passwordField.getValue())) {
+                                    // Realizar la acción después de confirmar
+                                    simCardService.changePlan(select.getValue().getNumber(), tarifa);
+                                    Notification notification = Notification.show("Tarifa fue cambiada.");
+                                    notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
 
-                            UI.getCurrent().getPage().reload();
+                                    Optional<SimCard> oldSimCard = simCardService.getSimCardByNumber(select.getValue().getNumber());
 
-                            select.setValue(oldSimCard.get());
+                                    contentLayout.removeAll();
+                                    Optional<SimCard> newSimCardRef = simCardService.getSimCardByNumber(select.getValue().getNumber());
 
+                                    contentLayout.add(new CustomCardElement(newSimCardRef.get().getTarifa().getNombre(), newSimCardRef.get().getTarifa().getAvailableMB().toString(), newSimCardRef.get().getTarifa().getAvailableMin().toString(), newSimCardRef.get().getTarifa().getAvailableSMS().toString(), newSimCardRef.get().getTarifa().isPermiteRoaming(), "Cambiar", String.format("%.2f", newSimCardRef.get().getTarifa().getPrecio())));
+
+                                    UI.getCurrent().getPage().reload();
+
+                                    select.setValue(oldSimCard.get());
+                                    confirmDialog.close();
+                                } else {
+                                    Notification.show("Contraseña incorrecta. Por favor, inténtelo de nuevo.");
+                                }
+                            });
+                            confirmButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+
+                            Button cancelButton = new Button("Cancelar", event -> {
+                                // Cancelar
+                                confirmDialog.close();
+                            });
+
+                            dialogLayout.add(confirmButton, cancelButton);
+
+                            confirmDialog.add(dialogLayout);
+
+                            // Mostrar el cuadro de diálogo
+                            confirmDialog.open();
                         });
                         tarifaCardElement.getStyle().set("width", "auto");
                         horizontalLayout.add(tarifaCardElement);
@@ -118,49 +162,24 @@ public class TarifasView extends VerticalLayout {
 
                     select.addValueChangeListener(event -> {
                         contentLayout.removeAll();
-                        contentLayout.add(new CustomCardElement(event.getValue().getTarifa().getNombre(),event.getValue().getTarifa().getAvailableMB().toString(),event.getValue().getTarifa().getAvailableMin().toString(),event.getValue().getTarifa().getAvailableSMS().toString(),event.getValue().getTarifa().isPermiteRoaming(),"Cambiar"));
+                        contentLayout.add(new CustomCardElement(event.getValue().getTarifa().getNombre(),event.getValue().getTarifa().getAvailableMB().toString(),event.getValue().getTarifa().getAvailableMin().toString(),event.getValue().getTarifa().getAvailableSMS().toString(),event.getValue().getTarifa().isPermiteRoaming(),"Cambiar", String.format("%.2f", event.getValue().getTarifa().getPrecio())));
 
                         horizontalLayout.removeAll();
                         allPlans.clear();
                         allPlans.addAll(tarifaService.getAllTarifas());
                         allPlans.remove(select.getValue().getTarifa());
-
-                        for (Tarifa tarifa : allPlans){
-                            CustomCardElement tarifaCardElement = new CustomCardElement(tarifa.getNombre(),tarifa.getAvailableMB().toString(),tarifa.getAvailableMin().toString(),tarifa.getAvailableSMS().toString(),tarifa.isPermiteRoaming(),"Elegir");
-                            tarifaCardElement.setButtonClickListener(()->{
-                                simCardService.changePlan(select.getValue().getNumber(), tarifa);
-                                Notification notification = new Notification("Tarifa fue cambiado.");
-                                notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
-                                notification.setDuration(3000);
-                                notification.setPosition(Notification.Position.TOP_CENTER);
-                                notification.open();
-
-                                contentLayout.removeAll();
-                                horizontalLayout.removeAll();
-                                allPlans.clear();
-                                allPlans.addAll(tarifaService.getAllTarifas());
-                                allPlans.remove(tarifa);
-                                for(Tarifa tarifa1: allPlans){
-                                    CustomCardElement customCardElement = new CustomCardElement(tarifa1.getNombre(),tarifa1.getAvailableMB().toString(),tarifa1.getAvailableMin().toString(),tarifa1.getAvailableSMS().toString(),tarifa1.isPermiteRoaming(),"Cambiar");
-                                    customCardElement.getStyle().set("width", "auto");
-                                    horizontalLayout.add(customCardElement);
-                                }
-                                contentLayout.add(new CustomCardElement(tarifa.getNombre(),tarifa.getAvailableMB().toString(),tarifa.getAvailableMin().toString(),event.getValue().getTarifa().getAvailableSMS().toString(),tarifa.isPermiteRoaming(),"Cambiar"));
-                             });
-                            tarifaCardElement.getStyle().set("width", "auto");
-                            horizontalLayout.add(tarifaCardElement);
-                        }
                     });
-
                     add(horizontalLayout);
                 }
-
-
-
-
-
-
             }
         });
+    }
+
+    private boolean isValidPassword(String enteredPassword) {
+        if (authenticatedUser.get().isPresent()) {
+            String storedHashedPassword = authenticatedUser.get().get().getPassword();
+            return passwordEncoder.matches(enteredPassword, storedHashedPassword);
+        }
+        return false;
     }
 }

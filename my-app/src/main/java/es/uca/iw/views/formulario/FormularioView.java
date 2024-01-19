@@ -55,6 +55,8 @@ public class FormularioView extends Composite<VerticalLayout> {
     private boolean usuarioDioRetroceso = false;
     private final ServiciosCliente servicios;
 
+    private boolean iniciosesion = false;
+
 
     public FormularioView(ServiciosCliente servicios) {
         this.servicios = servicios;
@@ -216,11 +218,15 @@ public class FormularioView extends Composite<VerticalLayout> {
 
             Button backButton = new Button("Salir", e -> {
                 usuarioDioRetroceso = true;
-                UI.getCurrent().navigate("");
+                if(iniciosesion == false)
+                    UI.getCurrent().navigate("");
+                else
+                    UI.getCurrent().navigate(LoginView.class);
             });
 
             Button stayButton = new Button("Permanecer", e -> {
                 usuarioDioRetroceso = false;
+                iniciosesion = false;
             });
 
             // Mostrar mensaje y botones
@@ -237,6 +243,7 @@ public class FormularioView extends Composite<VerticalLayout> {
     }
 
     private void navigateToLoginView() {
+        iniciosesion = true;
         UI.getCurrent().navigate(LoginView.class);
     }
 
