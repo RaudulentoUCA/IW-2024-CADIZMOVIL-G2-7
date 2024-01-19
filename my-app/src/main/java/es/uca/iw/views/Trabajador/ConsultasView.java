@@ -44,7 +44,7 @@ public class ConsultasView extends VerticalLayout {
         if (consultasNoRespondidas.isEmpty()) {
             add(new Paragraph("No hay consultas pendientes."));
         } else {
-            Consulta primeraConsulta = consultasNoRespondidas.getFirst();
+            Consulta primeraConsulta = consultasNoRespondidas.get(0);
 
             String correoCliente = primeraConsulta.getCliente().getEmail();
             Div consultaDiv = new Div();
