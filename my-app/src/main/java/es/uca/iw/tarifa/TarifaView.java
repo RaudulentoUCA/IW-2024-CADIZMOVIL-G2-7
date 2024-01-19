@@ -170,7 +170,6 @@ public class TarifaView extends VerticalLayout {
         add(nuevaTarifaFormLayout, agregarButton);
 
         add(new H3("Lista de todas tarifas:"));
-        List<Tarifa> allTarifas = tarifaService.getAllTarifas();
         Set<Long> assignedTarifasIds = simCardService.getUniqueTarifaIds();
         tarifaGrid.setAllRowsVisible(true);
         tarifaGrid.addColumn(Tarifa::getId).setHeader("№");
@@ -219,15 +218,36 @@ public class TarifaView extends VerticalLayout {
                         button.addThemeVariants(ButtonVariant.LUMO_ICON,
                                 ButtonVariant.LUMO_ERROR,
                                 ButtonVariant.LUMO_TERTIARY);
-                        button.addClickListener(e -> {
-                            eliminarTarifa(tarifa);
-                            actualizarGrid();
-                        });
+                        button.addClickListener(e -> mostrarConfirmacionEliminarTarifa(tarifa));
                         button.setIcon(new Icon(VaadinIcon.TRASH));
                     }
                 })).setHeader("");
-        tarifaGrid.setItems(allTarifas);
+        tarifaGrid.setItems(tarifas);
         add(tarifaGrid);
+    }
+
+    private void mostrarConfirmacionEliminarTarifa(Tarifa tarifa) {
+        // Crear mensaje de confirmación
+        Div message = new Div();
+        message.setText("¿Estás seguro de que deseas eliminar esta tarifa? Esta acción no se puede deshacer.");
+
+        // Crear botones de confirmación
+        Button confirmButton = new Button("Eliminar", event -> {
+            eliminarTarifa(tarifa);
+            actualizarGrid();
+            Notification.show("Tarifa eliminada correctamente", 3000, Notification.Position.BOTTOM_CENTER);
+        });
+        confirmButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+
+        Button cancelButton = new Button("Cancelar");
+
+        // Mostrar mensaje y botones de confirmación y cancelación
+        Notification notification = new Notification(message, confirmButton, cancelButton);
+        notification.setPosition(Notification.Position.MIDDLE);
+        notification.setDuration(0);
+        cancelButton.addClickListener(closeEvent -> notification.close());
+        confirmButton.addClickListener(closeEvent -> notification.close());
+        notification.open();
     }
 
     private void mostrarDetallesTarifa(Tarifa tarifa) {
