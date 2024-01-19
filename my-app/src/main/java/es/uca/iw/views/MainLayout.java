@@ -79,6 +79,7 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver {
             nav.addItem(new SideNavItem("Ajustes", AjustesView.class, VaadinIcon.TOOLS.create()));
             nav.addItem(new SideNavItem("Ajustes Contrato", AjustesContrato.class, VaadinIcon.TOOLS.create()));
             nav.addItem(new SideNavItem("Consultas/Reclamaciones", ConsultasReclamacionesView.class, VaadinIcon.CHAT.create()));
+            nav.addItem(new SideNavItem("Ayuda al usuario", AyudaUsuarioAutenticado.class, VaadinIcon.QUESTION.create()));
         } else if (optionalCliente.get().getRoles().stream().anyMatch(role -> role.equals(Role.MARKETING))) {
             nav.addItem(new SideNavItem("Servicios", AboutView.class, VaadinIcon.SLIDERS.create()));
             nav.addItem(new SideNavItem("Tarifas", TarifaView.class, VaadinIcon.ABACUS.create()));
