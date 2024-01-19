@@ -2,8 +2,11 @@ package es.uca.iw.views.Trabajador;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -36,17 +39,29 @@ public class ContratosBajasView extends VerticalLayout {
         gridContratos.addColumn(Contrato::getFechaFin).setHeader("Fecha Fin").setSortable(true);
         gridContratos.addColumn(Contrato::getDescuento).setHeader("Descuento en %").setSortable(true);
         // Manejar la selección del grid
-        gridContratos.asSingleSelect().addValueChangeListener(event -> {
-            btnEliminar.setEnabled(event.getValue() != null);
-        });
+        gridContratos.asSingleSelect().addValueChangeListener(event -> btnEliminar.setEnabled(event.getValue() != null));
 
-        btnEliminar.setEnabled(false);
-        btnEliminar.addClickListener(event -> {
+        Dialog confirmDialog = new Dialog();
+        Button btnConfirmar = new Button("Confirmar", e -> {
             Contrato contratoSeleccionado = gridContratos.asSingleSelect().getValue();
             if (contratoSeleccionado != null) {
                 serviciosContrato.eliminarContrato(contratoSeleccionado.getId());
                 List<Contrato> nuevosContratos = obtenerContratos();
                 gridContratos.setItems(nuevosContratos);
+                confirmDialog.close();
+            }
+        });
+        Button btnCancel = new Button("Cancelar", e -> confirmDialog.close());
+        HorizontalLayout buttonLayout = new HorizontalLayout(new Span("¿Deseas seguir adelante con el alta?"), new HorizontalLayout(btnConfirmar, btnCancel));
+        buttonLayout.setAlignItems(Alignment.CENTER);
+        buttonLayout.setSpacing(true);
+        confirmDialog.add(buttonLayout);
+
+        btnEliminar.setEnabled(false);
+        btnEliminar.addClickListener(event -> {
+            Contrato contratoSeleccionado = gridContratos.asSingleSelect().getValue();
+            if (contratoSeleccionado != null) {
+                confirmDialog.open();
             }
         });
 
