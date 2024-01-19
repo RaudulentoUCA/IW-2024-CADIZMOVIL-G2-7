@@ -3,8 +3,10 @@ package es.uca.iw.views.Trabajador;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -38,6 +40,8 @@ public class ContratosNuevosView extends VerticalLayout {
     private final DatePicker fechaFin;
 
     private final TextField descuento;
+
+    Dialog confirmDialog;
     public ContratosNuevosView(AuthenticatedUser authenticatedUser, ServiciosCliente serviciosCliente, ServiciosContrato serviciosContrato) {
         this.serviciosCliente = serviciosCliente;
         this.serviciosContrato = serviciosContrato;
@@ -62,8 +66,16 @@ public class ContratosNuevosView extends VerticalLayout {
         descuento.setRequiredIndicatorVisible(true);
         descuento.setLabel("Descuento en %");
 
+        confirmDialog = new Dialog();
+        Button btnConfirmar = new Button("Confirmar", e -> crearContrato());
+        Button btnCancel = new Button("Cancelar", e -> confirmDialog.close());
+        HorizontalLayout buttonLayout = new HorizontalLayout(new Span("¿Deseas seguir adelante con el alta?"), new HorizontalLayout(btnConfirmar, btnCancel));
+        buttonLayout.setAlignItems(Alignment.CENTER);
+        buttonLayout.setSpacing(true);
+        confirmDialog.add(buttonLayout);
+
         Button crearContrato = new Button("Dar de alta");
-        crearContrato.addClickListener(event -> crearContrato());
+        crearContrato.addClickListener(event -> confirmDialog.open());
 
         Button volver = new Button("Volver a tu página principal");
         volver.addClickListener(event -> UI.getCurrent().navigate(ProfileView.class));
@@ -118,5 +130,6 @@ public class ContratosNuevosView extends VerticalLayout {
             Notification.show("Error: Por favor, complete todos los campos", 3000, Notification.Position.TOP_CENTER)
                     .addThemeVariants(NotificationVariant.LUMO_ERROR);
         }
+        confirmDialog.close();
     }
 }
