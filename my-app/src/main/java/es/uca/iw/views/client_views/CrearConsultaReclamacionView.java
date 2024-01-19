@@ -7,7 +7,6 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.BeforeLeaveEvent;
@@ -17,11 +16,9 @@ import com.vaadin.flow.router.Route;
 import es.uca.iw.AuthenticatedUser;
 import es.uca.iw.atencion_cliente.Consulta;
 import es.uca.iw.atencion_cliente.ServicioConsulta;
-import es.uca.iw.cliente.Cliente;
 import es.uca.iw.views.MainLayout;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.constraints.NotBlank;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Route(value = "nueva_consulta", layout = MainLayout.class)
 @RolesAllowed("USER")
@@ -38,6 +35,8 @@ public class CrearConsultaReclamacionView extends VerticalLayout implements Befo
 
     @NotBlank(message = "El cuerpo no puede estar vacío")
     private final TextArea cuerpoField;
+
+    private boolean consultaEnviadaCorrectamente = false;
 
     public CrearConsultaReclamacionView(AuthenticatedUser authenticatedUser, ServicioConsulta consultaService) {
         this.authenticatedUser = authenticatedUser;
@@ -77,6 +76,7 @@ public class CrearConsultaReclamacionView extends VerticalLayout implements Befo
                         .addThemeVariants(NotificationVariant.LUMO_ERROR);
             }else {
                 consultaService.guardarConsulta(nuevaConsulta);
+                consultaEnviadaCorrectamente = true;
                 UI.getCurrent().navigate("mis_consultas");
             }
         }
@@ -84,8 +84,10 @@ public class CrearConsultaReclamacionView extends VerticalLayout implements Befo
 
     @Override
     public void beforeLeave(BeforeLeaveEvent event) {
-        Notification.show("Consulta/Reclamación enviada correctamente.", 3000, Notification.Position.TOP_CENTER)
-                .addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+        if (consultaEnviadaCorrectamente) {
+            Notification.show("Consulta/Reclamación enviada correctamente.", 3000, Notification.Position.TOP_CENTER)
+                    .addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+        }
     }
 }
 
