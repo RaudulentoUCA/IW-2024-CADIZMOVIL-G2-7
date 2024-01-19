@@ -40,6 +40,11 @@ public class ServiciosCliente implements UserDetailsService {
         }
     }
 
+    public void actualizar(Cliente cliente) {
+        cliente.setPassword(passwordEncoder.encode(cliente.getPassword()));
+        repositorio.save(cliente);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<Cliente> user = repositorio.findByEmail(email);

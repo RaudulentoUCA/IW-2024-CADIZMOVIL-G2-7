@@ -1,19 +1,18 @@
 package es.uca.iw.views.formulario;
 
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.router.BeforeLeaveEvent;
+import com.vaadin.flow.router.BeforeLeaveObserver;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
-
-import java.security.SecureRandom;
-import java.util.Optional;
-import java.util.Properties;
-import java.util.Random;
-
 import es.uca.iw.cliente.Cliente;
 import es.uca.iw.cliente.ServiciosCliente;
 import es.uca.iw.views.MainLayout;
@@ -21,10 +20,14 @@ import es.uca.iw.views.MainLayout;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.security.SecureRandom;
+import java.util.Optional;
+import java.util.Properties;
 
+@PageTitle("Cádiz Móvil")
 @Route(value = "recuperar-contra", layout = MainLayout.class)
 @AnonymousAllowed
-public class RecuperarContraView extends VerticalLayout {
+public class RecuperarContraView extends VerticalLayout implements BeforeLeaveObserver {
 
     private String correoGuardado;
 
@@ -126,8 +129,9 @@ public class RecuperarContraView extends VerticalLayout {
             Optional<Cliente> user = serviciosCliente.cargarUsuarioPorEmail(correoGuardado);
             if (user.isPresent() && contrasenaTextField.getValue() != null) {
                 user.get().setPassword(contrasenaTextField.getValue());
-                serviciosCliente.registrarCliente(user.get());
+                serviciosCliente.actualizar(user.get());
                 Notification.show("Contraseña cambiada");
+                UI.getCurrent().navigate("login");
             }
         }
     }
@@ -147,4 +151,12 @@ public class RecuperarContraView extends VerticalLayout {
         SecureRandom random = new SecureRandom();
         return vocales[random.nextInt(vocales.length)];
     }
+
+    @Override
+    public void beforeLeave(BeforeLeaveEvent beforeLeaveEvent) {
+        // Mostrar notificación de éxito antes de que el usuario abandone la vista
+        Notification.show("Cambio de contraseña exitoso.", 3000, Notification.Position.TOP_CENTER)
+                .addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+    }
+
 }

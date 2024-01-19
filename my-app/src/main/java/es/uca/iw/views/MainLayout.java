@@ -69,7 +69,7 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver {
         SideNav nav = new SideNav();
         if (authenticatedUser.get().isEmpty()) {
             nav.addItem(new SideNavItem("Página Principal", HelloWorldView.class));
-            nav.addItem(new SideNavItem("Sobre Nosotros", AboutView.class));
+            nav.addItem(new SideNavItem("Ayuda al usuario", AyudaUsuarioNoAutenticadoView.class));
         } else if (optionalCliente.get().getRoles().stream().anyMatch(role -> role.equals(Role.USER))) {
             nav.addItem(new SideNavItem("General", ClientOverview.class, VaadinIcon.DASHBOARD.create()));
             nav.addItem(new SideNavItem("Tarifas", TarifasView.class, VaadinIcon.ABACUS.create()));
