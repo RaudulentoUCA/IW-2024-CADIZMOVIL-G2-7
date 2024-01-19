@@ -1,14 +1,10 @@
 package es.uca.iw.atencion_cliente;
 
-import es.uca.iw.auditoria.CustomAuditingEntityListener;
 import es.uca.iw.cliente.Cliente;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -17,15 +13,34 @@ public class Consulta {
     @GeneratedValue
     @JdbcTypeCode(SqlTypes.CHAR)
     private UUID id;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "respuesta_id")
+    private Respuesta respuesta;
+
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
+
     @Column(name = "asunto", nullable = false, length = 128)
     private String asunto;
+
     @Column(name = "cuerpo", nullable = false, length = 1024)
     private String cuerpo;
+
+    @Column(name = "respondido", nullable = false)
+    private boolean respondido;
+
     public UUID getId() {
         return id;
+    }
+
+    public Respuesta getRespuesta() {
+        return respuesta;
+    }
+
+    public void setRespuesta(Respuesta respuesta) {
+        this.respuesta = respuesta;
     }
 
     public Cliente getCliente() {
@@ -35,6 +50,7 @@ public class Consulta {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
     public String getAsunto() {
         return asunto;
     }
@@ -49,5 +65,13 @@ public class Consulta {
 
     public void setCuerpo(String cuerpo) {
         this.cuerpo = cuerpo;
+    }
+
+    public boolean getRespondido() {
+        return respondido;
+    }
+
+    public void setRespondido(boolean respondido) {
+        this.respondido = respondido;
     }
 }

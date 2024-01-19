@@ -10,4 +10,9 @@ import java.util.UUID;
 public interface RepositorioConsulta extends JpaRepository<Consulta, UUID> {
     List<Consulta> findAll();
     List<Consulta> findByCliente(Cliente cliente);
+
+    List<Consulta> findByRespondidoFalse();
+
+    Optional<Respuesta> findRespuestaById(UUID consultaId);
+
 }

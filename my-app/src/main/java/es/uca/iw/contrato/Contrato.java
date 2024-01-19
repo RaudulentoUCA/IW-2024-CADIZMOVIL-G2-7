@@ -1,11 +1,9 @@
 package es.uca.iw.contrato;
 
 import es.uca.iw.cliente.Cliente;
-import es.uca.iw.cliente.Role;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -36,6 +34,10 @@ public class Contrato {
 
     public Cliente getCliente() {
         return cliente;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     public int getId() {
         return id;

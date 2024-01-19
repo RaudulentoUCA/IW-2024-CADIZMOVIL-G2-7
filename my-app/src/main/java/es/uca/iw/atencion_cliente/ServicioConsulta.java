@@ -23,9 +23,7 @@ public class ServicioConsulta {
     }
 
     @Transactional
-    public void eliminarConsulta(UUID consultaId) {
-        repositorioConsulta.deleteById(consultaId);
-    }
+    public void eliminarConsulta(UUID consultaId) { repositorioConsulta.deleteById(consultaId); }
 
     @Transactional
     public List<Consulta> getConsultasByCliente(Cliente cliente) {
@@ -36,5 +34,12 @@ public class ServicioConsulta {
     public void guardarConsulta(Consulta consulta) {
         repositorioConsulta.save(consulta);
     }
+
+    @Transactional
+    public List<Consulta> obtenerConsultasNoRespondidas() {
+        return repositorioConsulta.findByRespondidoFalse();
+    }
+
+
 }
 
