@@ -98,13 +98,15 @@ public class ConsultasView extends VerticalLayout {
         Respuesta respuesta = new Respuesta();
         respuesta.setCliente(consulta.getUsuario());
 
-        TextArea asunto = (TextArea) respuestaFormLayout.getChildren().findFirst().get();
-        respuesta.setAsunto(asunto.getValue());
+        if (respuestaFormLayout.getChildren().findFirst().isPresent()){
+            TextArea asunto = (TextArea) respuestaFormLayout.getChildren().findFirst().get();
+            respuesta.setAsunto(asunto.getValue());
 
-        TextArea cuerpo = (TextArea) respuestaFormLayout.getChildren().toArray()[2];
-        respuesta.setCuerpo(cuerpo.getValue());
+            TextArea cuerpo = (TextArea) respuestaFormLayout.getChildren().toArray()[2];
+            respuesta.setCuerpo(cuerpo.getValue());
 
-        respuesta.setConsulta(consulta);
+            respuesta.setConsulta(consulta);
+        }
 
         if (respuesta.getCuerpo().isEmpty() || respuesta.getAsunto().isEmpty()) {
             Notification.show("Error: El cuerpo/asunto de la respuesta no puede estar vacío.", 3000, Notification.Position.TOP_CENTER)

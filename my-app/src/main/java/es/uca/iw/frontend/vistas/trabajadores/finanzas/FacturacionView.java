@@ -156,6 +156,7 @@ public class FacturacionView extends VerticalLayout {
 
             } catch (MessagingException | InterruptedException | ExecutionException e) {
                 Notification.show("Error al enviar la factura: " + e.getMessage());
+                Thread.currentThread().interrupt();
             }
         } else {
             Notification.show("Selecciona un cliente antes de enviar la factura.");

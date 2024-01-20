@@ -112,11 +112,15 @@ public class ContratosModificacionView extends VerticalLayout {
 
     private void actualizarContrato() {
 
-        TextArea id = (TextArea) formLayout.getChildren().findFirst().get();
-        TextArea titular = (TextArea) formLayout.getChildren().toArray()[1];
-        DatePicker fechaInicio = (DatePicker) formLayout.getChildren().toArray()[2];
-        DatePicker fechaFin = (DatePicker) formLayout.getChildren().toArray()[3];
-        TextArea descuento = (TextArea) formLayout.getChildren().toArray()[4];
+        TextArea id = new TextArea(), titular = new TextArea(), descuento = new TextArea();
+        DatePicker fechaInicio = new DatePicker(), fechaFin = new DatePicker();
+        if (formLayout.getChildren().findFirst().isPresent()){
+            id = (TextArea) formLayout.getChildren().findFirst().get();
+            titular = (TextArea) formLayout.getChildren().toArray()[1];
+            fechaInicio = (DatePicker) formLayout.getChildren().toArray()[2];
+            fechaFin = (DatePicker) formLayout.getChildren().toArray()[3];
+            descuento = (TextArea) formLayout.getChildren().toArray()[4];
+        }
 
 
         if (!id.isEmpty() && !titular.isEmpty() && fechaInicio.getValue() != null && fechaFin.getValue() != null && !descuento.isEmpty()) {
