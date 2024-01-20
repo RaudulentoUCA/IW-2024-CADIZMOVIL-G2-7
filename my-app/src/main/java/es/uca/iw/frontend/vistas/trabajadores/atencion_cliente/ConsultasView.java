@@ -67,7 +67,6 @@ public class ConsultasView extends VerticalLayout {
             add(consultaDiv);
 
 
-
             TextArea asunto = new TextArea("Asunto");
             asunto.setValue("RE: " + primeraConsulta.getAsunto());
             asunto.setRequired(true);
@@ -102,7 +101,9 @@ public class ConsultasView extends VerticalLayout {
 
         Optional<Component> asuntoOptional = respuestaFormLayout.getChildren().findFirst();
         TextArea asunto = (TextArea) asuntoOptional.orElse(null);
-        respuesta.setAsunto(asunto.getValue());
+        if (asunto != null) {
+            respuesta.setAsunto(asunto.getValue());
+        }
 
         TextArea cuerpo = (TextArea) respuestaFormLayout.getChildren().toArray()[2];
         respuesta.setCuerpo(cuerpo.getValue());

@@ -122,7 +122,7 @@ public class ContratosModificacionView extends VerticalLayout {
         TextArea descuento = (TextArea) formLayout.getChildren().toArray()[4];
 
 
-        if (!id.isEmpty() && !titular.isEmpty() && fechaInicio.getValue() != null && fechaFin.getValue() != null && !descuento.isEmpty()) {
+        if (id != null && !titular.isEmpty() && fechaInicio.getValue() != null && fechaFin.getValue() != null && !descuento.isEmpty()) {
 
             Cliente cliente = servicioUsuario.findByDni(titular.getValue()).orElse(null);
 
