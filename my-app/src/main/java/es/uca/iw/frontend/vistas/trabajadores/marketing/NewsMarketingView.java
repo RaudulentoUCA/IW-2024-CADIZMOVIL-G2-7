@@ -84,7 +84,7 @@ public class NewsMarketingView extends VerticalLayout {
                     byte[] fileBytes = inputStream.readAllBytes();
                     noticia.setImageData(fileBytes);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Notification.show("Error with reading image file occurred.");
                 }
                 noticia.setCreationDate(LocalDate.now());
                 servicioNews.saveNews(noticia);

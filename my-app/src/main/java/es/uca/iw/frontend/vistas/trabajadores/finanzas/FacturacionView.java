@@ -155,7 +155,6 @@ public class FacturacionView extends VerticalLayout {
                 servicioFactura.registrarFactura(factura);
 
             } catch (MessagingException | InterruptedException | ExecutionException e) {
-                e.printStackTrace();
                 Notification.show("Error al enviar la factura: " + e.getMessage());
             }
         } else {

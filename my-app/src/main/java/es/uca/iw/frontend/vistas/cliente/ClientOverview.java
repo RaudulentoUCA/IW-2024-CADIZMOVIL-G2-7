@@ -32,6 +32,7 @@ import es.uca.iw.frontend.vistas.MainLayout;
 import jakarta.annotation.security.RolesAllowed;
 
 
+import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -61,7 +62,7 @@ public class ClientOverview extends VerticalLayout {
         setWidth("100%");
         getStyle().set("flex-grow", "1");
 
-        Random random = new Random();
+        SecureRandom random = new SecureRandom();
         Button activateSimCardConTarifaBasica = new Button("Activar tarjeta sim con Tárifa básica");
 
 
