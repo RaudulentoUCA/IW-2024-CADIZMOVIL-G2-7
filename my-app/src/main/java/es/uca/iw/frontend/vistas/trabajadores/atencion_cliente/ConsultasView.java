@@ -1,5 +1,6 @@
 package es.uca.iw.frontend.vistas.trabajadores.atencion_cliente;
 
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
@@ -20,6 +21,7 @@ import es.uca.iw.frontend.vistas.pantallas_iniciales.ProfileView;
 import jakarta.annotation.security.RolesAllowed;
 
 import java.util.List;
+import java.util.Optional;
 
 @PageTitle("Cádiz Móvil")
 @Route(value = "consultas", layout = MainLayout.class)
@@ -98,15 +100,14 @@ public class ConsultasView extends VerticalLayout {
         Respuesta respuesta = new Respuesta();
         respuesta.setCliente(consulta.getUsuario());
 
-        if (respuestaFormLayout.getChildren().findFirst().isPresent()){
-            TextArea asunto = (TextArea) respuestaFormLayout.getChildren().findFirst().get();
-            respuesta.setAsunto(asunto.getValue());
+        Optional<Component> asuntoOptional = respuestaFormLayout.getChildren().findFirst();
+        TextArea asunto = (TextArea) asuntoOptional.orElse(null);
+        respuesta.setAsunto(asunto.getValue());
 
-            TextArea cuerpo = (TextArea) respuestaFormLayout.getChildren().toArray()[2];
-            respuesta.setCuerpo(cuerpo.getValue());
+        TextArea cuerpo = (TextArea) respuestaFormLayout.getChildren().toArray()[2];
+        respuesta.setCuerpo(cuerpo.getValue());
 
-            respuesta.setConsulta(consulta);
-        }
+        respuesta.setConsulta(consulta);
 
         if (respuesta.getCuerpo().isEmpty() || respuesta.getAsunto().isEmpty()) {
             Notification.show("Error: El cuerpo/asunto de la respuesta no puede estar vacío.", 3000, Notification.Position.TOP_CENTER)

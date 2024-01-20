@@ -1,5 +1,6 @@
 package es.uca.iw.frontend.vistas.trabajadores.atencion_cliente;
 
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
@@ -25,6 +26,7 @@ import es.uca.iw.frontend.vistas.pantallas_iniciales.ProfileView;
 import jakarta.annotation.security.RolesAllowed;
 
 import java.util.List;
+import java.util.Optional;
 
 @PageTitle("Cádiz Móvil")
 @Route(value = "contratos/mod", layout = MainLayout.class)
@@ -112,15 +114,12 @@ public class ContratosModificacionView extends VerticalLayout {
 
     private void actualizarContrato() {
 
-        TextArea id = new TextArea(), titular = new TextArea(), descuento = new TextArea();
-        DatePicker fechaInicio = new DatePicker(), fechaFin = new DatePicker();
-        if (formLayout.getChildren().findFirst().isPresent()){
-            id = (TextArea) formLayout.getChildren().findFirst().get();
-            titular = (TextArea) formLayout.getChildren().toArray()[1];
-            fechaInicio = (DatePicker) formLayout.getChildren().toArray()[2];
-            fechaFin = (DatePicker) formLayout.getChildren().toArray()[3];
-            descuento = (TextArea) formLayout.getChildren().toArray()[4];
-        }
+        Optional<Component> idOptional = formLayout.getChildren().findFirst();
+        TextArea id = (TextArea) idOptional.orElse(null);
+        TextArea titular = (TextArea) formLayout.getChildren().toArray()[1];
+        DatePicker fechaInicio = (DatePicker) formLayout.getChildren().toArray()[2];
+        DatePicker fechaFin = (DatePicker) formLayout.getChildren().toArray()[3];
+        TextArea descuento = (TextArea) formLayout.getChildren().toArray()[4];
 
 
         if (!id.isEmpty() && !titular.isEmpty() && fechaInicio.getValue() != null && fechaFin.getValue() != null && !descuento.isEmpty()) {
