@@ -28,17 +28,31 @@ vaadin-side-nav-item vaadin-icon {
     height: auto;
 }
 
-/* Estilo para botones negros y señoriales */
-.btn-negro {
-    background-color: #000;
-    color: #fff;
-    border: 2px solid #666;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
+.mensaje-ayuda {
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 60%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    text-align: justify;
 }
 
-.btn-negro:hover {
-    background-color: #222;
+.mensaje-ayuda h2 {
+    color: #333;
+    margin-bottom: 10px;
 }
+
+.mensaje-ayuda p {
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.mensaje-ayuda img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+
