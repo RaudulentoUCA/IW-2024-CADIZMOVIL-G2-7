@@ -19,7 +19,7 @@ public class ServicioTarifa {
     }
 
     @Transactional
-    public List<Tarifa> getAllTarifas(){
+    public List<Tarifa> getAllTarifas() {
         return repositorioTarifa.findAll();
     }
 
@@ -28,24 +28,16 @@ public class ServicioTarifa {
         return repositorioTarifa.save(tarifa);
     }
 
-    public Optional<Tarifa> cargarTarifaPorNombre(String nombre) {
-        Optional<Tarifa> tarifa = repositorioTarifa.findByNombre(nombre);
-        return tarifa;
-    }
-
     public Optional<Tarifa> getTarifaById(Long id) {
-        Optional<Tarifa> tarifa = repositorioTarifa.findById(id);
-        return tarifa;
+        return repositorioTarifa.findById(id);
     }
 
     public Optional<Tarifa> getTarifaByNombre(String nombre) {
-        Optional<Tarifa> tarifa = repositorioTarifa.findByNombre(nombre);
-        return tarifa;
+        return repositorioTarifa.findByNombre(nombre);
     }
 
-    public void removeTarifa(Tarifa tarifa){
+    public void removeTarifa(Tarifa tarifa) {
         repositorioTarifa.delete(tarifa);
     }
-
 
 }

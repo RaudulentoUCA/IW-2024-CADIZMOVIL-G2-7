@@ -31,15 +31,19 @@ import java.util.Properties;
 public class RecuperarContraView extends VerticalLayout implements BeforeLeaveObserver {
 
     private String correoGuardado;
-
     private final ServicioUsuario servicioUsuario;
-    TextField correoTextField, contrasenaTextField, codigoTextField, verificacionContrasenaTextField;
-    Button enviarCorreoButton, nuevaAccionButton;
-    Span aclaracion;
 
+    TextField correoTextField;
+    TextField contrasenaTextField;
+    TextField codigoTextField;
+    TextField verificacionContrasenaTextField;
+    Button enviarCorreoButton;
+    Button nuevaAccionButton;
+    Span aclaracion;
     String codigo;
 
     boolean exitoCambio = false;
+
     public RecuperarContraView(ServicioUsuario servicioUsuario) {
         this.servicioUsuario = servicioUsuario;
 
@@ -81,7 +85,6 @@ public class RecuperarContraView extends VerticalLayout implements BeforeLeaveOb
         verificacionContrasenaTextField.setVisible(true);
         codigoTextField.setVisible(true);
         nuevaAccionButton.setVisible(true);
-
 
 
         try {
@@ -137,11 +140,11 @@ public class RecuperarContraView extends VerticalLayout implements BeforeLeaveOb
                 servicioUsuario.actualizar(user.get());
                 exitoCambio = true;
                 UI.getCurrent().navigate("login");
-            }else{
+            } else {
                 Notification.show("Error: Contraseñas no coinciden o valor nulo de estas.", 3000, Notification.Position.TOP_CENTER)
                         .addThemeVariants(NotificationVariant.LUMO_ERROR);
             }
-        }else{
+        } else {
             Notification.show("Error: Código incorrecto.", 3000, Notification.Position.TOP_CENTER)
                     .addThemeVariants(NotificationVariant.LUMO_ERROR);
         }
@@ -165,9 +168,9 @@ public class RecuperarContraView extends VerticalLayout implements BeforeLeaveOb
 
     @Override
     public void beforeLeave(BeforeLeaveEvent beforeLeaveEvent) {
-        if(exitoCambio)
+        if (exitoCambio)
             Notification.show("Cambio de contraseña exitoso.", 3000, Notification.Position.TOP_CENTER)
-                .addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+                    .addThemeVariants(NotificationVariant.LUMO_SUCCESS);
     }
 
 }

@@ -31,16 +31,13 @@ import es.uca.iw.backend.servicios.ServicioTarifa;
 import es.uca.iw.frontend.vistas.MainLayout;
 import jakarta.annotation.security.RolesAllowed;
 
-
 import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 
-//TODO Add opportunity to choose contract to show information
 @Route(value = "general", layout = MainLayout.class)
 @RolesAllowed("USER")
 @PageTitle("General")
@@ -71,7 +68,7 @@ public class ClientOverview extends VerticalLayout {
 
             List<Contrato> userContracts = contratoService.getContratosByCliente(cliente);
 
-            if (!userContracts.isEmpty()){
+            if (!userContracts.isEmpty()) {
                 add(new H4("Tu contratos:"));
                 Grid<Contrato> grid = new Grid<>(Contrato.class, false);
                 grid.setAllRowsVisible(true);
@@ -86,7 +83,7 @@ public class ClientOverview extends VerticalLayout {
                 add(new H5("Elige numero de contrato para ver detalles"));
                 Select<Contrato> select = new Select<>();
                 select.getStyle().setOverflow(Style.Overflow.INITIAL);
-                select.setItemLabelGenerator(c->String.valueOf(c.getId()));
+                select.setItemLabelGenerator(c -> String.valueOf(c.getId()));
                 select.setItems(userContracts);
 
                 add(select);
@@ -125,8 +122,10 @@ public class ClientOverview extends VerticalLayout {
                                 ProgressBar progressBarMin = new ProgressBar();
                                 Integer availableMin = simCard.getTarifa().getAvailableMin();
                                 Integer spentMin = simCard.getUsedMinutes();
-                                double percentageMin = (((double)availableMin- (double) spentMin) /availableMin);
-                                if (percentageMin < 0.0){percentageMin=0.0;}
+                                double percentageMin = (((double) availableMin - (double) spentMin) / availableMin);
+                                if (percentageMin < 0.0) {
+                                    percentageMin = 0.0;
+                                }
                                 progressBarMin.setValue(percentageMin);
 
                                 NativeLabel progressBarLabelTextMin = new NativeLabel("Llamadas:");
@@ -144,8 +143,10 @@ public class ClientOverview extends VerticalLayout {
                                 ProgressBar progressBarMb = new ProgressBar();
                                 Integer availableMb = simCard.getTarifa().getAvailableMB();
                                 Integer spentMb = simCard.getUsedMb();
-                                double percentageMb = (((double)availableMb-(double)spentMb)/availableMb);
-                                if (percentageMb < 0.0){percentageMb=0.0;}
+                                double percentageMb = (((double) availableMb - (double) spentMb) / availableMb);
+                                if (percentageMb < 0.0) {
+                                    percentageMb = 0.0;
+                                }
                                 progressBarMb.setValue(percentageMb);
 
                                 NativeLabel progressBarLabelTextMb = new NativeLabel("Internet:");
@@ -153,7 +154,7 @@ public class ClientOverview extends VerticalLayout {
                                 progressBarMb.getElement().setAttribute("aria-labelledby", "pblabel");
                                 progressBarMb.getStyle().set("--lumo-primary-color", "#3ABB66 !important");
 
-                                Span progressBarLabelValueMb = new Span(spentMb + "/" +availableMb + " mb.");
+                                Span progressBarLabelValueMb = new Span(spentMb + "/" + availableMb + " mb.");
                                 HorizontalLayout progressBarLabelMb = new HorizontalLayout(progressBarLabelTextMb, progressBarLabelValueMb);
                                 progressBarLabelMb.setJustifyContentMode(JustifyContentMode.BETWEEN);
                                 progressBarLabelMb.setWidth("100%");
@@ -166,7 +167,9 @@ public class ClientOverview extends VerticalLayout {
                                 Integer availableSMS = simCard.getTarifa().getAvailableSMS();
                                 Integer spentSMS = simCard.getUsedSms();
                                 double percentageSMS = (((double) availableSMS - (double) spentSMS) / availableSMS);
-                                if (percentageSMS < 0.0){percentageSMS=0.0;}
+                                if (percentageSMS < 0.0) {
+                                    percentageSMS = 0.0;
+                                }
                                 progressBarSMS.setValue(percentageSMS);
 
                                 NativeLabel progressBarLabelTextSMS = new NativeLabel("Mensajes:");
@@ -192,8 +195,7 @@ public class ClientOverview extends VerticalLayout {
                                 contentLayout.getStyle().set("justify-content", "space-around");
 
                                 CustomCardElement userTarifaCardElement = new CustomCardElement(simCard.getTarifa().getNombre(), simCard.getTarifa().getAvailableMB().toString(), simCard.getTarifa().getAvailableMin().toString(), simCard.getTarifa().getAvailableSMS().toString(), simCard.getTarifa().isPermiteRoaming(), "Cambiar", String.format("%.2f", simCard.getTarifa().getPrecio()));
-                                userTarifaCardElement.setButtonClickListener(()->{
-                                    UI.getCurrent().navigate(TarifasView.class);});
+                                userTarifaCardElement.setButtonClickListener(() -> UI.getCurrent().navigate(TarifasView.class));
                                 userTarifaCardElement.getStyle().set("width", "auto");
 
                                 contentLayout.add(userTarifaCardElement);
@@ -211,13 +213,13 @@ public class ClientOverview extends VerticalLayout {
                     // getting user first contract
                     Contrato clientContract = contratoService.getContratosByCliente(cliente).get(0);
                     Optional<Tarifa> basicTarifa = servicioTarifa.getTarifaByNombre("Tarifa básica");
-                    if (basicTarifa.isPresent()){
-                    basicTarifa.ifPresent(tarifa -> servicioSimCard.createSimCard(100000000 + random.nextInt(900000000), tarifa, clientContract));
-                    UI.getCurrent().getPage().reload();
-                    }
-                    else {
+                    if (basicTarifa.isPresent()) {
+                        basicTarifa.ifPresent(tarifa -> servicioSimCard.createSimCard(100000000 + random.nextInt(900000000), tarifa, clientContract));
+                        UI.getCurrent().getPage().reload();
+                    } else {
+                        String nameOfBasicPlan = "Tarifa básica";
                         Tarifa tarifa = new Tarifa();
-                        tarifa.setNombre("Tarifa básica");
+                        tarifa.setNombre(nameOfBasicPlan);
                         tarifa.setAvailable(true);
                         tarifa.setPrecio(10);
                         tarifa.setFibra(true);
@@ -228,10 +230,9 @@ public class ClientOverview extends VerticalLayout {
                         tarifa.setAvailableMin(100);
                         tarifa.setAvailableSMS(10);
                         servicioTarifa.guardarTarifa(tarifa);
-                        Optional<Tarifa> newTarifaBasica = servicioTarifa.getTarifaByNombre("Tarifa básica");
-                        newTarifaBasica.ifPresent(tarifa1 -> {
-                            servicioSimCard.createSimCard(100000000 + random.nextInt(900000000), tarifa1, clientContract);
-                        });
+                        Optional<Tarifa> newTarifaBasica = servicioTarifa.getTarifaByNombre(nameOfBasicPlan);
+                        newTarifaBasica.ifPresent(tarifa1 ->
+                                servicioSimCard.createSimCard(100000000 + random.nextInt(900000000), tarifa1, clientContract));
                         UI.getCurrent().getPage().reload();
                     }
 
@@ -246,13 +247,12 @@ public class ClientOverview extends VerticalLayout {
                     simCardInfoLayout.setVisible(false);
 
 
-                    if (servicioSimCard.getSimCardsByContrato(select.getValue()).isEmpty()){
+                    if (servicioSimCard.getSimCardsByContrato(select.getValue()).isEmpty()) {
                         simCardsVerticalLayout.remove(simCardsContractH4, gridSimCards);
                         simCardsVerticalLayout.setVisible(false);
                         noSimCardToContract.setVisible(true);
                         activateSimCardConTarifaBasica.setVisible(true);
-                    }
-                    else {
+                    } else {
                         simCardsVerticalLayout.add(simCardsContractH4);
                         simCardsVerticalLayout.add(gridSimCards);
                         simCardsVerticalLayout.setVisible(true);
@@ -261,8 +261,7 @@ public class ClientOverview extends VerticalLayout {
                 });
 
                 select.setValue(userContracts.get(0));
-            }
-            else {
+            } else {
                 add(new H4("Todavia no tienes el contrato"));
                 add(new Paragraph("Hay opción de contratarse por 1 año con descuento de 0%"));
                 Button buttonNewContract = new Button("Contratarse");

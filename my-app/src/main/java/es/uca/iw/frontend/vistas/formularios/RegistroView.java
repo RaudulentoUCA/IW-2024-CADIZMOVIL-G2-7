@@ -216,7 +216,7 @@ public class RegistroView extends Composite<VerticalLayout> {
 
             Button backButton = new Button("Salir", e -> {
                 usuarioDioRetroceso = true;
-                if(iniciosesion == false)
+                if(!iniciosesion)
                     UI.getCurrent().navigate("");
                 else
                     UI.getCurrent().navigate(LoginView.class);

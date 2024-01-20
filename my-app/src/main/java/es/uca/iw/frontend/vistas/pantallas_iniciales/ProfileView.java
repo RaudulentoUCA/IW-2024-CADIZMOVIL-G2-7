@@ -30,6 +30,8 @@ public class ProfileView extends VerticalLayout {
 
         Optional<Cliente> optionalCliente = authenticatedUser.get();
 
+        String greetingText = "Comience su jornada mientras disfruta de las vistas de nuestra maravillosa Ciudad";
+
         optionalCliente.ifPresent(cliente -> {
             H3 saludo = new H3("Bienvenido, ¡" + cliente.getNombre() + " " + cliente.getApellidos() + "!");
             add(saludo);
@@ -39,19 +41,19 @@ public class ProfileView extends VerticalLayout {
 
             if (cliente.getRoles().stream().anyMatch(role -> role.equals(Role.MARKETING))) {
                 H1 titulo = new H1("Sección de Marketing");
-                H3 trabajo = new H3("Comience su jornada mientras disfruta de las vistas de nuestra maravillosa Ciudad");
+                H3 trabajo = new H3(greetingText);
                 setWidth("100%");
                 getStyle().set("flex-grow", "1");
                 add(titulo, trabajo);
             } else if (cliente.getRoles().stream().anyMatch(role -> role.equals(Role.ATTENTION))) {
                 H1 titulo = new H1("Sección de Atención al Cliente");
-                H3 trabajo = new H3("Comience su jornada mientras disfruta de las vistas de nuestra maravillosa Ciudad");
+                H3 trabajo = new H3(greetingText);
                 setWidth("100%");
                 getStyle().set("flex-grow", "1");
                 add(titulo, trabajo);
             } else if (cliente.getRoles().stream().anyMatch(role -> role.equals(Role.FINANCE))) {
                 H1 titulo = new H1("Sección de Finanzas");
-                H3 trabajo = new H3("Comience su jornada mientras disfruta de las vistas de nuestra maravillosa Ciudad");
+                H3 trabajo = new H3(greetingText);
                 setWidth("100%");
                 getStyle().set("flex-grow", "1");
                 add(titulo, trabajo);

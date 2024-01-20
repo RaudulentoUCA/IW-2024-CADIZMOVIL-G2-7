@@ -43,7 +43,7 @@ public class TarifaTest {
 
     @Test
     public void tarifa() {
-        Optional<Tarifa> tarifa = servicios.cargarTarifaPorNombre("Tarifa Roaming Básica");
+        Optional<Tarifa> tarifa = servicios.getTarifaByNombre("Tarifa Roaming Básica");
         boolean roaming,fijo, fibra;
         roaming = fijo = fibra = false;
         if(tarifa.isPresent()){
@@ -78,7 +78,7 @@ public class TarifaTest {
             e.printStackTrace();
         }
 
-        tarifa = servicios.cargarTarifaPorNombre("Tarifa Roaming Básica");
+        tarifa = servicios.getTarifaByNombre("Tarifa Roaming Básica");
         if(tarifa.isPresent()){
             assert roaming != tarifa.get().isPermiteRoaming() : "El valor de roaming no coincide";
             assert fijo != tarifa.get().isFijo() : "El valor de fijo no coincide";

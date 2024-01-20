@@ -3,6 +3,7 @@ package es.uca.iw.backend.clases;
 import es.uca.iw.backend.auditoria_tablas.CustomAuditingEntityListener;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -10,7 +11,7 @@ import java.util.Set;
 
 @Entity
 @EntityListeners(CustomAuditingEntityListener.class)
-public class Contrato {
+public class Contrato implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

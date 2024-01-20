@@ -27,8 +27,7 @@ public class ServicioNews {
     }
 
     public Optional<Noticia> findById(Long id) {
-        Optional<Noticia> news = repositorioNoticia.findById(id);
-        return news;
+        return repositorioNoticia.findById(id);
     }
 
     public void removeNews(Noticia noticia){

@@ -15,9 +15,9 @@ public class AyudaUsuarioAutenticadoView extends VerticalLayout {
 
         public AyudaUsuarioAutenticadoView() {
             H1 titulopag = new H1("Ayuda al usuario 🤗");
-            Div cambio_tarifa = new Div();
+            Div cambioTarifa = new Div();
             Div consulta = new Div();
-            cambio_tarifa.addClassName("mensaje-ayuda");
+            cambioTarifa.addClassName("mensaje-ayuda");
             consulta.addClassName("mensaje-ayuda");
 
             H3 tituloCambio = new H3("Quiero cambiar de tarifa. ¿Cómo lo hago?");
@@ -30,7 +30,7 @@ public class AyudaUsuarioAutenticadoView extends VerticalLayout {
             Paragraph texto6T = new Paragraph("4. Ahora, podremos elegir entre las tarifas que tenemos disponibles como se muestran abajo, y pulsar sobre el botón \"Elegir\" de aquella que estés interesada. Listo, ya hemos cambiado de tarifa.");
             Image img2T = new Image("images/captura-pantalla-tarifas.jpg", "foto en pantalla tarifas");
 
-            cambio_tarifa.add(tituloCambio, new Hr(), texto1T, texto2T, texto3T, texto4T, img1T, texto5T, texto6T, img2T);
+            cambioTarifa.add(tituloCambio, new Hr(), texto1T, texto2T, texto3T, texto4T, img1T, texto5T, texto6T, img2T);
 
             H3 tituloConsulta = new H3("Quiero realizar una consulta. ¿Cómo lo hago?");
             Paragraph texto1C = new Paragraph("Si desea realizar una consulta, en este breve tutorial, le enseñaremos como hacerlo \uD83D\uDE01.");
@@ -45,7 +45,7 @@ public class AyudaUsuarioAutenticadoView extends VerticalLayout {
 
             consulta.add(tituloConsulta, new Hr(), texto1C, texto2C, texto3C, texto4C, texto5C, texto6C, texto7C, img1C, texto8C);
 
-            add(titulopag, new HorizontalLayout(cambio_tarifa, consulta));
+            add(titulopag, new HorizontalLayout(cambioTarifa, consulta));
             setJustifyContentMode(JustifyContentMode.CENTER);
             setAlignItems(Alignment.CENTER);
 
