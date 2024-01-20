@@ -153,6 +153,10 @@ public class Cliente implements UserDetails {
         this.roles.add(role);
     }
 
+    public void removeAllRoles() {
+        this.roles.clear();
+    }
+
     public void setActive(boolean isActive) {
         this.isActive = isActive;
     }

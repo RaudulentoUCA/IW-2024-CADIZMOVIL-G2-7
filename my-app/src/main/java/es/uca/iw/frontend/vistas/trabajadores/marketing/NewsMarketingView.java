@@ -52,6 +52,7 @@ public class NewsMarketingView extends VerticalLayout {
         descriptionField.setRequiredIndicatorVisible(true);
         descriptionField.setMaxLength(255);
 
+        Grid<Noticia> newsGrid = new Grid<>();
 
         Button createNewNewsButton = new Button("Añadir");
 
@@ -91,13 +92,14 @@ public class NewsMarketingView extends VerticalLayout {
                 notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
                 notification.setDuration(3000);
                 notification.open();
+                actualizarGrid(newsGrid);
+
             }
         });
         add(new H3("Añadir noticias o promociones"), nombreField, descriptionField, upload, createNewNewsButton);
 
         add(new H3("Manejar noticias"));
         List<Noticia> allNews = servicioNews.getAllNews();
-        Grid<Noticia> newsGrid = new Grid<>();
         newsGrid.setAllRowsVisible(true);
         newsGrid.addColumn(Noticia::getId).setHeader("№");
         newsGrid.addColumn(Noticia::getTitle).setHeader("Titulo");

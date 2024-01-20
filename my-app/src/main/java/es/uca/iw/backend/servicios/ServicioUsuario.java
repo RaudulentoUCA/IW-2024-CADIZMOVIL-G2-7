@@ -63,10 +63,11 @@ public class ServicioUsuario implements UserDetailsService {
         return repositorio.findByEmail(email);
     }
 
-    public void eliminar(Cliente user) {
+    public void eliminarUser(Cliente user) {
+        user.removeAllRoles();
+        repositorio.save(user);
         repositorio.delete(user);
     }
-
     @Transactional
     public List<Cliente> getAllClientes(){
         return repositorio.findAll();
