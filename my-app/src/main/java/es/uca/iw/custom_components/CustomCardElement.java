@@ -21,7 +21,7 @@ public class CustomCardElement extends VerticalLayout {
         this.buttonClickListener = buttonClickListener;
     }
 
-    public CustomCardElement(String title, String internet, String calls, String sms, boolean isRoamingIncluded, String buttonText) {
+    public CustomCardElement(String title, String internet, String calls, String sms, boolean isRoamingIncluded, String buttonText, String price) {
         Div titleDiv = new Div();
         titleDiv.setHeight("auto");
         titleDiv.setWidth("380px");
@@ -47,7 +47,7 @@ public class CustomCardElement extends VerticalLayout {
 
         titleDiv.add(horizontalLayout);
 
-        Paragraph callsParagraph = new Paragraph("Lllamadas:");
+        Paragraph callsParagraph = new Paragraph("Llamadas:");
         callsParagraph.getStyle().set("padding", "0px 0px 0px 20px");
         callsParagraph.getStyle().set("margin", "0px");
         callsParagraph.getStyle().set("font-size", "17px");
@@ -85,6 +85,19 @@ public class CustomCardElement extends VerticalLayout {
         smsValueParagraph.getStyle().set("font-weight", "800");
         smsValueParagraph.getStyle().set("color", "#B8C277");
         titleDiv.add(smsValueParagraph);
+
+        Paragraph priceParagraph = new Paragraph("Precio:");
+        priceParagraph.getStyle().set("padding", "0px 0px 0px 20px");
+        priceParagraph.getStyle().set("margin", "0px");
+        priceParagraph.getStyle().set("font-size", "17px");
+        titleDiv.add(priceParagraph);
+
+        Paragraph priceValueParagraph = new Paragraph(price + " €");
+        priceValueParagraph.getStyle().set("padding", "0px 0px 5px 20px");
+        priceValueParagraph.getStyle().set("margin", "0px");
+        priceValueParagraph.getStyle().set("font-weight", "800");
+        priceValueParagraph.getStyle().set("color", "#FF5733");
+        titleDiv.add(priceValueParagraph);
 
         Paragraph roamingParagraph = new Paragraph("Roaming:");
         roamingParagraph.getStyle().set("padding", "0px 0px 0px 20px");

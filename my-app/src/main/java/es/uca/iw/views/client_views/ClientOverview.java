@@ -190,7 +190,7 @@ public class ClientOverview extends VerticalLayout {
                                 contentLayout.getStyle().set("width", "100%");
                                 contentLayout.getStyle().set("justify-content", "space-around");
 
-                                CustomCardElement userTarifaCardElement = new CustomCardElement(simCard.getTarifa().getNombre(), simCard.getTarifa().getAvailableMB().toString(), simCard.getTarifa().getAvailableMin().toString(), simCard.getTarifa().getAvailableSMS().toString(), simCard.getTarifa().isPermiteRoaming(), "Cambiar");
+                                CustomCardElement userTarifaCardElement = new CustomCardElement(simCard.getTarifa().getNombre(), simCard.getTarifa().getAvailableMB().toString(), simCard.getTarifa().getAvailableMin().toString(), simCard.getTarifa().getAvailableSMS().toString(), simCard.getTarifa().isPermiteRoaming(), "Cambiar", String.format("%.2f", simCard.getTarifa().getPrecio()));
                                 userTarifaCardElement.setButtonClickListener(()->{
                                     UI.getCurrent().navigate(TarifasView.class);});
                                 userTarifaCardElement.getStyle().set("width", "auto");
