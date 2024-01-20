@@ -1,4 +1,4 @@
-name: SonarCloud
+name: Despliegue continuo
 on:
   push:
     branches:
@@ -35,3 +35,16 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -f my-app/pom.xml -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=RaudulentoUCA_IW-2024-CADIZMOVIL-G2-7 -DskipTests
+      - name: Deploy to EB
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          application_name: CadizMovil   # Configurar nombre de la app
+          environment_name: CadizMovil-env-1  # Configurar nombre del entorno
+          region: us-east-1 # Configurar región
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
+          version_label: ${{ steps.getVersion.outputs.version }}
+          version_description: ${{github.SHA}}
+          deployment_package: target/webapp.jar
+          use_existing_version_if_available: true
