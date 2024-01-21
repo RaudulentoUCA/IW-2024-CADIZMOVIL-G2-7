@@ -35,11 +35,20 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -f my-app/pom.xml -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=RaudulentoUCA_IW-2024-CADIZMOVIL-G2-7 -DskipTests
+
+      - name: Build and Deploy to GitHub Packages
+        run: mvn deploy -Dmaven.test.skip=true -U -B -Pproduction
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Rename jar file
+        run: mv target/*.jar target/webapp.jar
+
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v21
         with:
-          application_name: CadizMovil   # Configurar nombre de la app
-          environment_name: CadizMovil-env-1  # Configurar nombre del entorno
+          application_name: CadizMovil
+          environment_name: CadizMovil-env-1
           region: us-east-1 # Configurar región
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
