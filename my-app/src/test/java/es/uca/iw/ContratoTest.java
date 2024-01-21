@@ -15,7 +15,6 @@ public class ContratoTest {
 
     @BeforeEach
     public void setUp() {
-        // Inicializar un objeto Contrato antes de cada prueba
         contrato = new Contrato();
         contrato.setId(1);
         contrato.setFechaInicio(LocalDate.of(2022, 1, 1));
@@ -23,12 +22,10 @@ public class ContratoTest {
         contrato.setDescuento(0.1f);
         contrato.setCompartirDatos(true);
 
-        // Fechas de auditoría
         LocalDateTime now = LocalDateTime.now();
         contrato.setCreatedDate(now);
         contrato.setLastModifiedDate(now);
 
-        // Números bloqueados
         Set<String> numerosBloqueados = new HashSet<>();
         numerosBloqueados.add("123456");
         contrato.setNumerosBloqueados(numerosBloqueados);
