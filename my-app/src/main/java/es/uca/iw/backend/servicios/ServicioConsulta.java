@@ -42,6 +42,11 @@ public class ServicioConsulta {
         return repositorioConsulta.findByRespondidoFalse();
     }
 
+    @Transactional
+    public Consulta getConsultaById(UUID id) {
+        return repositorioConsulta.findById(id).orElse(null);
+    }
+
 
 }
 

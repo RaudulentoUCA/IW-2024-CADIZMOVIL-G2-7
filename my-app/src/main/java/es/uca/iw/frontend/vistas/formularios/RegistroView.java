@@ -29,7 +29,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 import es.uca.iw.backend.clases.Cliente;
-import es.uca.iw.backend.servicios.ServicioUsuario;
+import es.uca.iw.backend.servicios.ServicioCliente;
 import es.uca.iw.frontend.vistas.MainLayout;
 import com.vaadin.flow.component.dialog.Dialog;
 
@@ -51,12 +51,12 @@ public class RegistroView extends Composite<VerticalLayout> {
     private final PasswordField repcontra;
     private final BeanValidationBinder<Cliente> binder;
     private boolean usuarioDioRetroceso = false;
-    private final ServicioUsuario servicios;
+    private final ServicioCliente servicios;
 
     private boolean iniciosesion = false;
 
 
-    public RegistroView(ServicioUsuario servicios) {
+    public RegistroView(ServicioCliente servicios) {
         this.servicios = servicios;
         VerticalLayout layoutColumn2 = new VerticalLayout();
         layoutColumn2.setAlignItems(FlexComponent.Alignment.CENTER);

@@ -12,7 +12,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import es.uca.iw.backend.componentes.AuthenticatedUser;
 import es.uca.iw.backend.clases.Cliente;
-import es.uca.iw.backend.servicios.ServicioUsuario;
+import es.uca.iw.backend.servicios.ServicioCliente;
 import es.uca.iw.frontend.vistas.MainLayout;
 import jakarta.annotation.security.RolesAllowed;
 
@@ -25,11 +25,11 @@ import java.util.Optional;
 public class AjustesView extends VerticalLayout {
     private final AuthenticatedUser authenticatedUser;
 
-    private final ServicioUsuario servicioUsuario;
+    private final ServicioCliente servicioCliente;
 
-    public AjustesView(AuthenticatedUser authenticatedUser, ServicioUsuario servicioUsuario){
+    public AjustesView(AuthenticatedUser authenticatedUser, ServicioCliente servicioCliente){
         this.authenticatedUser = authenticatedUser;
-        this.servicioUsuario = servicioUsuario;
+        this.servicioCliente = servicioCliente;
 
         add(new H2("Tus datos personales"));
         Optional<Cliente> optionalCliente = authenticatedUser.get();
@@ -63,7 +63,7 @@ public class AjustesView extends VerticalLayout {
             Button saveButton = new Button("Guardar cambios");
             add(nameField, surnameField, birthDateField, documentNumberField,contactNumberField,emailField,saveButton);
             saveButton.addClickListener((event)->{
-                if (servicioUsuario.actualizarDatosDelCliente(cliente.getId(), nameField.getValue(), surnameField.getValue(), birthDateField.getValue(), documentNumberField.getValue(), contactNumberField.getValue())){
+                if (servicioCliente.actualizarDatosDelCliente(cliente.getId(), nameField.getValue(), surnameField.getValue(), birthDateField.getValue(), documentNumberField.getValue(), contactNumberField.getValue())){
                     Notification notification = Notification.show("Datos cambiados.");
                     notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
                 }

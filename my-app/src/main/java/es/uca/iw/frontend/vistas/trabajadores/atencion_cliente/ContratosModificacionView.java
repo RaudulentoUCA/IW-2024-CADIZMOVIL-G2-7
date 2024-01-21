@@ -18,7 +18,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import es.uca.iw.backend.clases.Cliente;
 import es.uca.iw.backend.clases.Role;
-import es.uca.iw.backend.servicios.ServicioUsuario;
+import es.uca.iw.backend.servicios.ServicioCliente;
 import es.uca.iw.backend.clases.Contrato;
 import es.uca.iw.backend.servicios.ServicioContrato;
 import es.uca.iw.frontend.vistas.MainLayout;
@@ -34,7 +34,7 @@ import java.util.Optional;
 public class ContratosModificacionView extends VerticalLayout {
     private final ServicioContrato servicioContrato;
 
-    private final ServicioUsuario servicioUsuario;
+    private final ServicioCliente servicioCliente;
 
     private final FormLayout formLayout = new FormLayout();
 
@@ -42,8 +42,8 @@ public class ContratosModificacionView extends VerticalLayout {
 
     Dialog confirmDialog;
 
-    public ContratosModificacionView(ServicioContrato servicioContrato, ServicioUsuario servicioUsuario) {
-        this.servicioUsuario = servicioUsuario;
+    public ContratosModificacionView(ServicioContrato servicioContrato, ServicioCliente servicioCliente) {
+        this.servicioCliente = servicioCliente;
         this.servicioContrato = servicioContrato;
         H1 titulo = new H1("Gestión de modificación de contratos.");
 
@@ -124,7 +124,7 @@ public class ContratosModificacionView extends VerticalLayout {
 
         if (id != null && !titular.isEmpty() && fechaInicio.getValue() != null && fechaFin.getValue() != null && !descuento.isEmpty()) {
 
-            Cliente cliente = servicioUsuario.findByDni(titular.getValue()).orElse(null);
+            Cliente cliente = servicioCliente.findByDni(titular.getValue()).orElse(null);
 
             if (cliente != null) {
                 if(cliente.getRoles().stream().noneMatch(role -> role.equals(Role.USER))){

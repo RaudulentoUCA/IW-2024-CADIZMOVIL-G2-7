@@ -14,7 +14,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import es.uca.iw.backend.clases.Cliente;
-import es.uca.iw.backend.servicios.ServicioUsuario;
+import es.uca.iw.backend.servicios.ServicioCliente;
 import es.uca.iw.frontend.vistas.MainLayout;
 
 import javax.mail.*;
@@ -31,7 +31,7 @@ import java.util.Properties;
 public class RecuperarContraView extends VerticalLayout implements BeforeLeaveObserver {
 
     private String correoGuardado;
-    private final ServicioUsuario servicioUsuario;
+    private final ServicioCliente servicioCliente;
 
     TextField correoTextField;
     TextField contrasenaTextField;
@@ -44,8 +44,8 @@ public class RecuperarContraView extends VerticalLayout implements BeforeLeaveOb
 
     boolean exitoCambio = false;
 
-    public RecuperarContraView(ServicioUsuario servicioUsuario) {
-        this.servicioUsuario = servicioUsuario;
+    public RecuperarContraView(ServicioCliente servicioCliente) {
+        this.servicioCliente = servicioCliente;
 
         // Campo y botón para introducir el correo
         H2 texto = new H2("Recuperar Contraseña");
@@ -134,10 +134,10 @@ public class RecuperarContraView extends VerticalLayout implements BeforeLeaveOb
     private void nuevaAccion(String nuevoValor) {
         // Realizar la nueva acción con el nuevo valor
         if (codigo.equals(nuevoValor)) {
-            Optional<Cliente> user = servicioUsuario.cargarUsuarioPorEmail(correoGuardado);
+            Optional<Cliente> user = servicioCliente.cargarUsuarioPorEmail(correoGuardado);
             if (user.isPresent() && !contrasenaTextField.getValue().isEmpty() && !verificacionContrasenaTextField.getValue().isEmpty() && Objects.equals(contrasenaTextField.getValue(), verificacionContrasenaTextField.getValue())) {
                 user.get().setPassword(contrasenaTextField.getValue());
-                servicioUsuario.actualizar(user.get());
+                servicioCliente.actualizar(user.get());
                 exitoCambio = true;
                 UI.getCurrent().navigate("login");
             } else {

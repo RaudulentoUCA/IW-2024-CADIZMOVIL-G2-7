@@ -2,7 +2,7 @@ package es.uca.iw.backend.servicios;
 
 import es.uca.iw.backend.clases.Cliente;
 import es.uca.iw.backend.clases.Role;
-import es.uca.iw.backend.repositorios.RepositorioUsuario;
+import es.uca.iw.backend.repositorios.RepositorioCliente;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -18,14 +18,14 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class ServicioUsuario implements UserDetailsService {
+public class ServicioCliente implements UserDetailsService {
 
-    private final RepositorioUsuario repositorio;
+    private final RepositorioCliente repositorio;
 
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public ServicioUsuario(RepositorioUsuario repositorio, PasswordEncoder
+    public ServicioCliente(RepositorioCliente repositorio, PasswordEncoder
             passwordEncoder) {
         this.repositorio = repositorio;
         this.passwordEncoder = passwordEncoder;
