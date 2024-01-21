@@ -33,8 +33,8 @@ public class ServicioUsuario implements UserDetailsService {
 
     public boolean registrarCliente(Cliente cliente) {
         cliente.setPassword(passwordEncoder.encode(cliente.getPassword()));
-        cliente.setActive(true);
-        cliente.addRole(Role.MARKETING);
+        cliente.setActive(false);
+        cliente.addRole(Role.USER);
         try {
             repositorio.save(cliente);
             return true;

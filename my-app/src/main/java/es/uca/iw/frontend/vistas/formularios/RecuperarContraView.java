@@ -25,7 +25,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Properties;
 
-@PageTitle("Cádiz Móvil")
+@PageTitle("Recuperación de contraseña")
 @Route(value = "recuperar-contra", layout = MainLayout.class)
 @AnonymousAllowed
 public class RecuperarContraView extends VerticalLayout implements BeforeLeaveObserver {
@@ -91,7 +91,7 @@ public class RecuperarContraView extends VerticalLayout implements BeforeLeaveOb
             // Configuración del servidor de correo saliente (SMTP)
             String host = "smtp.gmail.com";
             String username = "raulero999z@gmail.com";
-            String password = "jbhy zmka jida huqk";
+            String password = "rijr kwqy hudz xzqd";
 
             Properties properties = new Properties();
             properties.put("mail.smtp.auth", "true");

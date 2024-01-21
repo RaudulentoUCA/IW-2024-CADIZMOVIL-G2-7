@@ -72,14 +72,19 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver {
             nav.addItem(new SideNavItem("Página Principal", HelloWorldView.class));
             nav.addItem(new SideNavItem("Ayuda al usuario", AyudaUsuarioNoAutenticadoView.class));
         } else if (optionalCliente.get().getRoles().stream().anyMatch(role -> role.equals(Role.USER))) {
-            nav.addItem(new SideNavItem("General", ClientOverview.class, VaadinIcon.DASHBOARD.create()));
-            nav.addItem(new SideNavItem("Tarifas", TarifasView.class, VaadinIcon.ABACUS.create()));
-            nav.addItem(new SideNavItem("Noticias y promociones", NoticiasView.class, VaadinIcon.NEWSPAPER.create()));
-            nav.addItem(new SideNavItem("Facturas", FacturasView.class, VaadinIcon.INVOICE.create()));
-            nav.addItem(new SideNavItem("Ajustes", AjustesView.class, VaadinIcon.TOOLS.create()));
-            nav.addItem(new SideNavItem("Ajustes Contrato", AjustesContratoView.class, VaadinIcon.TOOLS.create()));
-            nav.addItem(new SideNavItem("Consultas/Reclamaciones", ConsultasReclamacionesView.class, VaadinIcon.CHAT.create()));
-            nav.addItem(new SideNavItem("Ayuda al usuario", AyudaUsuarioAutenticadoView.class, VaadinIcon.QUESTION.create()));
+            if(optionalCliente.get().isActive()){
+                nav.addItem(new SideNavItem("General", ClientOverview.class, VaadinIcon.DASHBOARD.create()));
+                nav.addItem(new SideNavItem("Tarifas", TarifasView.class, VaadinIcon.ABACUS.create()));
+                nav.addItem(new SideNavItem("Noticias y promociones", NoticiasView.class, VaadinIcon.NEWSPAPER.create()));
+                nav.addItem(new SideNavItem("Facturas", FacturasView.class, VaadinIcon.INVOICE.create()));
+                nav.addItem(new SideNavItem("Ajustes", AjustesView.class, VaadinIcon.TOOLS.create()));
+                nav.addItem(new SideNavItem("Ajustes Contrato", AjustesContratoView.class, VaadinIcon.TOOLS.create()));
+                nav.addItem(new SideNavItem("Consultas/Reclamaciones", ConsultasReclamacionesView.class, VaadinIcon.CHAT.create()));
+                nav.addItem(new SideNavItem("Ayuda al usuario", AyudaUsuarioAutenticadoView.class, VaadinIcon.QUESTION.create()));
+            }
+            else{
+                nav.addItem(new SideNavItem("Confirmación", ConfirmarView.class, VaadinIcon.TOOLS.create()));
+            }
         } else if (optionalCliente.get().getRoles().stream().anyMatch(role -> role.equals(Role.MARKETING))) {
             nav.addItem(new SideNavItem("Tarifas", TarifaView.class, VaadinIcon.ABACUS.create()));
             nav.addItem(new SideNavItem("Noticias y promociones", NewsMarketingView.class, VaadinIcon.NEWSPAPER.create()));

@@ -100,7 +100,7 @@ public class FacturacionView extends VerticalLayout {
                 // Configuración del servidor de correo saliente (SMTP)
                 String host = "smtp.gmail.com";
                 String username = "raulero999z@gmail.com";
-                String password = "jbhy zmka jida huqk";
+                String password = "rijr kwqy hudz xzqd";
 
                 Properties properties = new Properties();
                 properties.put("mail.smtp.auth", "true");
