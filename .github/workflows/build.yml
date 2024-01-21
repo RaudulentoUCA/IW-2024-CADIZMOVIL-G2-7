@@ -37,7 +37,7 @@ jobs:
         run: mvn -f my-app/pom.xml -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=RaudulentoUCA_IW-2024-CADIZMOVIL-G2-7 -DskipTests
 
       - name: Build and Deploy to GitHub Packages
-        run: mvn deploy -Dmaven.test.skip=true -U -B -Pproduction
+        run: cd my-app; mvn deploy -Dmaven.test.skip=true -U -B -Pproduction
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
