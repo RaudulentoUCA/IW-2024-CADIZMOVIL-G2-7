@@ -1,443 +1,563 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Diagram>
   <ID>JAVA</ID>
-  <OriginalElement>C:/Users/david/OneDrive/Escritorio/IW-2024-CADIZMOVIL-G2-7/my-app</OriginalElement>
+  <OriginalElement>C:/Users/XxDEs/OneDrive/Escritorio/Hol/IW-2024-CADIZMOVIL-G2-7/my-app/src/main/java/es/uca/iw</OriginalElement>
   <nodes>
-    <node x="1430.5" y="-14.0">es.uca.iw.atencion_cliente.RepositorioRespuesta</node>
-    <node x="291.5" y="746.0">es.uca.iw.views.client_views.CrearConsultaReclamacionView</node>
-    <node x="3266.0" y="746.0">es.uca.iw.factura.Factura</node>
-    <node x="3232.5" y="266.0">es.uca.iw.Application</node>
-    <node x="2382.5" y="746.0">es.uca.iw.views.client_views.FacturasView</node>
-    <node x="3138.0" y="46.0">es.uca.iw.cliente.Role</node>
-    <node x="2453.0" y="266.0">es.uca.iw.simcard.SimCardService</node>
-    <node x="2477.0" y="806.0">es.uca.iw.views.Trabajador.ContratosBajasView</node>
-    <node x="2733.0" y="-14.0">es.uca.iw.tarifa.Tarifa</node>
-    <node x="1443.5" y="206.0">es.uca.iw.atencion_cliente.ServicioRespuesta</node>
-    <node x="1764.0" y="46.0">es.uca.iw.cliente.RepositorioCliente</node>
-    <node x="1040.5" y="746.0">es.uca.iw.views.client_views.ServiciosView</node>
-    <node x="2721.5" y="266.0">es.uca.iw.simcard.SimCard</node>
-    <node x="3147.5" y="206.0">es.uca.iw.cliente.Cliente</node>
-    <node x="2909.5" y="266.0">MavenWrapperDownloader</node>
-    <node x="2571.0" y="206.0">es.uca.iw.factura.ServiciosFactura</node>
-    <node x="-143.0" y="46.0">es.uca.iw.atencion_cliente.RepositorioConsulta</node>
-    <node x="2731.0" y="806.0">es.uca.iw.views.Trabajador.FacturacionView</node>
-    <node x="2804.0" y="206.0">es.uca.iw.tarifa.TarifaService</node>
-    <node x="2333.0" y="206.0">es.uca.iw.views.helloworld.HelloWorldView</node>
-    <node x="622.5" y="266.0">es.uca.iw.AuthenticatedUser</node>
-    <node x="3154.5" y="806.0">es.uca.iw.atencion_cliente.Respuesta</node>
-    <node x="2975.5" y="806.0">TarifaTest</node>
-    <node x="2562.5" y="46.0">es.uca.iw.factura.RepositorioFactura</node>
-    <node x="1710.0" y="806.0">es.uca.iw.views.formulario.RecuperarContraView</node>
-    <node x="645.0" y="746.0">es.uca.iw.views.client_views.NoticiasView</node>
-    <node x="1874.5" y="746.0">es.uca.iw.views.formulario.FormularioView</node>
-    <node x="751.0" y="806.0">es.uca.iw.views.profile.ProfileView</node>
-    <node x="2206.0" y="266.0">es.uca.iw.contrato.ServiciosContrato</node>
-    <node x="2873.5" y="746.0">es.uca.iw.tarifa.TarifaView</node>
-    <node x="2098.0" y="206.0">es.uca.iw.SecurityConfig</node>
-    <node x="2629.0" y="746.0">es.uca.iw.views.client_views.TarifasView</node>
-    <node x="1560.0" y="266.0">es.uca.iw.auditoria.CustomAuditingEntityListener</node>
-    <node x="557.5" y="806.0">es.uca.iw.views.client_views.ChatView</node>
-    <node x="2197.5" y="46.0">es.uca.iw.contrato.RepositorioContrato</node>
-    <node x="955.0" y="806.0">es.uca.iw.views.formulario.LoginView</node>
-    <node x="1934.5" y="266.0">es.uca.iw.custom_components.CustomCardElement</node>
-    <node x="-149.0" y="806.0">es.uca.iw.views.Trabajador.EliminarConsultaView</node>
-    <node x="119.5" y="806.0">es.uca.iw.views.client_views.ConsultasReclamacionesView</node>
-    <node x="1772.5" y="206.0">es.uca.iw.cliente.ServiciosCliente</node>
-    <node x="532.5" y="206.0">es.uca.iw.views.about.AboutView</node>
-    <node x="2108.5" y="746.0">es.uca.iw.views.Trabajador.ContratosNuevosView</node>
-    <node x="1152.5" y="806.0">es.uca.iw.views.client_views.RespuestasRecibidas</node>
-    <node x="3021.0" y="-14.0">es.uca.iw.contrato.Contrato</node>
-    <node x="3061.0" y="746.0">es.uca.iw.atencion_cliente.Consulta</node>
-    <node x="1419.5" y="806.0">es.uca.iw.views.Trabajador.ResponderConsultaView</node>
-    <node x="2440.5" y="-14.0">es.uca.iw.simcard.SimCardRepository</node>
-    <node x="-130.0" y="266.0">es.uca.iw.atencion_cliente.ServicioConsulta</node>
-    <node x="2811.5" y="46.0">es.uca.iw.tarifa.TarifaRepository</node>
-    <node x="1592.5" y="746.0">es.uca.iw.views.client_views.AjustesContrato</node>
-    <node x="17.0" y="746.0">es.uca.iw.views.Trabajador.ConsultasView</node>
-    <node x="1939.5" y="-14.0">es.uca.iw.custom_components.ButtonClickListener</node>
-    <node x="2276.0" y="806.0">es.uca.iw.views.client_views.ClientOverview</node>
-    <node x="851.0" y="746.0">es.uca.iw.views.MainLayout</node>
-    <node x="1327.0" y="746.0">es.uca.iw.views.client_views.AjustesView</node>
-    <node x="2010.5" y="806.0">ClienteTest</node>
+    <node x="4431.5" y="2194.0">es.uca.iw.backend.auditoria_tablas.CustomAuditingEntityListener</node>
+    <node x="301.0" y="294.0">es.uca.iw.backend.repositorios.RepositorioTarifa</node>
+    <node x="3966.5" y="856.5">es.uca.iw.backend.servicios.ServicioRespuesta</node>
+    <node x="3350.0" y="694.0">es.uca.iw.frontend.custom_components.CustomNewsComponent</node>
+    <node x="2322.0" y="1392.5">es.uca.iw.frontend.vistas.cliente.FacturasView</node>
+    <node x="4343.5" y="2034.0">es.uca.iw.Application</node>
+    <node x="4235.5" y="1736.5">es.uca.iw.frontend.vistas.trabajadores.marketing.NewsMarketingView</node>
+    <node x="1493.5" y="-26.0">es.uca.iw.backend.repositorios.RepositorioUsuario</node>
+    <node x="3836.0" y="294.0">es.uca.iw.backend.repositorios.RepositorioNoticia</node>
+    <node x="1361.0" y="1320.5">es.uca.iw.frontend.vistas.trabajadores.finanzas.FacturacionView</node>
+    <node x="1703.0" y="1604.5">es.uca.iw.frontend.vistas.formularios.RegistroView</node>
+    <node x="570.5" y="294.0">es.uca.iw.backend.repositorios.RepositorioSimCard</node>
+    <node x="3787.5" y="676.5">es.uca.iw.backend.servicios.ServicioNews</node>
+    <node x="4229.5" y="628.5">es.uca.iw.backend.clases.Noticia</node>
+    <node x="796.5" y="1664.5">es.uca.iw.frontend.vistas.trabajadores.atencion_cliente.ContratosNuevosView</node>
+    <node x="1170.5" y="1616.5">es.uca.iw.frontend.vistas.formularios.RecuperarContraView</node>
+    <node x="1950.0" y="1356.5">es.uca.iw.frontend.vistas.cliente.AjustesContratoView</node>
+    <node x="3222.0" y="1700.5">es.uca.iw.frontend.vistas.cliente.ConsultasReclamacionesView</node>
+    <node x="2502.0" y="1724.5">es.uca.iw.frontend.vistas.formularios.LoginView</node>
+    <node x="4108.5" y="2194.0">es.uca.iw.frontend.vistas.cliente.AyudaUsuarioAutenticadoView</node>
+    <node x="688.5" y="-26.0">es.uca.iw.backend.repositorios.RepositorioContrato</node>
+    <node x="82.0" y="1380.5">es.uca.iw.frontend.vistas.cliente.ClientOverview</node>
+    <node x="635.5" y="856.5">es.uca.iw.backend.servicios.ServicioContrato</node>
+    <node x="576.5" y="1368.5">es.uca.iw.frontend.vistas.trabajadores.atencion_cliente.ContratosModificacionView</node>
+    <node x="378.0" y="-499.5">es.uca.iw.backend.clases.Contrato</node>
+    <node x="1447.0" y="844.5">es.uca.iw.backend.servicios.ServicioUsuario</node>
+    <node x="4486.0" y="808.5">es.uca.iw.backend.clases.Respuesta</node>
+    <node x="1374.0" y="294.0">es.uca.iw.backend.repositorios.RepositorioFactura</node>
+    <node x="1843.5" y="856.5">es.uca.iw.backend.servicios.ServicioFactura</node>
+    <node x="-178.5" y="1652.5">es.uca.iw.frontend.vistas.trabajadores.marketing.TarifaView</node>
+    <node x="3628.5" y="-26.0">es.uca.iw.backend.repositorios.RepositorioConsulta</node>
+    <node x="1718.0" y="640.5">es.uca.iw.backend.clases.Factura</node>
+    <node x="2142.0" y="1724.5">es.uca.iw.frontend.vistas.cliente.AjustesView</node>
+    <node x="3917.5" y="2034.0">es.uca.iw.frontend.vistas.cliente.AyudaUsuarioNoAutenticadoView</node>
+    <node x="-149.0" y="294.0">es.uca.iw.frontend.custom_components.ButtonClickListener</node>
+    <node x="3042.0" y="1404.5">es.uca.iw.frontend.vistas.MainLayout</node>
+    <node x="3985.5" y="1392.5">es.uca.iw.frontend.vistas.trabajadores.atencion_cliente.ConsultasView</node>
+    <node x="439.5" y="676.5">es.uca.iw.backend.servicios.ServicioSimCard</node>
+    <node x="-175.5" y="-523.5">es.uca.iw.backend.clases.Tarifa</node>
+    <node x="322.0" y="1688.5">es.uca.iw.frontend.vistas.cliente.TarifasView</node>
+    <node x="1016.5" y="1416.5">es.uca.iw.frontend.vistas.trabajadores.atencion_cliente.ContratosBajasView</node>
+    <node x="3759.5" y="1724.5">es.uca.iw.frontend.vistas.trabajadores.atencion_cliente.EliminarConsultaView</node>
+    <node x="416.5" y="-115.5">es.uca.iw.backend.clases.SimCard</node>
+    <node x="1641.5" y="132.5">es.uca.iw.backend.clases.Cliente</node>
+    <node x="4023.0" y="-26.0">es.uca.iw.backend.repositorios.RepositorioRespuesta</node>
+    <node x="-202.0" y="844.5">es.uca.iw.frontend.custom_components.CustomCardElement</node>
+    <node x="3518.5" y="2016.5">es.uca.iw.backend.configuracion.SecurityConfig</node>
+    <node x="3406.5" y="2194.0">es.uca.iw.frontend.vistas.pantallas_iniciales.HelloWorldView</node>
+    <node x="4441.5" y="1332.5">es.uca.iw.backend.clases.Consulta</node>
+    <node x="275.5" y="856.5">es.uca.iw.backend.servicios.ServicioTarifa</node>
+    <node x="2862.0" y="1736.5">es.uca.iw.frontend.vistas.pantallas_iniciales.ProfileView</node>
+    <node x="3575.5" y="856.5">es.uca.iw.backend.servicios.ServicioConsulta</node>
+    <node x="2146.75" y="74.25">es.uca.iw.backend.clases.Role</node>
+    <node x="3402.0" y="1404.5">es.uca.iw.frontend.vistas.cliente.NoticiasView</node>
+    <node x="2839.0" y="844.5">es.uca.iw.backend.componentes.AuthenticatedUser</node>
+    <node x="3657.5" y="2116.5">es.uca.iw.frontend.vistas.cliente.CrearConsultaReclamacionView</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="es.uca.iw.factura.ServiciosFactura" target="es.uca.iw.factura.RepositorioFactura" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
+    <edge source="es.uca.iw.frontend.vistas.cliente.ClientOverview" target="es.uca.iw.backend.clases.Contrato" relationship="CREATE">
+      <point x="0.0" y="-67.5" />
+      <point x="232.0" y="-372.0" />
+      <point x="-134.0" y="0.0" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.trabajadores.atencion_cliente.ConsultasView" target="es.uca.iw.backend.servicios.ServicioRespuesta" relationship="TO_ONE">
+      <point x="-73.25" y="-55.5" />
+      <point x="4058.75" y="1368.0" />
+      <point x="4052.0" y="1368.0" />
+      <point x="4052.0" y="1348.0" />
+      <point x="4132.0" y="1348.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.trabajadores.atencion_cliente.ContratosModificacionView" target="es.uca.iw.backend.servicios.ServicioContrato" relationship="TO_ONE">
+      <point x="67.75" y="-79.5" />
+      <point x="779.75" y="1348.0" />
+      <point x="832.0" y="1348.0" />
+      <point x="832.0" y="1328.0" />
+      <point x="792.0" y="1328.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.cliente.ConsultasReclamacionesView" target="es.uca.iw.backend.servicios.ServicioConsulta" relationship="TO_ONE">
+      <point x="4.5" y="-67.5" />
+      <point x="3376.5" y="888.0" />
+      <point x="-156.5" y="0.0" />
+    </edge>
+    <edge source="es.uca.iw.backend.clases.Respuesta" target="es.uca.iw.backend.clases.Cliente" relationship="TO_ONE">
+      <point x="0.0" y="-79.5" />
+      <point x="4572.0" y="608.0" />
+      <point x="1832.0" y="608.0" />
+      <point x="1832.0" y="508.0" />
+      <point x="1837.25" y="508.0" />
+      <point x="65.25" y="175.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.cliente.CrearConsultaReclamacionView" target="es.uca.iw.backend.servicios.ServicioConsulta" relationship="TO_ONE">
+      <point x="-77.25" y="-91.5" />
+      <point x="3734.75" y="2088.0" />
+      <point x="3732.0" y="2088.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="es.uca.iw.backend.clases.Consulta" target="es.uca.iw.backend.clases.Cliente" relationship="TO_ONE">
+      <point x="103.5" y="-115.5" />
+      <point x="4675.5" y="-43.5" />
+      <point x="1852.25" y="-43.5" />
+      <point x="80.25" y="-175.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.cliente.ClientOverview" target="es.uca.iw.backend.componentes.AuthenticatedUser" relationship="TO_ONE">
+      <point x="15.0" y="67.5" />
+      <point x="247.0" y="2377.0" />
+      <point x="4790.0" y="2377.0" />
+      <point x="4790.0" y="-58.5" />
+      <point x="3027.0" y="-58.5" />
+      <point x="15.0" y="-43.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.cliente.AjustesView" target="es.uca.iw.backend.servicios.ServicioUsuario" relationship="TO_ONE">
+      <point x="0.0" y="-43.5" />
+      <point x="2292.0" y="968.0" />
+      <point x="1592.0" y="968.0" />
+      <point x="0.0" y="43.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.cliente.FacturasView" target="es.uca.iw.backend.componentes.AuthenticatedUser" relationship="TO_ONE">
+      <point x="0.0" y="-55.5" />
+      <point x="2472.0" y="1328.0" />
+      <point x="3012.0" y="1328.0" />
+      <point x="0.0" y="43.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.formularios.RegistroView" target="es.uca.iw.backend.servicios.ServicioUsuario" relationship="TO_ONE">
+      <point x="-74.5" y="-163.5" />
+      <point x="1777.5" y="1268.0" />
+      <point x="1592.0" y="1268.0" />
+      <point x="0.0" y="43.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.trabajadores.atencion_cliente.EliminarConsultaView" target="es.uca.iw.backend.servicios.ServicioConsulta" relationship="TO_ONE">
+      <point x="0.0" y="-43.5" />
+      <point x="3932.0" y="1688.0" />
+      <point x="3732.0" y="1688.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.cliente.ClientOverview" target="es.uca.iw.backend.servicios.ServicioTarifa" relationship="TO_ONE">
+      <point x="51.0" y="-67.5" />
+      <point x="-129.0" y="31.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.trabajadores.finanzas.FacturacionView" target="es.uca.iw.backend.servicios.ServicioSimCard" relationship="TO_ONE">
+      <point x="-75.5" y="-127.5" />
+      <point x="1436.5" y="1288.0" />
+      <point x="1432.0" y="1288.0" />
+      <point x="1432.0" y="1028.0" />
+      <point x="552.0" y="1028.0" />
+      <point x="552.0" y="948.0" />
+      <point x="592.0" y="948.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.trabajadores.atencion_cliente.ContratosNuevosView" target="es.uca.iw.backend.servicios.ServicioContrato" relationship="TO_ONE">
+      <point x="0.0" y="-103.5" />
+      <point x="140.0" y="31.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.formularios.RegistroView" target="es.uca.iw.backend.clases.Cliente" relationship="CREATE">
+      <point x="74.5" y="-163.5" />
+      <point x="1926.5" y="1248.0" />
+      <point x="2172.0" y="1248.0" />
+      <point x="2172.0" y="528.0" />
+      <point x="1706.75" y="528.0" />
+      <point x="-65.25" y="175.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.cliente.ClientOverview" target="es.uca.iw.backend.clases.Tarifa" relationship="CREATE">
+      <point x="-75.0" y="-67.5" />
+      <point x="157.0" y="1348.0" />
+      <point x="172.0" y="1348.0" />
+      <point x="172.0" y="1288.0" />
+      <point x="132.0" y="1288.0" />
+      <point x="132.0" y="268.0" />
+      <point x="-128.0" y="268.0" />
+      <point x="-128.0" y="-192.0" />
+      <point x="-121.75" y="-192.0" />
+      <point x="-53.75" y="151.5" />
+    </edge>
+    <edge source="es.uca.iw.backend.clases.Factura" target="es.uca.iw.backend.clases.Cliente" relationship="TO_ONE">
+      <point x="0.0" y="-67.5" />
+      <point x="1812.0" y="608.0" />
+      <point x="1832.0" y="608.0" />
+      <point x="1832.0" y="508.0" />
+      <point x="1837.25" y="508.0" />
+      <point x="65.25" y="175.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.cliente.NoticiasView" target="es.uca.iw.backend.componentes.AuthenticatedUser" relationship="TO_ONE">
+      <point x="75.0" y="-43.5" />
+      <point x="3627.0" y="1368.0" />
+      <point x="3632.0" y="1368.0" />
+      <point x="3632.0" y="1308.0" />
+      <point x="3012.0" y="1308.0" />
+      <point x="0.0" y="43.5" />
+    </edge>
+    <edge source="es.uca.iw.backend.componentes.AuthenticatedUser" target="es.uca.iw.backend.repositorios.RepositorioUsuario" relationship="TO_ONE">
+      <point x="0.0" y="-43.5" />
+      <point x="3012.0" y="568.0" />
+      <point x="1592.0" y="568.0" />
       <point x="0.0" y="14.0" />
     </edge>
-    <edge source="es.uca.iw.views.Trabajador.FacturacionView" target="es.uca.iw.cliente.ServiciosCliente" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="2820.0" y="720.0" />
-      <point x="2660.0" y="720.0" />
-      <point x="2660.0" y="520.0" />
-      <point x="1860.0" y="520.0" />
+    <edge source="es.uca.iw.frontend.vistas.trabajadores.marketing.TarifaView" target="es.uca.iw.backend.servicios.ServicioTarifa" relationship="TO_ONE">
+      <point x="-150.5" y="0.0" />
+      <point x="-243.0" y="1768.0" />
+      <point x="-243.0" y="84.0" />
+      <point x="283.5" y="84.0" />
+      <point x="-128.5" y="-31.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.trabajadores.finanzas.FacturacionView" target="es.uca.iw.backend.clases.Factura" relationship="CREATE">
+      <point x="75.5" y="-127.5" />
+      <point x="1587.5" y="1248.0" />
+      <point x="1812.0" y="1248.0" />
+      <point x="0.0" y="67.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.cliente.AjustesContratoView" target="es.uca.iw.backend.componentes.AuthenticatedUser" relationship="TO_ONE">
+      <point x="0.0" y="-91.5" />
+      <point x="2112.0" y="1268.0" />
+      <point x="3012.0" y="1268.0" />
+      <point x="0.0" y="43.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.trabajadores.marketing.TarifaView" target="es.uca.iw.backend.servicios.ServicioSimCard" relationship="TO_ONE">
+      <point x="75.25" y="-115.5" />
+      <point x="47.25" y="1328.0" />
+      <point x="372.0" y="1328.0" />
+      <point x="372.0" y="1048.0" />
+      <point x="552.0" y="1048.0" />
+      <point x="552.0" y="948.0" />
+      <point x="592.0" y="948.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.trabajadores.atencion_cliente.ContratosBajasView" target="es.uca.iw.backend.servicios.ServicioContrato" relationship="TO_ONE">
+      <point x="0.0" y="-31.5" />
+      <point x="1152.0" y="888.0" />
+      <point x="156.5" y="0.0" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.trabajadores.marketing.NewsMarketingView" target="es.uca.iw.backend.clases.Noticia" relationship="CREATE">
+      <point x="58.25" y="-31.5" />
+      <point x="4410.25" y="1708.0" />
+      <point x="4332.0" y="1708.0" />
+      <point x="0.0" y="79.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.trabajadores.atencion_cliente.ConsultasView" target="es.uca.iw.backend.clases.Respuesta" relationship="CREATE">
+      <point x="73.25" y="-55.5" />
+      <point x="4205.25" y="1288.0" />
+      <point x="4514.666666666667" y="1288.0" />
+      <point x="-57.33333333333333" y="79.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.trabajadores.marketing.NewsMarketingView" target="es.uca.iw.backend.servicios.ServicioNews" relationship="TO_ONE">
+      <point x="-81.0" y="-31.5" />
+      <point x="4271.0" y="1642.0" />
+      <point x="3947.0" y="1642.0" />
+      <point x="15.0" y="31.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.trabajadores.finanzas.FacturacionView" target="es.uca.iw.backend.servicios.ServicioFactura" relationship="TO_ONE">
+      <point x="-75.5" y="-127.5" />
+      <point x="1436.5" y="1288.0" />
+      <point x="1432.0" y="1288.0" />
+      <point x="1432.0" y="1168.0" />
+      <point x="1992.0" y="1168.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.cliente.TarifasView" target="es.uca.iw.backend.servicios.ServicioContrato" relationship="TO_ONE">
+      <point x="0.0" y="79.5" />
+      <point x="472.0" y="2332.0" />
+      <point x="4745.0" y="2332.0" />
+      <point x="4745.0" y="-267.0" />
+      <point x="905.5" y="-267.0" />
+      <point x="905.5" y="856.5" />
+      <point x="136.0" y="-31.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.formularios.LoginView" target="es.uca.iw.backend.componentes.AuthenticatedUser" relationship="TO_ONE">
+      <point x="0.0" y="-43.5" />
+      <point x="2652.0" y="1368.0" />
+      <point x="3012.0" y="1368.0" />
+      <point x="0.0" y="43.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.cliente.FacturasView" target="es.uca.iw.backend.servicios.ServicioFactura" relationship="TO_ONE">
+      <point x="0.0" y="-55.5" />
+      <point x="2472.0" y="948.0" />
+      <point x="1992.0" y="948.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.cliente.CrearConsultaReclamacionView" target="es.uca.iw.backend.componentes.AuthenticatedUser" relationship="TO_ONE">
+      <point x="-77.25" y="-91.5" />
+      <point x="3734.75" y="2088.0" />
+      <point x="3732.0" y="2088.0" />
+      <point x="3732.0" y="1988.0" />
+      <point x="2832.0" y="1988.0" />
+      <point x="2832.0" y="1368.0" />
+      <point x="3012.0" y="1368.0" />
+      <point x="0.0" y="43.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.cliente.TarifasView" target="es.uca.iw.backend.servicios.ServicioSimCard" relationship="TO_ONE">
+      <point x="75.0" y="-79.5" />
+      <point x="547.0" y="1668.0" />
+      <point x="552.0" y="1668.0" />
+      <point x="552.0" y="948.0" />
+      <point x="592.0" y="948.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="es.uca.iw.backend.servicios.ServicioSimCard" target="es.uca.iw.backend.repositorios.RepositorioSimCard" relationship="TO_ONE">
+      <point x="76.25" y="-31.5" />
+      <point x="668.25" y="648.0" />
+      <point x="672.0" y="648.0" />
       <point x="0.0" y="14.0" />
     </edge>
-    <edge source="es.uca.iw.factura.Factura" target="es.uca.iw.cliente.Cliente" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="3320.0" y="720.0" />
-      <point x="3200.0" y="720.0" />
+    <edge source="es.uca.iw.frontend.vistas.cliente.ConsultasReclamacionesView" target="es.uca.iw.backend.componentes.AuthenticatedUser" relationship="TO_ONE">
+      <point x="-10.5" y="-67.5" />
+      <point x="3361.5" y="888.0" />
+      <point x="173.0" y="0.0" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.trabajadores.atencion_cliente.ContratosModificacionView" target="es.uca.iw.backend.clases.Contrato" relationship="CREATE">
+      <point x="0.0" y="79.5" />
+      <point x="712.0" y="2362.0" />
+      <point x="4760.0" y="2362.0" />
+      <point x="4760.0" y="-402.0" />
+      <point x="134.0" y="-30.0" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.pantallas_iniciales.ProfileView" target="es.uca.iw.backend.componentes.AuthenticatedUser" relationship="TO_ONE">
+      <point x="0.0" y="-31.5" />
+      <point x="0.0" y="43.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.cliente.ClientOverview" target="es.uca.iw.backend.servicios.ServicioContrato" relationship="TO_ONE">
+      <point x="0.0" y="67.5" />
+      <point x="232.0" y="2347.0" />
+      <point x="-258.0" y="2347.0" />
+      <point x="-258.0" y="-541.0" />
+      <point x="920.5" y="-541.0" />
+      <point x="128.5" y="-31.5" />
+    </edge>
+    <edge source="es.uca.iw.backend.clases.Respuesta" target="es.uca.iw.backend.clases.Consulta" relationship="TO_ONE">
+      <point x="57.333333333333314" y="79.5" />
+      <point x="4629.333333333333" y="1308.0" />
+      <point x="4637.25" y="1308.0" />
+      <point x="65.25" y="-115.5" />
+    </edge>
+    <edge source="es.uca.iw.backend.clases.Consulta" target="es.uca.iw.backend.clases.Respuesta" relationship="TO_ONE">
+      <point x="0.0" y="-115.5" />
+      <point x="0.0" y="79.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.cliente.AjustesView" target="es.uca.iw.backend.componentes.AuthenticatedUser" relationship="TO_ONE">
+      <point x="0.0" y="-43.5" />
+      <point x="2292.0" y="1288.0" />
+      <point x="3012.0" y="1288.0" />
+      <point x="0.0" y="43.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.cliente.CrearConsultaReclamacionView" target="es.uca.iw.backend.clases.Consulta" relationship="CREATE">
+      <point x="77.25" y="-91.5" />
+      <point x="3889.25" y="2008.0" />
+      <point x="4572.0" y="2008.0" />
+      <point x="0.0" y="115.5" />
+    </edge>
+    <edge source="es.uca.iw.backend.servicios.ServicioUsuario" target="es.uca.iw.backend.repositorios.RepositorioUsuario" relationship="TO_ONE">
+      <point x="0.0" y="-43.5" />
       <point x="0.0" y="14.0" />
     </edge>
-    <edge source="es.uca.iw.views.formulario.LoginView" target="es.uca.iw.AuthenticatedUser" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="1020.0" y="720.0" />
-      <point x="720.0" y="720.0" />
+    <edge source="es.uca.iw.frontend.vistas.cliente.NoticiasView" target="es.uca.iw.frontend.custom_components.CustomNewsComponent" relationship="CREATE">
+      <point x="-75.0" y="-43.5" />
+      <point x="3477.0" y="1368.0" />
+      <point x="3472.0" y="1368.0" />
       <point x="0.0" y="14.0" />
     </edge>
-    <edge source="es.uca.iw.views.client_views.TarifasView" target="es.uca.iw.tarifa.TarifaService" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="2700.0" y="700.0" />
-      <point x="2620.0" y="700.0" />
-      <point x="2620.0" y="660.0" />
-      <point x="2940.0" y="660.0" />
-      <point x="2940.0" y="320.0" />
-      <point x="2880.0" y="320.0" />
+    <edge source="es.uca.iw.backend.clases.SimCard" target="es.uca.iw.backend.clases.Tarifa" relationship="TO_ONE">
+      <point x="0.0" y="-103.5" />
+      <point x="512.0" y="-152.0" />
+      <point x="-14.25" y="-152.0" />
+      <point x="53.75" y="151.5" />
+    </edge>
+    <edge source="es.uca.iw.backend.clases.Cliente" target="es.uca.iw.backend.clases.Role" relationship="TO_MANY">
+      <point x="130.5" y="-166.25" />
+      <point x="-64.0" y="0.0" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.trabajadores.marketing.TarifaView" target="es.uca.iw.backend.clases.Tarifa" relationship="CREATE">
+      <point x="-75.25" y="-115.5" />
+      <point x="-103.25" y="1628.0" />
+      <point x="-228.0" y="1628.0" />
+      <point x="-228.0" y="268.0" />
+      <point x="-128.0" y="268.0" />
+      <point x="-128.0" y="-192.0" />
+      <point x="-121.75" y="-192.0" />
+      <point x="-53.75" y="151.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.trabajadores.atencion_cliente.ConsultasView" target="es.uca.iw.backend.servicios.ServicioConsulta" relationship="TO_ONE">
+      <point x="-73.25" y="-55.5" />
+      <point x="4058.75" y="1368.0" />
+      <point x="4052.0" y="1368.0" />
+      <point x="4052.0" y="1328.0" />
+      <point x="3732.0" y="1328.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="es.uca.iw.backend.servicios.ServicioFactura" target="es.uca.iw.backend.repositorios.RepositorioFactura" relationship="TO_ONE">
+      <point x="0.0" y="-31.5" />
+      <point x="1992.0" y="588.0" />
+      <point x="1472.0" y="588.0" />
       <point x="0.0" y="14.0" />
     </edge>
-    <edge source="es.uca.iw.views.profile.ProfileView" target="es.uca.iw.AuthenticatedUser" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="820.0" y="720.0" />
-      <point x="720.0" y="720.0" />
+    <edge source="es.uca.iw.frontend.vistas.trabajadores.atencion_cliente.ContratosNuevosView" target="es.uca.iw.backend.clases.Contrato" relationship="CREATE">
+      <point x="0.0" y="103.5" />
+      <point x="932.0" y="2347.0" />
+      <point x="4775.0" y="2347.0" />
+      <point x="4775.0" y="-417.0" />
+      <point x="134.0" y="-45.0" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.trabajadores.finanzas.FacturacionView" target="es.uca.iw.backend.clases.Cliente" relationship="TO_ONE">
+      <point x="-75.5" y="-127.5" />
+      <point x="1436.5" y="1288.0" />
+      <point x="1432.0" y="1288.0" />
+      <point x="1432.0" y="608.0" />
+      <point x="1832.0" y="608.0" />
+      <point x="1832.0" y="508.0" />
+      <point x="1837.25" y="508.0" />
+      <point x="65.25" y="175.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.trabajadores.finanzas.FacturacionView" target="es.uca.iw.backend.servicios.ServicioUsuario" relationship="TO_ONE">
+      <point x="-75.5" y="-127.5" />
+      <point x="1436.5" y="1288.0" />
+      <point x="1432.0" y="1288.0" />
+      <point x="1432.0" y="1088.0" />
+      <point x="1592.0" y="1088.0" />
+      <point x="0.0" y="43.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.custom_components.CustomCardElement" target="es.uca.iw.frontend.custom_components.ButtonClickListener" relationship="TO_ONE">
+      <point x="0.0" y="-43.5" />
       <point x="0.0" y="14.0" />
     </edge>
-    <edge source="es.uca.iw.AuthenticatedUser" target="es.uca.iw.cliente.RepositorioCliente" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="720.0" y="180.0" />
-      <point x="1860.0" y="180.0" />
+    <edge source="es.uca.iw.frontend.vistas.trabajadores.atencion_cliente.ContratosModificacionView" target="es.uca.iw.backend.servicios.ServicioUsuario" relationship="TO_ONE">
+      <point x="67.75" y="-79.5" />
+      <point x="779.75" y="1348.0" />
+      <point x="832.0" y="1348.0" />
+      <point x="832.0" y="1048.0" />
+      <point x="1592.0" y="1048.0" />
+      <point x="0.0" y="43.5" />
+    </edge>
+    <edge source="es.uca.iw.backend.servicios.ServicioTarifa" target="es.uca.iw.backend.repositorios.RepositorioTarifa" relationship="TO_ONE">
+      <point x="0.0" y="-31.5" />
+      <point x="412.0" y="828.0" />
+      <point x="392.0" y="828.0" />
       <point x="0.0" y="14.0" />
     </edge>
-    <edge source="es.uca.iw.custom_components.CustomCardElement" target="es.uca.iw.custom_components.ButtonClickListener" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
+    <edge source="es.uca.iw.frontend.vistas.cliente.ClientOverview" target="es.uca.iw.backend.servicios.ServicioSimCard" relationship="TO_ONE">
+      <point x="75.0" y="-67.5" />
+      <point x="307.0" y="1448.0" />
+      <point x="412.0" y="1448.0" />
+      <point x="412.0" y="1088.0" />
+      <point x="552.0" y="1088.0" />
+      <point x="552.0" y="948.0" />
+      <point x="592.0" y="948.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="es.uca.iw.backend.servicios.ServicioSimCard" target="es.uca.iw.backend.clases.SimCard" relationship="CREATE">
+      <point x="-76.25" y="-31.5" />
+      <point x="515.75" y="648.0" />
+      <point x="512.0" y="648.0" />
+      <point x="0.0" y="103.5" />
+    </edge>
+    <edge source="es.uca.iw.backend.servicios.ServicioConsulta" target="es.uca.iw.backend.repositorios.RepositorioConsulta" relationship="TO_ONE">
+      <point x="0.0" y="-31.5" />
       <point x="0.0" y="14.0" />
     </edge>
-    <edge source="es.uca.iw.cliente.ServiciosCliente" target="es.uca.iw.cliente.RepositorioCliente" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
+    <edge source="es.uca.iw.frontend.vistas.cliente.TarifasView" target="es.uca.iw.backend.servicios.ServicioTarifa" relationship="TO_ONE">
+      <point x="0.0" y="-79.5" />
+      <point x="60.0" y="31.5" />
+    </edge>
+    <edge source="es.uca.iw.frontend.vistas.cliente.ClientOverview" target="es.uca.iw.frontend.custom_components.CustomCardElement" relationship="CREATE">
+      <point x="-75.0" y="-67.5" />
+      <point x="157.0" y="1348.0" />
+      <point x="172.0" y="1348.0" />
+      <point x="172.0" y="1308.0" />
+      <point x="-48.0" y="1308.0" />
+      <point x="0.0" y="43.5" />
+    </edge>
+    <edge source="es.uca.iw.backend.servicios.ServicioRespuesta" target="es.uca.iw.backend.repositorios.RepositorioRespuesta" relationship="TO_ONE">
+      <point x="0.0" y="-31.5" />
       <point x="0.0" y="14.0" />
     </edge>
-    <edge source="es.uca.iw.views.client_views.ClientOverview" target="es.uca.iw.AuthenticatedUser" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="2360.0" y="600.0" />
-      <point x="720.0" y="600.0" />
+    <edge source="es.uca.iw.backend.servicios.ServicioNews" target="es.uca.iw.backend.repositorios.RepositorioNoticia" relationship="TO_ONE">
+      <point x="0.0" y="-31.5" />
       <point x="0.0" y="14.0" />
     </edge>
-    <edge source="es.uca.iw.views.Trabajador.ResponderConsultaView" target="es.uca.iw.cliente.ServiciosCliente" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="1540.0" y="340.0" />
-      <point x="1860.0" y="340.0" />
+    <edge source="es.uca.iw.backend.servicios.ServicioContrato" target="es.uca.iw.backend.repositorios.RepositorioContrato" relationship="TO_ONE">
+      <point x="0.0" y="-31.5" />
       <point x="0.0" y="14.0" />
     </edge>
-    <edge source="es.uca.iw.views.client_views.FacturasView" target="es.uca.iw.factura.ServiciosFactura" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="2460.0" y="460.0" />
-      <point x="2660.0" y="460.0" />
-      <point x="0.0" y="14.0" />
+    <edge source="es.uca.iw.frontend.vistas.trabajadores.finanzas.FacturacionView" target="es.uca.iw.backend.servicios.ServicioContrato" relationship="TO_ONE">
+      <point x="-95.0" y="-127.5" />
+      <point x="1417.0" y="873.0" />
+      <point x="156.5" y="-15.0" />
     </edge>
-    <edge source="es.uca.iw.views.Trabajador.FacturacionView" target="es.uca.iw.factura.ServiciosFactura" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="2820.0" y="720.0" />
-      <point x="2660.0" y="720.0" />
-      <point x="0.0" y="14.0" />
+    <edge source="es.uca.iw.frontend.vistas.trabajadores.atencion_cliente.ContratosNuevosView" target="es.uca.iw.backend.servicios.ServicioUsuario" relationship="TO_ONE">
+      <point x="67.75" y="-103.5" />
+      <point x="999.75" y="1628.0" />
+      <point x="992.0" y="1628.0" />
+      <point x="992.0" y="1068.0" />
+      <point x="1592.0" y="1068.0" />
+      <point x="0.0" y="43.5" />
     </edge>
-    <edge source="es.uca.iw.views.Trabajador.FacturacionView" target="es.uca.iw.simcard.SimCardService" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="2820.0" y="720.0" />
-      <point x="2660.0" y="720.0" />
-      <point x="2660.0" y="480.0" />
-      <point x="2620.0" y="480.0" />
-      <point x="2620.0" y="320.0" />
-      <point x="2540.0" y="320.0" />
-      <point x="0.0" y="14.0" />
+    <edge source="es.uca.iw.backend.clases.Cliente" target="es.uca.iw.backend.clases.Contrato" relationship="TO_MANY">
+      <point x="15.0" y="-175.5" />
+      <point x="1708.25" y="132.5" />
+      <point x="1708.25" y="-127.25" />
+      <point x="1216.5" y="-127.25" />
+      <point x="1216.5" y="-387.0" />
+      <point x="134.0" y="-15.0" />
     </edge>
-    <edge source="es.uca.iw.tarifa.TarifaService" target="es.uca.iw.tarifa.TarifaRepository" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="2880.0" y="180.0" />
-      <point x="2900.0" y="180.0" />
-      <point x="0.0" y="14.0" />
+    <edge source="es.uca.iw.frontend.vistas.cliente.TarifasView" target="es.uca.iw.frontend.custom_components.CustomCardElement" relationship="CREATE">
+      <point x="-15.0" y="-79.5" />
+      <point x="457.0" y="1560.0" />
+      <point x="-63.0" y="1560.0" />
+      <point x="-15.0" y="43.5" />
     </edge>
-    <edge source="es.uca.iw.views.client_views.ClientOverview" target="es.uca.iw.contrato.ServiciosContrato" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="2360.0" y="320.0" />
-      <point x="2300.0" y="320.0" />
-      <point x="0.0" y="14.0" />
+    <edge source="es.uca.iw.frontend.vistas.cliente.NoticiasView" target="es.uca.iw.backend.servicios.ServicioNews" relationship="TO_ONE">
+      <point x="150.0" y="0.0" />
+      <point x="3932.0" y="1448.0" />
+      <point x="0.0" y="31.5" />
     </edge>
-    <edge source="TarifaTest" target="es.uca.iw.tarifa.TarifaService" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="3040.0" y="720.0" />
-      <point x="2940.0" y="720.0" />
-      <point x="2940.0" y="320.0" />
-      <point x="2880.0" y="320.0" />
-      <point x="0.0" y="14.0" />
+    <edge source="es.uca.iw.frontend.vistas.formularios.RecuperarContraView" target="es.uca.iw.backend.servicios.ServicioUsuario" relationship="TO_ONE">
+      <point x="0.0" y="-151.5" />
+      <point x="1332.0" y="1268.0" />
+      <point x="1592.0" y="1268.0" />
+      <point x="0.0" y="43.5" />
     </edge>
-    <edge source="es.uca.iw.simcard.SimCardService" target="es.uca.iw.simcard.SimCardRepository" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="0.0" y="14.0" />
+    <edge source="es.uca.iw.backend.clases.Contrato" target="es.uca.iw.backend.clases.Cliente" relationship="TO_ONE">
+      <point x="134.0" y="0.0" />
+      <point x="1772.0" y="-372.0" />
+      <point x="0.0" y="-175.5" />
     </edge>
-    <edge source="es.uca.iw.cliente.Cliente" target="es.uca.iw.cliente.Role" relationship="TO_MANY">
-      <point x="-26.25" y="-14.0" />
-      <point x="3173.75" y="180.0" />
-      <point x="3180.0" y="180.0" />
-      <point x="0.0" y="14.0" />
+    <edge source="es.uca.iw.frontend.vistas.cliente.TarifasView" target="es.uca.iw.backend.componentes.AuthenticatedUser" relationship="TO_ONE">
+      <point x="75.0" y="-79.5" />
+      <point x="547.0" y="1668.0" />
+      <point x="552.0" y="1668.0" />
+      <point x="552.0" y="1208.0" />
+      <point x="3012.0" y="1208.0" />
+      <point x="0.0" y="43.5" />
     </edge>
-    <edge source="es.uca.iw.atencion_cliente.Consulta" target="es.uca.iw.cliente.Cliente" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="3120.0" y="720.0" />
-      <point x="3200.0" y="720.0" />
-      <point x="0.0" y="14.0" />
+    <edge source="es.uca.iw.frontend.vistas.cliente.AjustesContratoView" target="es.uca.iw.backend.servicios.ServicioContrato" relationship="TO_ONE">
+      <point x="0.0" y="91.5" />
+      <point x="2112.0" y="2317.0" />
+      <point x="4730.0" y="2317.0" />
+      <point x="4730.0" y="-252.0" />
+      <point x="865.5" y="-252.0" />
+      <point x="865.5" y="856.5" />
+      <point x="121.0" y="-31.5" />
     </edge>
-    <edge source="es.uca.iw.views.client_views.AjustesContrato" target="es.uca.iw.AuthenticatedUser" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="1680.0" y="620.0" />
-      <point x="720.0" y="620.0" />
-      <point x="0.0" y="14.0" />
+    <edge source="es.uca.iw.frontend.vistas.MainLayout" target="es.uca.iw.backend.componentes.AuthenticatedUser" relationship="TO_ONE">
+      <point x="0.0" y="-43.5" />
+      <point x="3192.0" y="1368.0" />
+      <point x="3012.0" y="1368.0" />
+      <point x="0.0" y="43.5" />
     </edge>
-    <edge source="es.uca.iw.views.client_views.ClientOverview" target="es.uca.iw.simcard.SimCardService" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="2360.0" y="440.0" />
-      <point x="2620.0" y="440.0" />
-      <point x="2620.0" y="320.0" />
-      <point x="2540.0" y="320.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.views.formulario.FormularioView" target="es.uca.iw.cliente.ServiciosCliente" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="1960.0" y="720.0" />
-      <point x="1860.0" y="720.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.views.client_views.CrearConsultaReclamacionView" target="es.uca.iw.atencion_cliente.ServicioConsulta" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="440.0" y="640.0" />
-      <point x="-40.0" y="640.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.views.Trabajador.FacturacionView" target="es.uca.iw.contrato.ServiciosContrato" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="2820.0" y="720.0" />
-      <point x="2660.0" y="720.0" />
-      <point x="2660.0" y="380.0" />
-      <point x="2360.0" y="380.0" />
-      <point x="2360.0" y="320.0" />
-      <point x="2300.0" y="320.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="ClienteTest" target="es.uca.iw.cliente.ServiciosCliente" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="2080.0" y="720.0" />
-      <point x="1860.0" y="720.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.simcard.SimCard" target="es.uca.iw.tarifa.Tarifa" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.contrato.Contrato" target="es.uca.iw.cliente.Cliente" relationship="TO_ONE">
-      <point x="29.5" y="14.0" />
-      <point x="3109.5" y="100.0" />
-      <point x="3226.25" y="100.0" />
-      <point x="26.25" y="-14.0" />
-    </edge>
-    <edge source="es.uca.iw.views.Trabajador.EliminarConsultaView" target="es.uca.iw.atencion_cliente.ServicioConsulta" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.views.client_views.TarifasView" target="es.uca.iw.AuthenticatedUser" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="2700.0" y="700.0" />
-      <point x="2620.0" y="700.0" />
-      <point x="2620.0" y="540.0" />
-      <point x="720.0" y="540.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.views.client_views.RespuestasRecibidas" target="es.uca.iw.AuthenticatedUser" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="1260.0" y="700.0" />
-      <point x="720.0" y="700.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.cliente.Cliente" target="es.uca.iw.contrato.Contrato" relationship="TO_MANY">
-      <point x="-26.25" y="-14.0" />
-      <point x="3173.75" y="180.0" />
-      <point x="3180.0" y="180.0" />
-      <point x="3180.0" y="120.0" />
-      <point x="3060.0" y="120.0" />
-      <point x="3060.0" y="40.0" />
-      <point x="3050.5" y="40.0" />
-      <point x="-29.5" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.tarifa.TarifaView" target="es.uca.iw.tarifa.TarifaService" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="2940.0" y="320.0" />
-      <point x="2880.0" y="320.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.atencion_cliente.ServicioRespuesta" target="es.uca.iw.atencion_cliente.RepositorioRespuesta" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.views.client_views.NoticiasView" target="es.uca.iw.AuthenticatedUser" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.views.formulario.RecuperarContraView" target="es.uca.iw.cliente.ServiciosCliente" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="1820.0" y="720.0" />
-      <point x="1860.0" y="720.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.views.client_views.ConsultasReclamacionesView" target="es.uca.iw.AuthenticatedUser" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="260.0" y="660.0" />
-      <point x="720.0" y="660.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.views.client_views.TarifasView" target="es.uca.iw.simcard.SimCardService" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="2700.0" y="700.0" />
-      <point x="2620.0" y="700.0" />
-      <point x="2620.0" y="320.0" />
-      <point x="2540.0" y="320.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.views.client_views.AjustesView" target="es.uca.iw.cliente.ServiciosCliente" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="1400.0" y="320.0" />
-      <point x="1860.0" y="320.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.views.client_views.FacturasView" target="es.uca.iw.AuthenticatedUser" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="2460.0" y="580.0" />
-      <point x="720.0" y="580.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.atencion_cliente.Respuesta" target="es.uca.iw.cliente.Cliente" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="3220.0" y="720.0" />
-      <point x="3200.0" y="720.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.contrato.ServiciosContrato" target="es.uca.iw.contrato.RepositorioContrato" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.views.client_views.ServiciosView" target="es.uca.iw.AuthenticatedUser" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="1120.0" y="720.0" />
-      <point x="720.0" y="720.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.views.client_views.CrearConsultaReclamacionView" target="es.uca.iw.AuthenticatedUser" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="440.0" y="680.0" />
-      <point x="720.0" y="680.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.views.MainLayout" target="es.uca.iw.AuthenticatedUser" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="920.0" y="720.0" />
-      <point x="720.0" y="720.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.views.Trabajador.ContratosBajasView" target="es.uca.iw.contrato.ServiciosContrato" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="2580.0" y="400.0" />
-      <point x="2360.0" y="400.0" />
-      <point x="2360.0" y="320.0" />
-      <point x="2300.0" y="320.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.views.Trabajador.ContratosNuevosView" target="es.uca.iw.contrato.ServiciosContrato" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="2220.0" y="420.0" />
-      <point x="2360.0" y="420.0" />
-      <point x="2360.0" y="320.0" />
-      <point x="2300.0" y="320.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.views.client_views.ConsultasReclamacionesView" target="es.uca.iw.atencion_cliente.ServicioConsulta" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="260.0" y="700.0" />
-      <point x="-40.0" y="700.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.views.client_views.AjustesView" target="es.uca.iw.AuthenticatedUser" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="1400.0" y="640.0" />
-      <point x="720.0" y="640.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.atencion_cliente.ServicioConsulta" target="es.uca.iw.atencion_cliente.RepositorioConsulta" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.views.Trabajador.ContratosNuevosView" target="es.uca.iw.cliente.ServiciosCliente" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="2220.0" y="700.0" />
-      <point x="1860.0" y="700.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.views.client_views.ChatView" target="es.uca.iw.AuthenticatedUser" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="620.0" y="720.0" />
-      <point x="720.0" y="720.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.views.client_views.AjustesContrato" target="es.uca.iw.contrato.ServiciosContrato" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="1680.0" y="360.0" />
-      <point x="2360.0" y="360.0" />
-      <point x="2360.0" y="320.0" />
-      <point x="2300.0" y="320.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.views.Trabajador.ConsultasView" target="es.uca.iw.atencion_cliente.ServicioConsulta" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="100.0" y="720.0" />
-      <point x="-40.0" y="720.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.views.Trabajador.ResponderConsultaView" target="es.uca.iw.atencion_cliente.ServicioRespuesta" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.views.Trabajador.FacturacionView" target="es.uca.iw.cliente.Cliente" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="2820.0" y="720.0" />
-      <point x="2660.0" y="720.0" />
-      <point x="2660.0" y="680.0" />
-      <point x="3200.0" y="680.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.views.client_views.RespuestasRecibidas" target="es.uca.iw.atencion_cliente.ServicioRespuesta" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="1260.0" y="260.0" />
-      <point x="1540.0" y="260.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.views.client_views.TarifasView" target="es.uca.iw.contrato.ServiciosContrato" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="2700.0" y="700.0" />
-      <point x="2620.0" y="700.0" />
-      <point x="2620.0" y="500.0" />
-      <point x="2360.0" y="500.0" />
-      <point x="2360.0" y="320.0" />
-      <point x="2300.0" y="320.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="es.uca.iw.simcard.SimCard" target="es.uca.iw.contrato.Contrato" relationship="TO_ONE">
-      <point x="0.0" y="-14.0" />
-      <point x="2780.0" y="160.0" />
-      <point x="3060.0" y="160.0" />
-      <point x="3060.0" y="40.0" />
-      <point x="3050.5" y="40.0" />
-      <point x="-29.5" y="14.0" />
+    <edge source="es.uca.iw.backend.clases.SimCard" target="es.uca.iw.backend.clases.Contrato" relationship="TO_ONE">
+      <point x="0.0" y="-103.5" />
+      <point x="0.0" y="127.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Compact" zoom="0.624581040079029" showDependencies="true" x="1270.701676963813" y="438.0120741394528" />
+  <settings layout="Hierarchic Compact" zoom="0.8" showDependencies="true" x="642.0" y="-195.375" />
   <SelectedNodes />
-  <Categories />
+  <Categories>
+    <Category>Fields</Category>
+  </Categories>
   <SCOPE>All</SCOPE>
   <VISIBILITY>private</VISIBILITY>
 </Diagram>
