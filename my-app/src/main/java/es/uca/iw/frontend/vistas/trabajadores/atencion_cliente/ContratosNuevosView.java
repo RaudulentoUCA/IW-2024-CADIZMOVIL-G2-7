@@ -17,7 +17,7 @@ import com.vaadin.flow.router.Route;
 import es.uca.iw.backend.componentes.AuthenticatedUser;
 import es.uca.iw.backend.clases.Cliente;
 import es.uca.iw.backend.clases.Role;
-import es.uca.iw.backend.servicios.ServicioUsuario;
+import es.uca.iw.backend.servicios.ServicioCliente;
 import es.uca.iw.backend.clases.Contrato;
 import es.uca.iw.backend.servicios.ServicioContrato;
 import es.uca.iw.frontend.vistas.MainLayout;
@@ -31,7 +31,7 @@ import java.time.LocalDate;
 @RolesAllowed("ATTENTION")
 public class ContratosNuevosView extends VerticalLayout {
 
-    private final ServicioUsuario servicioUsuario;
+    private final ServicioCliente servicioCliente;
 
     private final ServicioContrato servicioContrato;
     private final TextField dni;
@@ -42,8 +42,8 @@ public class ContratosNuevosView extends VerticalLayout {
     private final TextField descuento;
 
     Dialog confirmDialog;
-    public ContratosNuevosView(AuthenticatedUser authenticatedUser, ServicioUsuario servicioUsuario, ServicioContrato servicioContrato) {
-        this.servicioUsuario = servicioUsuario;
+    public ContratosNuevosView(AuthenticatedUser authenticatedUser, ServicioCliente servicioCliente, ServicioContrato servicioContrato) {
+        this.servicioCliente = servicioCliente;
         this.servicioContrato = servicioContrato;
 
         FormLayout formLayout = new FormLayout();
@@ -91,7 +91,7 @@ public class ContratosNuevosView extends VerticalLayout {
             LocalDate fechaFinValue = fechaFin.getValue();
             float descuentoValue = Float.parseFloat(descuento.getValue());
 
-            Cliente cliente = servicioUsuario.findByDni(dniValue).orElse(null);
+            Cliente cliente = servicioCliente.findByDni(dniValue).orElse(null);
 
             if (cliente != null) {
                 if(cliente.getRoles().stream().noneMatch(role -> role.equals(Role.USER))){

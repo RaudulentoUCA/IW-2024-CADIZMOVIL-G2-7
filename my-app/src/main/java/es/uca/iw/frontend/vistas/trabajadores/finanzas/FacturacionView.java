@@ -9,7 +9,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.Route;
 import es.uca.iw.backend.clases.Cliente;
-import es.uca.iw.backend.servicios.ServicioUsuario;
+import es.uca.iw.backend.servicios.ServicioCliente;
 import es.uca.iw.backend.clases.Contrato;
 import es.uca.iw.backend.servicios.ServicioContrato;
 import es.uca.iw.backend.clases.Factura;
@@ -53,18 +53,18 @@ public class FacturacionView extends VerticalLayout {
     private final ServicioContrato servicioContrato;
     private final ServicioSimCard servicioSimcard;
 
-    private final ServicioUsuario servicioUsuario;
+    private final ServicioCliente servicioCliente;
     private final ServicioFactura servicioFactura;
     private Cliente clienteSeleccionado = null;
 
-    public FacturacionView(ServicioContrato servicioContrato, ServicioSimCard servicioSimcard, ServicioUsuario servicioUsuario, ServicioFactura servicioFactura) {
+    public FacturacionView(ServicioContrato servicioContrato, ServicioSimCard servicioSimcard, ServicioCliente servicioCliente, ServicioFactura servicioFactura) {
         this.servicioContrato = servicioContrato;
         this.servicioSimcard = servicioSimcard;
-        this.servicioUsuario = servicioUsuario;
+        this.servicioCliente = servicioCliente;
         this.servicioFactura = servicioFactura;
 
         // ComboBox
-        List<Cliente> clientes = servicioUsuario.getAllClientes();
+        List<Cliente> clientes = servicioCliente.getAllClientes();
         clienteComboBox.setItems(clientes);
         clienteComboBox.setItemLabelGenerator(Cliente::getEmail);
 
