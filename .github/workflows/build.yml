@@ -39,7 +39,7 @@ jobs:
       - name: Build and Deploy to GitHub Packages
         run: cd my-app; mvn deploy -Dmaven.test.skip=true -U -B -Pproduction
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.MAVEN_TOKEN }}
 
       - name: Rename jar file
         run: mv target/*.jar target/webapp.jar
