@@ -135,7 +135,7 @@ public class ConfirmarView extends VerticalLayout implements BeforeLeaveObserver
                 user.get().setActive(true);
                 servicioUsuario.actualizar(user.get());
                 exitoCambio = true;
-                UI.getCurrent().navigate("login");
+                UI.getCurrent().navigate("profile");
             } else {
                 Notification.show("Ha ocurrido un error inesperado.", 3000, Notification.Position.TOP_CENTER)
                         .addThemeVariants(NotificationVariant.LUMO_ERROR);
@@ -165,7 +165,7 @@ public class ConfirmarView extends VerticalLayout implements BeforeLeaveObserver
     @Override
     public void beforeLeave(BeforeLeaveEvent beforeLeaveEvent) {
         if (exitoCambio)
-            Notification.show("Confirmación de contraseña correcta", 3000, Notification.Position.TOP_CENTER)
+            Notification.show("Confirmación de cuenta correcta", 3000, Notification.Position.TOP_CENTER)
                     .addThemeVariants(NotificationVariant.LUMO_SUCCESS);
     }
 
